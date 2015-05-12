@@ -115,6 +115,7 @@
 		45F860C718A84CFA0011266B /* ZSSunorderedlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A518A84CFA0011266B /* ZSSunorderedlist@2x.png */; };
 		45F860C818A84CFA0011266B /* ZSSviewsource@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A618A84CFA0011266B /* ZSSviewsource@2x.png */; };
 		5A0C3DC61B01DBCF001C225B /* ZSSExtend.js in Resources */ = {isa = PBXBuildFile; fileRef = 5A0C3DC51B01DBCF001C225B /* ZSSExtend.js */; };
+		5A0C3DC81B01EF1F001C225B /* ZSSRichTextEditor.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 5A0C3DC71B01EF1F001C225B /* ZSSRichTextEditor.podspec */; };
 		5A0F54FD1B00A726002247BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */; };
 		5A0F54FF1B00A791002247BB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
@@ -256,6 +257,7 @@
 		45F860A518A84CFA0011266B /* ZSSunorderedlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSunorderedlist@2x.png"; path = "Images/ZSSunorderedlist@2x.png"; sourceTree = "<group>"; };
 		45F860A618A84CFA0011266B /* ZSSviewsource@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSviewsource@2x.png"; path = "Images/ZSSviewsource@2x.png"; sourceTree = "<group>"; };
 		5A0C3DC51B01DBCF001C225B /* ZSSExtend.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSExtend.js; sourceTree = "<group>"; };
+		5A0C3DC71B01EF1F001C225B /* ZSSRichTextEditor.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZSSRichTextEditor.podspec; sourceTree = "<group>"; };
 		5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -407,6 +409,7 @@
 		4581EB73184845780048CAB0 = {
 			isa = PBXGroup;
 			children = (
+				5A0C3DC71B01EF1F001C225B /* ZSSRichTextEditor.podspec */,
 				23065BF41A06BA67001BA0B0 /* Images.xcassets */,
 				4581EB85184845790048CAB0 /* View Controllers */,
 				4581EB7E184845790048CAB0 /* Frameworks */,
@@ -634,6 +637,7 @@
 				45F860B318A84CFA0011266B /* ZSSimage@2x.png in Resources */,
 				45F860BC18A84CFA0011266B /* ZSSquicklink@2x.png in Resources */,
 				45F73D4118D7AE9700CD6DBA /* ZSSquicklink.png in Resources */,
+				5A0C3DC81B01EF1F001C225B /* ZSSRichTextEditor.podspec in Resources */,
 				2343B1D6199A776A00349048 /* ZSSinsertkeyword@2x.png in Resources */,
 				45F860B518A84CFA0011266B /* ZSSitalic@2x.png in Resources */,
 				45F73D3518D7AE9700CD6DBA /* ZSSh6.png in Resources */,

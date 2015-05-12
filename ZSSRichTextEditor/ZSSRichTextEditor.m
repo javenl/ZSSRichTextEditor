@@ -8,6 +8,8 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "ZSSRichTextEditor.h"
 #import "ZSSBarButtonItem.h"
 #import "HRColorUtil.h"
@@ -454,7 +456,7 @@ static Class hackishFixClass = Nil;
     
     // Image
     if ((_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarInsertImage]) || (_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarAll])) {
-        ZSSBarButtonItem *insertImage = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSimage.png"] style:UIBarButtonItemStylePlain target:self action:@selector(insertImage)];
+        ZSSBarButtonItem *insertImage = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSimage.png"] style:UIBarButtonItemStylePlain target:self action:@selector(selectImage)];
         insertImage.label = @"image";
         [items addObject:insertImage];
     }
@@ -925,6 +927,12 @@ static Class hackishFixClass = Nil;
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.quickLink();"];
 }
 
+- (void)selectImage {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册选择", nil];
+//    [actionSheet showFromBarButtonItem:sender animated:YES];
+    [actionSheet showInView:self.view];
+}
+
 - (void)insertImage {
     
     // Save the selection location
@@ -1140,6 +1148,50 @@ static Class hackishFixClass = Nil;
             [self focusTextEditor];
         });
     }
+}
+
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self backupRange];
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.delegate = self;
+        [picker setAllowsEditing:YES];
+        [self presentViewController:picker animated:YES completion:nil];
+    } else if (buttonIndex == 1) {
+        [self backupRange];
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        picker.delegate = self;
+        //        [picker setAllowsEditing:YES];
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+#pragma mark UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    //extracting image from the picker and saving it
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *) kUTTypeImage] || [mediaType isEqualToString:ALAssetTypePhoto]) {
+        NSString *fileName = [NSString stringWithFormat:@"%f.%@", [[NSDate date] timeIntervalSince1970], @"jpg"];
+        NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+        UIImage *image = info[UIImagePickerControllerOriginalImage];
+        NSData *webData = UIImageJPEGRepresentation(image, 1);
+        [webData writeToFile:filePath atomically:YES];
+        
+        NSURL *url = [NSURL fileURLWithPath:filePath];
+        [self restoreRange];
+        [self insertImage:url.absoluteString alt:@""];
+    }
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
