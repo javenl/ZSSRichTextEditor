@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Zed Said Studio. All rights reserved.
 //
 
-#import "ZSSLargeViewController.h"
+#import "ZSSDemoLargeViewController.h"
 
-@interface ZSSLargeViewController ()
+@interface ZSSDemoLargeViewController ()
 
 @end
 
-@implementation ZSSLargeViewController
+@implementation ZSSDemoLargeViewController
 
 
 - (void)viewDidLoad

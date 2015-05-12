@@ -8,6 +8,6 @@
 
 #import "ZSSRichTextEditor.h"
 
-@interface ZSSLargeViewController : ZSSRichTextEditor
+@interface ZSSDemoLargeViewController : ZSSRichTextEditor
 
 @end

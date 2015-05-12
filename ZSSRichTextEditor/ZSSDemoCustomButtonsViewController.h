@@ -1,5 +1,5 @@
 //
-//  ZSSPlaceholderViewController.h
+//  ZSSCustomButtonsViewController.h
 //  ZSSRichTextEditor
 //
 //  Created by Nicholas Hubbard on 8/14/14.
@@ -8,6 +8,6 @@
 
 #import "ZSSRichTextEditor.h"
 
-@interface ZSSPlaceholderViewController : ZSSRichTextEditor
+@interface ZSSDemoCustomButtonsViewController : ZSSRichTextEditor
 
 @end

@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Zed Said Studio. All rights reserved.
 //
 
-#import "ZSSCustomButtonsViewController.h"
+#import "ZSSDemoCustomButtonsViewController.h"
 #import "ZSSBarButtonItem.h"
 
-@interface ZSSCustomButtonsViewController ()
+@interface ZSSDemoCustomButtonsViewController ()
 
 @end
 
-@implementation ZSSCustomButtonsViewController
+@implementation ZSSDemoCustomButtonsViewController
 
 
 - (void)viewDidLoad

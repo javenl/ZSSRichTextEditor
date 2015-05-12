@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Zed Said Studio. All rights reserved.
 //
 
-#import "ZSSColorViewController.h"
+#import "ZSSDemoColorViewController.h"
 
-@interface ZSSColorViewController ()
+@interface ZSSDemoColorViewController ()
 
 @end
 
-@implementation ZSSColorViewController
+@implementation ZSSDemoColorViewController
 
 
 - (void)viewDidLoad

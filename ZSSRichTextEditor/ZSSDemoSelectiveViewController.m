@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Zed Said Studio. All rights reserved.
 //
 
-#import "ZSSSelectiveViewController.h"
+#import "ZSSDemoSelectiveViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "ZSSBarButtonItem.h"
 
-@interface ZSSSelectiveViewController ()
+@interface ZSSDemoSelectiveViewController ()
 
 @end
 
-@implementation ZSSSelectiveViewController
+@implementation ZSSDemoSelectiveViewController
 
 
 - (void)viewDidLoad

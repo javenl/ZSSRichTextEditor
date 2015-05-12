@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Zed Said Studio. All rights reserved.
 //
 
-#import "ZSSPlaceholderViewController.h"
+#import "ZSSDemoPlaceholderViewController.h"
 
-@interface ZSSPlaceholderViewController ()
+@interface ZSSDemoPlaceholderViewController ()
 
 @end
 
-@implementation ZSSPlaceholderViewController
+@implementation ZSSDemoPlaceholderViewController
 
 
 - (void)viewDidLoad

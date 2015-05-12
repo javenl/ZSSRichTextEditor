@@ -8,11 +8,11 @@
 
 #import "ZSSDemoList.h"
 #import "ZSSDemoViewController.h"
-#import "ZSSColorViewController.h"
-#import "ZSSLargeViewController.h"
-#import "ZSSPlaceholderViewController.h"
-#import "ZSSSelectiveViewController.h"
-#import "ZSSCustomButtonsViewController.h"
+#import "ZSSDemoColorViewController.h"
+#import "ZSSDemoLargeViewController.h"
+#import "ZSSDemoPlaceholderViewController.h"
+#import "ZSSDemoSelectiveViewController.h"
+#import "ZSSDemoCustomButtonsViewController.h"
 
 @interface ZSSDemoList ()
 @property (nonatomic) BOOL isIPad;
@@ -104,16 +104,16 @@
         ZSSDemoViewController *demo1 = [[ZSSDemoViewController alloc] init];
         [self.navigationController pushViewController:demo1 animated:YES];
     } else if (indexPath.row == 1) {
-        ZSSColorViewController *demo2 = [[ZSSColorViewController alloc] init];
+        ZSSDemoColorViewController *demo2 = [[ZSSDemoColorViewController alloc] init];
         [self.navigationController pushViewController:demo2 animated:YES];
     } else if (indexPath.row == 2) {
-        ZSSSelectiveViewController *demo3 = [[ZSSSelectiveViewController alloc] init];
+        ZSSDemoSelectiveViewController *demo3 = [[ZSSDemoSelectiveViewController alloc] init];
         [self.navigationController pushViewController:demo3 animated:YES];
     } else if (indexPath.row == 3) {
-        ZSSCustomButtonsViewController *demo4 = [[ZSSCustomButtonsViewController alloc] init];
+        ZSSDemoCustomButtonsViewController *demo4 = [[ZSSDemoCustomButtonsViewController alloc] init];
         [self.navigationController pushViewController:demo4 animated:YES];
     } else if (indexPath.row == 4) {
-        ZSSLargeViewController *demo5 = [[ZSSLargeViewController alloc] init];
+        ZSSDemoLargeViewController *demo5 = [[ZSSDemoLargeViewController alloc] init];
         [self.navigationController pushViewController:demo5 animated:YES];
     } else if (indexPath.row == 5) {
         ZSSDemoViewController *demo1 = [[ZSSDemoViewController alloc] init];
