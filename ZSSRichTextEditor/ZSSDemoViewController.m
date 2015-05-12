@@ -41,11 +41,11 @@
     
     [self dismissAlertView];
     
-    ZSSDemoPickerViewController *picker = [[ZSSDemoPickerViewController alloc] init];
-    picker.demoView = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:picker];
-    nav.navigationBar.translucent = NO;
-    [self presentViewController:nav animated:YES completion:nil];
+//    ZSSDemoPickerViewController *picker = [[ZSSDemoPickerViewController alloc] init];
+//    picker.demoView = self;
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:picker];
+//    nav.navigationBar.translucent = NO;
+//    [self presentViewController:nav animated:YES completion:nil];
     
 }
 
@@ -53,14 +53,6 @@
 - (void)showInsertImageAlternatePicker {
     
     [self dismissAlertView];
-    
-    ZSSDemoPickerViewController *picker = [[ZSSDemoPickerViewController alloc] init];
-    picker.demoView = self;
-    picker.isInsertImagePicker = YES;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:picker];
-    nav.navigationBar.translucent = NO;
-    [self presentViewController:nav animated:YES completion:nil];
-    
 }
 
 

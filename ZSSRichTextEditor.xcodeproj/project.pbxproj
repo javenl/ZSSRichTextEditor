@@ -114,6 +114,9 @@
 		45F860C618A84CFA0011266B /* ZSSunlink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A418A84CFA0011266B /* ZSSunlink@2x.png */; };
 		45F860C718A84CFA0011266B /* ZSSunorderedlist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A518A84CFA0011266B /* ZSSunorderedlist@2x.png */; };
 		45F860C818A84CFA0011266B /* ZSSviewsource@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F860A618A84CFA0011266B /* ZSSviewsource@2x.png */; };
+		5A0C3DC61B01DBCF001C225B /* ZSSExtend.js in Resources */ = {isa = PBXBuildFile; fileRef = 5A0C3DC51B01DBCF001C225B /* ZSSExtend.js */; };
+		5A0F54FD1B00A726002247BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */; };
+		5A0F54FF1B00A791002247BB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +255,9 @@
 		45F860A418A84CFA0011266B /* ZSSunlink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSunlink@2x.png"; path = "Images/ZSSunlink@2x.png"; sourceTree = "<group>"; };
 		45F860A518A84CFA0011266B /* ZSSunorderedlist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSunorderedlist@2x.png"; path = "Images/ZSSunorderedlist@2x.png"; sourceTree = "<group>"; };
 		45F860A618A84CFA0011266B /* ZSSviewsource@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSviewsource@2x.png"; path = "Images/ZSSviewsource@2x.png"; sourceTree = "<group>"; };
+		5A0C3DC51B01DBCF001C225B /* ZSSExtend.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ZSSExtend.js; sourceTree = "<group>"; };
+		5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +265,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A0F54FF1B00A791002247BB /* MobileCoreServices.framework in Frameworks */,
+				5A0F54FD1B00A726002247BB /* AssetsLibrary.framework in Frameworks */,
 				4581EB82184845790048CAB0 /* CoreGraphics.framework in Frameworks */,
 				4581EB84184845790048CAB0 /* UIKit.framework in Frameworks */,
 				4581EB80184845790048CAB0 /* Foundation.framework in Frameworks */,
@@ -417,6 +425,8 @@
 		4581EB7E184845790048CAB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */,
+				5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */,
 				4581EBAE1848459F0048CAB0 /* CoreText.framework */,
 				4581EB7F184845790048CAB0 /* Foundation.framework */,
 				4581EB81184845790048CAB0 /* CoreGraphics.framework */,
@@ -472,6 +482,7 @@
 			children = (
 				23A76DC2187532F1000169F6 /* editor.html */,
 				23A76DC3187532F1000169F6 /* ZSSRichTextEditor.js */,
+				5A0C3DC51B01DBCF001C225B /* ZSSExtend.js */,
 				4562858E184CFBE400B6168E /* Images */,
 			);
 			name = "Editor Resources";
@@ -537,7 +548,7 @@
 				ORGANIZATIONNAME = "Zed Said Studio";
 				TargetAttributes = {
 					4581EB7B184845790048CAB0 = {
-						DevelopmentTeam = W5MUA6S7P7;
+						DevelopmentTeam = 5JA8Z8W5SZ;
 					};
 				};
 			};
@@ -585,6 +596,7 @@
 				45F860C018A84CFA0011266B /* ZSSsubscript@2x.png in Resources */,
 				45F73D2D18D7AE9700CD6DBA /* ZSScenterjustify.png in Resources */,
 				45F73D4418D7AE9700CD6DBA /* ZSSstrikethrough.png in Resources */,
+				5A0C3DC61B01DBCF001C225B /* ZSSExtend.js in Resources */,
 				23A76DC4187532F1000169F6 /* editor.html in Resources */,
 				45F860A818A84CFA0011266B /* ZSSbold@2x.png in Resources */,
 				45F860BB18A84CFA0011266B /* ZSSparagraph@2x.png in Resources */,
@@ -731,16 +743,17 @@
 		23013BC5198C30A600C55598 /* Adhoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nicholas Hubbard (W5MUA6S7P7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZSSRichTextEditor/ZSSRichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "ZSSRichTextEditor/ZSSRichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = ZSSRichTextEditor;
-				PROVISIONING_PROFILE = "A101C649-760C-4D35-A7F9-B98015D89A34";
+				PROVISIONING_PROFILE = "2c125323-4997-48df-a66a-83f694c2c3d0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Adhoc;
@@ -822,6 +835,7 @@
 		4581EBA91848457C0048CAB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -831,7 +845,7 @@
 				INFOPLIST_FILE = "ZSSRichTextEditor/ZSSRichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = ZSSRichTextEditor;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2c125323-4997-48df-a66a-83f694c2c3d0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -839,16 +853,17 @@
 		4581EBAA1848457C0048CAB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nicholas Hubbard (W5MUA6S7P7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZSSRichTextEditor/ZSSRichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "ZSSRichTextEditor/ZSSRichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = ZSSRichTextEditor;
-				PROVISIONING_PROFILE = "5E1FEC95-664C-4402-9258-48803C16F896";
+				PROVISIONING_PROFILE = "2c125323-4997-48df-a66a-83f694c2c3d0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

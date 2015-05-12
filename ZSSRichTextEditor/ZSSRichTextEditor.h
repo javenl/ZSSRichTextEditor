@@ -54,6 +54,7 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
  */
 @interface ZSSRichTextEditor : UIViewController <UIWebViewDelegate, HRColorPickerViewControllerDelegate, UITextViewDelegate>
 
+@property (nonatomic, strong) UIWebView *editorView;
 
 /**
  *  The base URL to use for the webView
@@ -193,5 +194,9 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
  *  Scroll event callback with position
  */
 - (void)editorDidScrollWithPosition:(NSInteger)position;
+
+- (void)backupRange;
+
+- (void)restoreRange;
 
 @end

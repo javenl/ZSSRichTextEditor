@@ -81,7 +81,7 @@ static Class hackishFixClass = Nil;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UIView *toolbarHolder;
 @property (nonatomic, strong) NSString *htmlString;
-@property (nonatomic, strong) UIWebView *editorView;
+
 @property (nonatomic, strong) ZSSTextView *sourceView;
 @property (nonatomic) CGRect editorViewFrame;
 @property (nonatomic) BOOL resourcesLoaded;
@@ -189,9 +189,14 @@ static Class hackishFixClass = Nil;
         NSString *filePath = [[NSBundle mainBundle] pathForResource:@"editor" ofType:@"html"];
         NSData *htmlData = [NSData dataWithContentsOfFile:filePath];
         NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+        
         NSString *source = [[NSBundle mainBundle] pathForResource:@"ZSSRichTextEditor" ofType:@"js"];
         NSString *jsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:source] encoding:NSUTF8StringEncoding];
         htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--editor-->" withString:jsString];
+        
+        NSString *exSource = [[NSBundle mainBundle] pathForResource:@"ZSSExtend" ofType:@"js"];
+        NSString *exJsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:exSource] encoding:NSUTF8StringEncoding];
+        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--extend-->" withString:exJsString];
         
         [self.editorView loadHTMLString:htmlString baseURL:self.baseURL];
         self.resourcesLoaded = YES;
@@ -1005,7 +1010,8 @@ static Class hackishFixClass = Nil;
 }
 
 - (void)insertImage:(NSString *)url alt:(NSString *)alt {
-    NSString *trigger = [NSString stringWithFormat:@"zss_editor.insertImage(\"%@\", \"%@\");", url, alt];
+    NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertImage(\"%@\", \"%@\");", url, alt];
+//    NSLog(@"url %@", url);
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
@@ -1057,6 +1063,14 @@ static Class hackishFixClass = Nil;
         }
     }//end
     
+}
+
+- (void)backupRange {
+    [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.backuprange();"];
+}
+
+- (void)restoreRange {
+    [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.restorerange();"];
 }
 
 
