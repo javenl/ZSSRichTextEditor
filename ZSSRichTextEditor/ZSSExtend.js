@@ -27,7 +27,7 @@ zss_extend.insertImage = function (url, alt) {
 
 zss_extend.insertImageWithClass = function(url, alt, klass) {
     zss_editor.restorerange();
-    var html = '<img src="'+url+'" class="'+klass+'" />';
+    var html = '<img src="'+url+'" alt="'+alt+' "class="'+klass+'" />';
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();
 }
