@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ZSSRichTextEditor"
-  s.version      = "0.6.1"
+  s.version      = "0.6.2"
   s.summary      = "ZSSRichTextEditor is a beautiful Rich Text WYSIWYG Editor for iOS."
 
   s.description  = <<-DESC
@@ -21,9 +21,9 @@ Pod::Spec.new do |s|
 
   s.license      = "MIT"
   
-  s.author       = { "Nic Hubbard" => "nic@zedsaid.com" }
+  s.author       = { "javen" => "412775083@qq.com" }
 
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "6.0"
 
   s.source       = { :git => "https://github.com/javenl/ZSSRichTextEditor.git", :tag => "#{s.version}" }
 
