@@ -49,7 +49,10 @@
 }
 
 - (void)didTapCustomToolbarButton1:(id)sender {
-    
+//    [self debug:@"test"];
+//    [self.editorView e]
+    [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"zss_extend.showRange();"]];
+//    zss_extend.showRange
 //    zss_editor.backuprange();
 }
 

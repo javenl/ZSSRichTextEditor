@@ -199,4 +199,6 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)restoreRange;
 
+- (void)debug:(NSString *)msg;
+
 @end

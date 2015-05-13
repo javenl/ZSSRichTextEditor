@@ -1081,6 +1081,10 @@ static Class hackishFixClass = Nil;
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.restorerange();"];
 }
 
+- (void)debug:(NSString *)msg {
+    [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"zss_editor.debug('%@');", msg]];
+}
+
 
 #pragma mark - UITextView Delegate
 

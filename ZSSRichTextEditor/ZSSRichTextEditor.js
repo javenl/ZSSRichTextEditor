@@ -64,6 +64,7 @@ zss_editor.init = function() {
     $(window).on('touchstart', function(e) {
                  zss_editor.isDragging = false;
                  });
+    
     $(window).on('touchend', function(e) {
                  if (!zss_editor.isDragging) {
                  zss_editor.focusEditor();
@@ -97,6 +98,7 @@ zss_editor.updateOffset = function() {
 // This will show up in the XCode console as we are able to push this into an NSLog.
 zss_editor.debug = function(msg) {
     window.location = 'debug://'+msg;
+    console.log('debug://'+msg);
 }
 
 
@@ -137,20 +139,51 @@ zss_editor.setFooterHeight = function(footerHeight) {
 
 zss_editor.getCaretYPosition = function() {
     var sel = window.getSelection();
+    var pos;
+    
+    if (sel && sel.anchorNode) {
+        pos = sel.anchorNode.parentNode.offsetTop;
+    }
+    else {
+        pos = document.body.scrollTop;
+    }
+    return pos;
+    /*
+    var sel = window.getSelection();
     // Next line is comented to prevent deselecting selection. It looks like work but if there are any issues will appear then uconmment it as well as code above.
-    //sel.collapseToStart();
+//    sel.collapseToStart();
     var range = sel.getRangeAt(0);
     var span = document.createElement('span');// something happening here preventing selection of elements
     range.insertNode(span);
     var topPosition = span.offsetTop;
     span.parentNode.removeChild(span);
     return topPosition;
+    */
+    /*
+    try {
+        var sel = window.getSelection();
+        // Next line is comented to prevent deselecting selection. It looks like work but if there are any issues will appear then uconmment it as well as code above.
+        //sel.collapseToStart();
+        var range = sel.getRangeAt(0);
+        zss_editor.debug('!!!:');
+//        var span = document.createElement('span');// something happening here preventing selection of elements
+//        range.insertNode(span);
+//        var topPosition = span.offsetTop;
+//        span.parentNode.removeChild(span);
+//        return topPosition;
+    }
+    catch (e) {
+        zss_editor.debug(e.message);
+    }
+    return 0;
+    */
 }
 
 zss_editor.calculateEditorHeightWithCaretPosition = function() {
     
     var padding = 50;
     var c = zss_editor.getCaretYPosition();
+//    var c = 0;
     var e = document.getElementById('zss_editor_content');
     
     var editor = $('#zss_editor_content');

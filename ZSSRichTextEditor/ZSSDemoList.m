@@ -14,6 +14,7 @@
 #import "ZSSDemoSelectiveViewController.h"
 #import "ZSSDemoCustomButtonsViewController.h"
 
+
 @interface ZSSDemoList ()
 @property (nonatomic) BOOL isIPad;
 @end
@@ -91,6 +92,8 @@
     } else if (indexPath.row == 5) {
         cell.textLabel.text = @"iPad Form Style Modal";
         cell.detailTextLabel.text = @"Shows a form style modal on the iPad";
+    } else if (indexPath.row == 6) {
+        cell.textLabel.text = @"test";
     }
     cell.detailTextLabel.textColor = [UIColor grayColor];
     
@@ -120,6 +123,9 @@
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:demo1];
         nav.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:nav animated:YES completion:nil];
+    } else if (indexPath.row == 6) {
+//        TestWebViewController *viewController = [TestWebViewController new];
+//        [self presentViewController:viewController animated:YES completion:nil];
     }
     
 }

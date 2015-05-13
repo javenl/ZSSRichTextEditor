@@ -551,7 +551,7 @@
 				ORGANIZATIONNAME = "Zed Said Studio";
 				TargetAttributes = {
 					4581EB7B184845790048CAB0 = {
-						DevelopmentTeam = 5JA8Z8W5SZ;
+						DevelopmentTeam = X4D76P2T9L;
 					};
 				};
 			};
@@ -757,7 +757,7 @@
 				INFOPLIST_FILE = "ZSSRichTextEditor/ZSSRichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = ZSSRichTextEditor;
-				PROVISIONING_PROFILE = "2c125323-4997-48df-a66a-83f694c2c3d0";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Adhoc;
@@ -849,7 +849,7 @@
 				INFOPLIST_FILE = "ZSSRichTextEditor/ZSSRichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = ZSSRichTextEditor;
-				PROVISIONING_PROFILE = "2c125323-4997-48df-a66a-83f694c2c3d0";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -867,7 +867,7 @@
 				INFOPLIST_FILE = "ZSSRichTextEditor/ZSSRichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = ZSSRichTextEditor;
-				PROVISIONING_PROFILE = "2c125323-4997-48df-a66a-83f694c2c3d0";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
