@@ -118,6 +118,8 @@
 		5A0C3DC81B01EF1F001C225B /* ZSSRichTextEditor.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 5A0C3DC71B01EF1F001C225B /* ZSSRichTextEditor.podspec */; };
 		5A0F54FD1B00A726002247BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */; };
 		5A0F54FF1B00A791002247BB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */; };
+		5A830E001B0B3FBB001DE206 /* ZSSDemoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */; };
+		5A830E021B0B4045001DE206 /* test_mp3.htm in Resources */ = {isa = PBXBuildFile; fileRef = 5A830E011B0B4045001DE206 /* test_mp3.htm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -260,6 +262,9 @@
 		5A0C3DC71B01EF1F001C225B /* ZSSRichTextEditor.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZSSRichTextEditor.podspec; sourceTree = "<group>"; };
 		5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5A830DFE1B0B3FBB001DE206 /* ZSSDemoWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSDemoWebViewController.h; sourceTree = "<group>"; };
+		5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSDemoWebViewController.m; sourceTree = "<group>"; };
+		5A830E011B0B4045001DE206 /* test_mp3.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test_mp3.htm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +302,8 @@
 				2343B22B199D6D6400349048 /* ZSSDemoSelectiveViewController.m */,
 				2343B22D199D6E6700349048 /* ZSSDemoCustomButtonsViewController.h */,
 				2343B22E199D6E6700349048 /* ZSSDemoCustomButtonsViewController.m */,
+				5A830DFE1B0B3FBB001DE206 /* ZSSDemoWebViewController.h */,
+				5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */,
 			);
 			name = Demo;
 			sourceTree = "<group>";
@@ -483,6 +490,7 @@
 		4581EBBE184BB92E0048CAB0 /* Editor Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A830E011B0B4045001DE206 /* test_mp3.htm */,
 				23A76DC2187532F1000169F6 /* editor.html */,
 				23A76DC3187532F1000169F6 /* ZSSRichTextEditor.js */,
 				5A0C3DC51B01DBCF001C225B /* ZSSExtend.js */,
@@ -591,6 +599,7 @@
 				45F73D4518D7AE9700CD6DBA /* ZSSsubscript.png in Resources */,
 				45F860C718A84CFA0011266B /* ZSSunorderedlist@2x.png in Resources */,
 				45F73D4A18D7AE9700CD6DBA /* ZSSundo.png in Resources */,
+				5A830E021B0B4045001DE206 /* test_mp3.htm in Resources */,
 				45F860AF18A84CFA0011266B /* ZSSh4@2x.png in Resources */,
 				45F860C418A84CFA0011266B /* ZSSunderline@2x.png in Resources */,
 				45F73D3318D7AE9700CD6DBA /* ZSSh4.png in Resources */,
@@ -677,6 +686,7 @@
 				4552C491189A094C004EF847 /* ZSSTextView.m in Sources */,
 				45A0CA4D18A8522A00F3F35E /* HRCgUtil.m in Sources */,
 				45A0CA5018A8522A00F3F35E /* HRColorPickerViewController.m in Sources */,
+				5A830E001B0B3FBB001DE206 /* ZSSDemoWebViewController.m in Sources */,
 				2343B1E0199BE4D000349048 /* ZSSDemoLargeViewController.m in Sources */,
 				45A0CA4C18A8522A00F3F35E /* HRBrightnessCursor.m in Sources */,
 				4581EB8C1848457A0048CAB0 /* main.m in Sources */,

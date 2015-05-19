@@ -41,3 +41,35 @@ zss_extend.insertImageWithClass = function(url, alt, scale) {
 zss_extend.showRange = function() {
     alert(document.getSelection().toString());
 }
+
+zss_extend.insertMP3 = function(url) {
+    zss_editor.restorerange();
+    
+    var html =
+    '<div style="text-align: center;" width="100%">'+
+    '<audio controls="controls">'+
+    '<source src="'+url+'" type="audio/mp3"/>'+
+    '暂不支持该格式'+
+    '</audio>'+
+    '</div>';
+    
+    zss_editor.insertHTML(html);
+    zss_editor.enabledEditingItems();
+}
+
+zss_extend.insertVideo = function(url) {
+    zss_editor.restorerange();
+    
+    var html =
+    '<div style="text-align: center;" width="100%">'+
+    '<video controls="controls">'+
+    '<source src="'+url+'" type="video/mp4"/>'+
+    '暂不支持该格式'+
+    '</video>'+
+    '</div>';
+    
+    zss_editor.insertHTML(html);
+    zss_editor.enabledEditingItems();
+}
+
+

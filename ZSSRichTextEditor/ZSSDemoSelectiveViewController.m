@@ -28,11 +28,17 @@
     NSString *html = @"<p>Example showing just a few toolbar buttons.</p>";
     
     // Custom image button
-    ZSSBarButtonItem *item0 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCustomToolbarButton0:)];
+    ZSSBarButtonItem *item0 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapTest:)];
     [self addCustomToolbarItem:item0];
     
-    ZSSBarButtonItem *item1 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCustomToolbarButton1:)];
+    ZSSBarButtonItem *item1 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapInsertImage:)];
     [self addCustomToolbarItem:item1];
+    
+    ZSSBarButtonItem *item2 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapInsertMP3:)];
+    [self addCustomToolbarItem:item2];
+    
+    ZSSBarButtonItem *item3 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapInsertVideo:)];
+    [self addCustomToolbarItem:item3];
     
     // Choose which toolbar items to show
     self.enabledToolbarItems = @[ZSSRichTextEditorToolbarViewSource];
@@ -43,17 +49,27 @@
     
 }
 
-- (void)didTapCustomToolbarButton0:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册选择", nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-}
-
-- (void)didTapCustomToolbarButton1:(id)sender {
+- (void)didTapTest:(id)sender {
 //    [self debug:@"test"];
 //    [self.editorView e]
     [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"zss_extend.showRange();"]];
 //    zss_extend.showRange
 //    zss_editor.backuprange();
+}
+
+- (void)didTapInsertImage:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册选择", nil];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+}
+
+- (void)didTapInsertMP3:(id)sender {
+//    [self backupRange];
+//    [self restoreRange];
+    [self insertMP3:@"http://m1.music.126.net/AvO6aqtdT-UshoytHXs3xg==/6656443395518310.mp3"];
+}
+
+- (void)didTapInsertVideo:(id)sender {
+    [self insertVideo:@"file:///Users/liu/Desktop/mp4_files/1430026336.686622.mp4"];
 }
 
 #pragma mark UIActionSheetDelegate

@@ -1017,12 +1017,26 @@ static Class hackishFixClass = Nil;
     
 }
 
+- (void)insertMP3:(NSString *)url {
+    [self backupRange];
+    NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertMP3(\"%@\");", url];
+    NSLog(@"url %@", url);
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)insertVideo:(NSString *)url {
+    [self backupRange];
+    NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertVideo(\"%@\");", url];
+    NSLog(@"url %@", url);
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
 - (void)insertImage:(NSString *)url alt:(NSString *)alt {
+    [self backupRange];
     NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertImage(\"%@\", \"%@\");", url, alt];
 //    NSLog(@"url %@", url);
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
-
 
 - (void)updateImage:(NSString *)url alt:(NSString *)alt {
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.updateImage(\"%@\", \"%@\");", url, alt];

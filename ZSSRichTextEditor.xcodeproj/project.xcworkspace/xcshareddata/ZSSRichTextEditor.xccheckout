@@ -12,7 +12,7 @@
 	<dict>
 		<key>6C2C2B670C50C326F4CDE75C16826EDA0491AEF0</key>
 		<string>https://github.com/nnhubbard/ZSSRichTextEditor.git</string>
-		<key>D4901E2DECC4ACCA927A8E9BA33FBB59E4A0AF3D</key>
+		<key>fb2230de-7636-40ee-8c63-dee4e7066495++34</key>
 		<string>https://bitbucket.org/zedsaid/simple-geocaching.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
@@ -21,7 +21,7 @@
 	<dict>
 		<key>6C2C2B670C50C326F4CDE75C16826EDA0491AEF0</key>
 		<string>../..</string>
-		<key>D4901E2DECC4ACCA927A8E9BA33FBB59E4A0AF3D</key>
+		<key>fb2230de-7636-40ee-8c63-dee4e7066495++34</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -36,7 +36,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D4901E2DECC4ACCA927A8E9BA33FBB59E4A0AF3D</string>
+			<string>fb2230de-7636-40ee-8c63-dee4e7066495++34</string>
 			<key>IDESourceControlWCCName</key>
 			<string></string>
 		</dict>

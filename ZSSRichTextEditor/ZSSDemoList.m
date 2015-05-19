@@ -13,7 +13,7 @@
 #import "ZSSDemoPlaceholderViewController.h"
 #import "ZSSDemoSelectiveViewController.h"
 #import "ZSSDemoCustomButtonsViewController.h"
-
+#import "ZSSDemoWebViewController.h"
 
 @interface ZSSDemoList ()
 @property (nonatomic) BOOL isIPad;
@@ -58,7 +58,8 @@
 {
     // Return the number of rows in the section.
     //if (self.isIPad) return 6;
-    return 5;
+//    return 5;
+    return 7;
 }
 
 
@@ -124,7 +125,8 @@
         nav.modalPresentationStyle = UIModalPresentationFormSheet;
         [self presentViewController:nav animated:YES completion:nil];
     } else if (indexPath.row == 6) {
-//        TestWebViewController *viewController = [TestWebViewController new];
+        ZSSDemoWebViewController *viewController = [ZSSDemoWebViewController new];
+        [self.navigationController pushViewController:viewController animated:YES];
 //        [self presentViewController:viewController animated:YES completion:nil];
     }
     
