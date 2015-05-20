@@ -61,12 +61,10 @@ zss_extend.insertVideo = function(url) {
     zss_editor.restorerange();
     
     var html =
-    '<div style="text-align: center;" width="100%">'+
-    '<video controls="controls">'+
+    '<video controls="controls" width="100%" style="text-align: center;">'+
     '<source src="'+url+'" type="video/mp4"/>'+
     '暂不支持该格式'+
-    '</video>'+
-    '</div>';
+    '</video>';
     
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();

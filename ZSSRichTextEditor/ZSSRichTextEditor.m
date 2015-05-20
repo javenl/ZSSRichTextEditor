@@ -15,9 +15,13 @@
 #import "HRColorUtil.h"
 #import "ZSSTextView.h"
 
+#define kActionSheetInsertImageTag 1001
+#define kActionSheetInsertVideoTag 1002
 
 @interface UIWebView (HackishAccessoryHiding)
+
 @property (nonatomic, assign) BOOL hidesInputAccessoryView;
+
 @end
 
 @implementation UIWebView (HackishAccessoryHiding)
@@ -929,8 +933,18 @@ static Class hackishFixClass = Nil;
 
 - (void)selectImage {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册选择", nil];
-//    [actionSheet showFromBarButtonItem:sender animated:YES];
+    actionSheet.tag = kActionSheetInsertImageTag;
     [actionSheet showInView:self.view];
+}
+
+- (void)selectVideo {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄",@"从相册选择", nil];
+    actionSheet.tag = kActionSheetInsertVideoTag;
+    [actionSheet showInView:self.view];
+}
+
+- (void)showRecordView {
+    
 }
 
 - (void)insertImage {
@@ -1122,8 +1136,6 @@ static Class hackishFixClass = Nil;
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
-    
-    
     NSString *urlString = [[request URL] absoluteString];
     NSLog(@"web request");
     NSLog(@"%@", urlString);
@@ -1171,21 +1183,42 @@ static Class hackishFixClass = Nil;
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self backupRange];
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.delegate = self;
-        [picker setAllowsEditing:YES];
-        [self presentViewController:picker animated:YES completion:nil];
-    } else if (buttonIndex == 1) {
-        [self backupRange];
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        picker.delegate = self;
-        //        [picker setAllowsEditing:YES];
-        [self presentViewController:picker animated:YES completion:nil];
+    if (actionSheet.tag == kActionSheetInsertImageTag) {
+        if (buttonIndex == 0) {
+            [self backupRange];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.delegate = self;
+            [picker setAllowsEditing:YES];
+            [self presentViewController:picker animated:YES completion:nil];
+        } else if (buttonIndex == 1) {
+            [self backupRange];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            [self presentViewController:picker animated:YES completion:nil];
+        }
+    } else if (actionSheet.tag == kActionSheetInsertVideoTag) {
+        if (buttonIndex == 0) {
+            [self backupRange];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            }
+            picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+            picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+            [self presentViewController:picker animated:YES completion:nil];
+        } else if (buttonIndex == 1) {
+            [self backupRange];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+            picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+            [self presentViewController:picker animated:YES completion:nil];
+        }
     }
 }
 
@@ -1204,6 +1237,29 @@ static Class hackishFixClass = Nil;
         NSURL *url = [NSURL fileURLWithPath:filePath];
         [self restoreRange];
         [self insertImage:url.absoluteString alt:@""];
+    } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        NSURL *url = info[UIImagePickerControllerMediaURL];
+        NSLog(@"video url %@", url.absoluteString);
+        [self restoreRange];
+        [self insertVideo:url.absoluteString];
+        
+        /*
+         //获取缩略图
+         MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+         UIImage *thumbnail = [player thumbnailImageAtTime:1.0 timeOption:MPMovieTimeOptionNearestKeyFrame];
+         */
+        /*
+         // 将视频保存到相册中
+         ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
+         [assetsLibrary writeVideoAtPathToSavedPhotosAlbum:url
+         completionBlock:^(NSURL *assetURL, NSError *error) {
+         if (!error) {
+         NSLog(@"captured video saved with no error.");
+         }else{
+         NSLog(@"error occured while saving the video:%@", error);
+         }
+         }];
+         */
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

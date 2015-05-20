@@ -205,4 +205,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)insertVideo:(NSString *)url;
 
+- (void)selectVideo;
+
+- (void)selectImage;
+
 @end

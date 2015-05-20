@@ -10,6 +10,10 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "ZSSBarButtonItem.h"
+#import <MediaPlayer/MPMediaQuery.h>
+#import <MediaPlayer/MPMoviePlayerController.h>
+
+
 
 @interface ZSSDemoSelectiveViewController ()
 
@@ -58,47 +62,88 @@
 }
 
 - (void)didTapInsertImage:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册选择", nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
+    [self selectImage];
 }
 
 - (void)didTapInsertMP3:(id)sender {
 //    [self backupRange];
 //    [self restoreRange];
-    [self insertMP3:@"http://m1.music.126.net/AvO6aqtdT-UshoytHXs3xg==/6656443395518310.mp3"];
+//    [self insertMP3:@"http://m1.music.126.net/AvO6aqtdT-UshoytHXs3xg==/6656443395518310.mp3"];
+    /*
+    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeAnyAudio];
+    picker.showsCloudItems = YES;
+    picker.delegate = self;
+    picker.allowsPickingMultipleItems = YES;
+    picker.prompt = @"Select songs to play";
+    [self presentViewController:picker animated:YES completion:nil];
+    */
+    /*
+    MPMediaQuery *everything = [[MPMediaQuery alloc] init];
+    // 读取条件
+    MPMediaPropertyPredicate *albumNamePredicate = [MPMediaPropertyPredicate predicateWithValue:@(MPMediaTypeAnyAudio) forProperty: MPMediaItemPropertyMediaType];
+    [everything addFilterPredicate:albumNamePredicate];
+
+    NSLog(@"Logging items from a generic query...");
+    NSArray *itemsFromGenericQuery = [everything items];
+    for (MPMediaItem *song in itemsFromGenericQuery) {
+        NSString *songTitle = [song valueForProperty: MPMediaItemPropertyTitle];
+        NSLog (@"%@", songTitle);
+    }
+    */
 }
 
 - (void)didTapInsertVideo:(id)sender {
-    [self insertVideo:@"file:///Users/liu/Desktop/mp4_files/1430026336.686622.mp4"];
+//    NSArray *array1 = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+//    NSArray *array2 = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+//    NSArray *array3 = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self selectVideo];
+    /*
+    [self backupRange];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    picker.delegate = self;
+//    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+    picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+//    [picker setAllowsEditing:YES];
+    picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+    [self presentViewController:picker animated:YES completion:nil];
+    */
+//    [self insertVideo:@"file:///Users/liu/Desktop/mp4_files/1430026336.686622.mp4"];
 }
 
 #pragma mark UIActionSheetDelegate
-
+/*
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self backupRange];
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.delegate = self;
-        [picker setAllowsEditing:YES];
-        [self presentViewController:picker animated:YES completion:nil];
-    } else if (buttonIndex == 1) {
-        [self backupRange];
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        picker.delegate = self;
-//        [picker setAllowsEditing:YES];
-        [self presentViewController:picker animated:YES completion:nil];
+    if (actionSheet.tag == kInsertImageTag) {
+        if (buttonIndex == 0) {
+            [self backupRange];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.delegate = self;
+            [picker setAllowsEditing:YES];
+            [self presentViewController:picker animated:YES completion:nil];
+        } else if (buttonIndex == 1) {
+            [self backupRange];
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            picker.delegate = self;
+            //        [picker setAllowsEditing:YES];
+            [self presentViewController:picker animated:YES completion:nil];
+        }
+    } else if (actionSheet.tag == kInsertVideoTag) {
+        
     }
 }
-
+*/
 #pragma mark UIImagePickerControllerDelegate
-
+/*
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     //extracting image from the picker and saving it
     NSString *mediaType = info[UIImagePickerControllerMediaType];
-    if ([mediaType isEqualToString:(NSString *) kUTTypeImage] || [mediaType isEqualToString:ALAssetTypePhoto]) {
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage] || [mediaType isEqualToString:ALAssetTypePhoto]) {
         NSString *fileName = [NSString stringWithFormat:@"%f.%@", [[NSDate date] timeIntervalSince1970], @"jpg"];
         NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
         UIImage *image = info[UIImagePickerControllerOriginalImage];
@@ -108,13 +153,26 @@
         NSURL *url = [NSURL fileURLWithPath:filePath];
         [self restoreRange];
         [self insertImage:url.absoluteString alt:@""];
+    } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        NSURL *url = info[UIImagePickerControllerMediaURL];
+        NSLog(@"video url %@", url.absoluteString);
+        [self restoreRange];
+        [self insertVideo:url.absoluteString];
     }
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-
+*/
+/*
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark -
+
+- (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
+    [mediaPicker dismissViewControllerAnimated:YES completion:nil];
+}
+*/
 
 @end
