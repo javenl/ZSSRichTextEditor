@@ -69,27 +69,7 @@
 //    [self backupRange];
 //    [self restoreRange];
 //    [self insertMP3:@"http://m1.music.126.net/AvO6aqtdT-UshoytHXs3xg==/6656443395518310.mp3"];
-    /*
-    MPMediaPickerController *picker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeAnyAudio];
-    picker.showsCloudItems = YES;
-    picker.delegate = self;
-    picker.allowsPickingMultipleItems = YES;
-    picker.prompt = @"Select songs to play";
-    [self presentViewController:picker animated:YES completion:nil];
-    */
-    /*
-    MPMediaQuery *everything = [[MPMediaQuery alloc] init];
-    // 读取条件
-    MPMediaPropertyPredicate *albumNamePredicate = [MPMediaPropertyPredicate predicateWithValue:@(MPMediaTypeAnyAudio) forProperty: MPMediaItemPropertyMediaType];
-    [everything addFilterPredicate:albumNamePredicate];
-
-    NSLog(@"Logging items from a generic query...");
-    NSArray *itemsFromGenericQuery = [everything items];
-    for (MPMediaItem *song in itemsFromGenericQuery) {
-        NSString *songTitle = [song valueForProperty: MPMediaItemPropertyTitle];
-        NSLog (@"%@", songTitle);
-    }
-    */
+    [self showRecordView];
 }
 
 - (void)didTapInsertVideo:(id)sender {

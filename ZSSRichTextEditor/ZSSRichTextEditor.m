@@ -14,9 +14,12 @@
 #import "ZSSBarButtonItem.h"
 #import "HRColorUtil.h"
 #import "ZSSTextView.h"
+#import "RecordView.h"
 
 #define kActionSheetInsertImageTag 1001
 #define kActionSheetInsertVideoTag 1002
+#define kMaskViewTag 2001
+
 
 @interface UIWebView (HackishAccessoryHiding)
 
@@ -937,15 +940,89 @@ static Class hackishFixClass = Nil;
     [actionSheet showInView:self.view];
 }
 
+- (void)takePhoto {
+    [self backupRange];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.delegate = self;
+    [picker setAllowsEditing:YES];
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)selectImageFromAlbum {
+    [self backupRange];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
 - (void)selectVideo {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄",@"从相册选择", nil];
     actionSheet.tag = kActionSheetInsertVideoTag;
     [actionSheet showInView:self.view];
 }
 
-- (void)showRecordView {
-    
+- (void)selectVideoFromAlbum {
+    [self backupRange];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+    picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+    [self presentViewController:picker animated:YES completion:nil];
 }
+
+- (void)shootVideo {
+    [self backupRange];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+    }
+    picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+    picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+
+
+- (void)showRecordView {
+    [self backupRange];
+    
+    [self.view endEditing:YES];
+    
+//    UIView *maskView = [[UIView alloc] initWithFrame:self.view.window.frame];
+//    maskView.tag = kMaskViewTag;
+//    maskView.backgroundColor = HEXACOLOR(0x000000, 0.6);
+//    [maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapMask)]];
+//    [self.view.window addSubview:maskView];
+    
+    [RecordView showInView:self.view finish:^(NSString *path) {
+        [self insertMP3:[NSURL fileURLWithPath:path].absoluteString];
+    }];
+//    recordView.center = CGPointMake(self.view.window.center.x, CGRectGetHeight(self.view.window.frame) - CGRectGetHeight(recordView.frame));
+//    [maskView addSubview:recordView];
+    
+    /*
+    [recordView setCompletion:^(BOOL finish, NSString *path) {
+//        [recordView removeFromSuperview];
+        [maskView removeFromSuperview];
+        if (finish) {
+//            NSLog(@"mp3 path");
+            [self insertMP3:[NSURL fileURLWithPath:path].absoluteString];
+        }
+    }];
+    */
+}
+
+/*
+- (void)didTapMask {
+    UIView *maskView = [self.view.window viewWithTag:kMaskViewTag];
+    [maskView removeFromSuperview];
+}
+*/
 
 - (void)insertImage {
     
@@ -991,7 +1068,6 @@ static Class hackishFixClass = Nil;
             [self focusTextEditor];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:insertButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
             UITextField *imageURL = [alertController.textFields objectAtIndex:0];
             UITextField *alt = [alertController.textFields objectAtIndex:1];
             if (!self.selectedImageURL) {
@@ -1032,21 +1108,22 @@ static Class hackishFixClass = Nil;
 }
 
 - (void)insertMP3:(NSString *)url {
-    [self backupRange];
+//    [self restoreRange];
+//    [self backupRange];
     NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertMP3(\"%@\");", url];
-    NSLog(@"url %@", url);
+    NSLog(@"insertMP3 url %@", url);
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)insertVideo:(NSString *)url {
-    [self backupRange];
+//    [self restoreRange];
     NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertVideo(\"%@\");", url];
     NSLog(@"url %@", url);
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)insertImage:(NSString *)url alt:(NSString *)alt {
-    [self backupRange];
+//    [self restoreRange];
     NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertImage(\"%@\", \"%@\");", url, alt];
 //    NSLog(@"url %@", url);
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
@@ -1185,39 +1262,15 @@ static Class hackishFixClass = Nil;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet.tag == kActionSheetInsertImageTag) {
         if (buttonIndex == 0) {
-            [self backupRange];
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            picker.delegate = self;
-            [picker setAllowsEditing:YES];
-            [self presentViewController:picker animated:YES completion:nil];
+            [self takePhoto];
         } else if (buttonIndex == 1) {
-            [self backupRange];
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            picker.delegate = self;
-            [self presentViewController:picker animated:YES completion:nil];
+            [self selectImageFromAlbum];
         }
     } else if (actionSheet.tag == kActionSheetInsertVideoTag) {
         if (buttonIndex == 0) {
-            [self backupRange];
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            picker.delegate = self;
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-            }
-            picker.mediaTypes = @[(NSString *)kUTTypeMovie];
-            picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
-            [self presentViewController:picker animated:YES completion:nil];
+            [self shootVideo];
         } else if (buttonIndex == 1) {
-            [self backupRange];
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            picker.delegate = self;
-            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            picker.mediaTypes = @[(NSString *)kUTTypeMovie];
-            picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
-            [self presentViewController:picker animated:YES completion:nil];
+            [self selectVideoFromAlbum];
         }
     }
 }

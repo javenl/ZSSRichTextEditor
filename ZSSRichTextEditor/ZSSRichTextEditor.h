@@ -209,4 +209,6 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)selectImage;
 
+- (void)showRecordView;
+
 @end
