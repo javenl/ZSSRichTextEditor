@@ -138,15 +138,21 @@ zss_editor.setFooterHeight = function(footerHeight) {
 }
 
 zss_editor.getCaretYPosition = function() {
+    
     var sel = window.getSelection();
+    var baseNode = sel.baseNode;
     var pos;
     
-    if (sel && sel.anchorNode) {
-        pos = sel.anchorNode.parentNode.offsetTop;
+    if (sel && baseNode) {
+        // 当选中的节点为文本节点时，取其父节点的offsetTop，否则取自身的offsetTop
+        pos = 3 == baseNode.nodeType
+        ? baseNode.parentNode.offsetTop
+        : baseNode.offsetTop;
     }
     else {
         pos = document.body.scrollTop;
     }
+    
     return pos;
     /*
     var sel = window.getSelection();
