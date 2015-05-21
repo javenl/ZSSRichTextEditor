@@ -25,9 +25,10 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "6.0"
 
-  s.source       = { :git => "https://github.com/javenl/ZSSRichTextEditor.git",
-                     :tag => "#{s.version}",
-#                     :sha1 => "",
+  s.source       = { :git => "/Users/liu/Desktop/MyProjects/ZSSRichTextEditor/.git",
+#:git => "https://github.com/javenl/ZSSRichTextEditor.git",
+#:tag => "#{s.version}",
+                     :sha1 => "1203b61d3afb7659c4ecedc3b9108568fae89565",
 }
 
   s.source_files  = "**/*.{h,m}"
