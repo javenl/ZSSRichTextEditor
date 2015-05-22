@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ZSSRichTextEditor.h"
 
-@interface ZSSDemoViewController : ZSSRichTextEditor
+@interface ZSSDemoViewController : UIViewController
 
 @end

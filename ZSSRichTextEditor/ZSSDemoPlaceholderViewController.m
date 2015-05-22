@@ -10,6 +10,8 @@
 
 @interface ZSSDemoPlaceholderViewController ()
 
+@property (strong, nonatomic) ZSSRichTextEditor *editor;
+
 @end
 
 @implementation ZSSDemoPlaceholderViewController
@@ -21,7 +23,7 @@
     
     self.title = @"Placeholder";
     
-    self.placeholder = @"Please tap to start editing";
+    self.editor.placeholder = @"Please tap to start editing";
     
 }
 

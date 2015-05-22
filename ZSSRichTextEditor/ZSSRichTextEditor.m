@@ -91,7 +91,7 @@ static Class hackishFixClass = Nil;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UIView *toolbarHolder;
 @property (nonatomic, strong) NSString *htmlString;
-
+@property (nonatomic, strong) UIBarButtonItem *keyboardItem;
 @property (nonatomic, strong) ZSSTextView *sourceView;
 @property (nonatomic) CGRect editorViewFrame;
 @property (nonatomic) BOOL resourcesLoaded;
@@ -101,7 +101,7 @@ static Class hackishFixClass = Nil;
 @property (nonatomic, strong) NSString *selectedLinkTitle;
 @property (nonatomic, strong) NSString *selectedImageURL;
 @property (nonatomic, strong) NSString *selectedImageAlt;
-@property (nonatomic, strong) UIBarButtonItem *keyboardItem;
+
 @property (nonatomic, strong) NSMutableArray *customBarButtonItems;
 @property (nonatomic, strong) NSMutableArray *customZSSBarButtonItems;
 @property (nonatomic, strong) NSString *internalHTML;
@@ -113,114 +113,152 @@ static Class hackishFixClass = Nil;
 @end
 
 @implementation ZSSRichTextEditor
-/*
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.sourceView.frame = self.bounds;
     self.editorView.frame = self.bounds;
 }
-*/
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.editorLoaded = NO;
-    self.shouldShowKeyboard = YES;
-    self.formatHTML = YES;
-    
-    self.enabledToolbarItems = [[NSArray alloc] init];
-    
-    // Source View
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    self.sourceView = [[ZSSTextView alloc] initWithFrame:frame];
-    self.sourceView.hidden = YES;
-    self.sourceView.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.sourceView.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.sourceView.font = [UIFont fontWithName:@"Courier" size:13.0];
-    self.sourceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.sourceView.autoresizesSubviews = YES;
-    self.sourceView.delegate = self;
-    [self.view addSubview:self.sourceView];
-    
-    // Editor View
-    self.editorView = [[UIWebView alloc] initWithFrame:frame];
-    self.editorView.delegate = self;
-    self.editorView.hidesInputAccessoryView = YES;
-    self.editorView.keyboardDisplayRequiresUserAction = NO;
-    self.editorView.scalesPageToFit = YES;
-    self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
-    self.editorView.scrollView.bounces = NO;
-    self.editorView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.editorView];
-    
-    // Scrolling View
-    self.toolBarScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [self isIpad] ? self.view.frame.size.width : self.view.frame.size.width - 44, 44)];
-    self.toolBarScroll.backgroundColor = [UIColor clearColor];
-    self.toolBarScroll.showsHorizontalScrollIndicator = NO;
-    
-    // Toolbar with icons
-    self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-    self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.toolbar.backgroundColor = [UIColor clearColor];
-    [self.toolBarScroll addSubview:self.toolbar];
-    self.toolBarScroll.autoresizingMask = self.toolbar.autoresizingMask;
-    
-    // Background Toolbar
-    UIToolbar *backgroundToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    backgroundToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-    // Parent holding view
-    self.toolbarHolder = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 44)];
-    self.toolbarHolder.autoresizingMask = self.toolbar.autoresizingMask;
-    [self.toolbarHolder addSubview:self.toolBarScroll];
-    [self.toolbarHolder insertSubview:backgroundToolbar atIndex:0];
-    
-    // Hide Keyboard
-    if (![self isIpad]) {
-        
-        // Toolbar holder used to crop and position toolbar
-        UIView *toolbarCropper = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-44, 0, 44, 44)];
-        toolbarCropper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        toolbarCropper.clipsToBounds = YES;
-        
-        // Use a toolbar so that we can tint
-        UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(-7, -1, 44, 44)];
-        [toolbarCropper addSubview:keyboardToolbar];
-        
-        self.keyboardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSkeyboard.png"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissKeyboard)];
-        keyboardToolbar.items = @[self.keyboardItem];
-        [self.toolbarHolder addSubview:toolbarCropper];
-        
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.6f, 44)];
-        line.backgroundColor = [UIColor lightGrayColor];
-        line.alpha = 0.7f;
-        [toolbarCropper addSubview:line];
-    }
-    [self.view addSubview:self.toolbarHolder];
-    
-    // Build the toolbar
-    [self buildToolbar];
-    
-    if (!self.resourcesLoaded) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"editor" ofType:@"html"];
-        NSData *htmlData = [NSData dataWithContentsOfFile:filePath];
-        NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
-        
-        NSString *source = [[NSBundle mainBundle] pathForResource:@"ZSSRichTextEditor" ofType:@"js"];
-        NSString *jsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:source] encoding:NSUTF8StringEncoding];
-        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--editor-->" withString:jsString];
-        
-        NSString *exSource = [[NSBundle mainBundle] pathForResource:@"ZSSExtend" ofType:@"js"];
-        NSString *exJsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:exSource] encoding:NSUTF8StringEncoding];
-        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--extend-->" withString:exJsString];
-        
-        [self.editorView loadHTMLString:htmlString baseURL:self.baseURL];
-        self.resourcesLoaded = YES;
-    }
-    
+
+- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController {
+    return [self initWithFrame:frame navigationController:navgationController delegate:nil];
 }
 
+- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.navigationController = navgationController;
+        self.delegate = delegate;
+        
+        self.frame = frame;
+        
+        self.editorLoaded = NO;
+        self.shouldShowKeyboard = YES;
+        self.formatHTML = YES;
+        
+        self.enabledToolbarItems = [[NSArray alloc] init];
+        
+        // Source View
+        CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        self.sourceView = [[ZSSTextView alloc] initWithFrame:frame];
+        self.sourceView.hidden = YES;
+        self.sourceView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        self.sourceView.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.sourceView.font = [UIFont fontWithName:@"Courier" size:13.0];
+        self.sourceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.sourceView.autoresizesSubviews = YES;
+        self.sourceView.delegate = self;
+        [self addSubview:self.sourceView];
+        
+        // Editor View
+        self.editorView = [[UIWebView alloc] initWithFrame:frame];
+        self.editorView.delegate = self;
+        self.editorView.hidesInputAccessoryView = YES;
+        self.editorView.keyboardDisplayRequiresUserAction = NO;
+        self.editorView.scalesPageToFit = YES;
+        self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
+        self.editorView.scrollView.bounces = NO;
+        self.editorView.backgroundColor = [UIColor whiteColor];
+        [self addSubview:self.editorView];
+        
+        // Scrolling View
+        self.toolBarScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [self isIpad] ? self.frame.size.width : self.frame.size.width - 44, 44)];
+        self.toolBarScroll.backgroundColor = [UIColor clearColor];
+        self.toolBarScroll.showsHorizontalScrollIndicator = NO;
+        
+        // Toolbar with icons
+        self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+        self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.toolbar.backgroundColor = [UIColor clearColor];
+        [self.toolBarScroll addSubview:self.toolbar];
+        self.toolBarScroll.autoresizingMask = self.toolbar.autoresizingMask;
+        
+        // Background Toolbar
+        UIToolbar *backgroundToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44)];
+        backgroundToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
+        // Parent holding view
+        self.toolbarHolder = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, 44)];
+        self.toolbarHolder.autoresizingMask = self.toolbar.autoresizingMask;
+        [self.toolbarHolder addSubview:self.toolBarScroll];
+        [self.toolbarHolder insertSubview:backgroundToolbar atIndex:0];
+        
+        // Hide Keyboard
+        if (![self isIpad]) {
+            
+            // Toolbar holder used to crop and position toolbar
+            UIView *toolbarCropper = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width-44, 0, 44, 44)];
+            toolbarCropper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            toolbarCropper.clipsToBounds = YES;
+            
+            // Use a toolbar so that we can tint
+            UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(-7, -1, 44, 44)];
+            [toolbarCropper addSubview:keyboardToolbar];
+            
+            if ([self.delegate respondsToSelector:@selector(keyboardButton)]) {
+                UIButton *btn = [self.delegate keyboardButton];
+                [btn addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
+                self.keyboardItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+//                self.keyboardItem.target = self;
+//                self.keyboardItem.action = @selector(dismissKeyboard);
+            } else {
+                self.keyboardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSkeyboard.png"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissKeyboard)];
+            }
+            keyboardToolbar.items = @[self.keyboardItem];
+            [self.toolbarHolder addSubview:toolbarCropper];
+            
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.6f, 44)];
+            line.backgroundColor = [UIColor lightGrayColor];
+            line.alpha = 0.7f;
+            [toolbarCropper addSubview:line];
+        }
+        [self addSubview:self.toolbarHolder];
+        
+        // Build the toolbar
+        [self buildToolbar];
+        
+        if (!self.resourcesLoaded) {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"editor" ofType:@"html"];
+            NSData *htmlData = [NSData dataWithContentsOfFile:filePath];
+            NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+            
+            NSString *source = [[NSBundle mainBundle] pathForResource:@"ZSSRichTextEditor" ofType:@"js"];
+            NSString *jsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:source] encoding:NSUTF8StringEncoding];
+            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--editor-->" withString:jsString];
+            
+            NSString *exSource = [[NSBundle mainBundle] pathForResource:@"ZSSExtend" ofType:@"js"];
+            NSString *exJsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:exSource] encoding:NSUTF8StringEncoding];
+            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--extend-->" withString:exJsString];
+            
+            [self.editorView loadHTMLString:htmlString baseURL:self.baseURL];
+            self.resourcesLoaded = YES;
+        }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillHideNotification object:nil];
+        
+    }
+    return self;
+}
+/*
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        
+        
+        
+    return self;
+}
 
+*/
 - (void)setEnabledToolbarItems:(NSArray *)enabledToolbarItems {
     
     _enabledToolbarItems = enabledToolbarItems;
@@ -522,7 +560,9 @@ static Class hackishFixClass = Nil;
     }
     
     // get the width before we add custom buttons
-    CGFloat toolbarWidth = items.count == 0 ? 0.0f : (CGFloat)(items.count * 39) - 10;
+    CGFloat btnWidth = 56;
+//    btnWidth = 39;
+    CGFloat toolbarWidth = items.count == 0 ? 0.0f : (CGFloat)(items.count * btnWidth) - 10;
     
     if(self.customBarButtonItems != nil)
     {
@@ -535,6 +575,7 @@ static Class hackishFixClass = Nil;
     
     self.toolbar.items = items;
     for (ZSSBarButtonItem *item in items) {
+        item.width = 46;
         item.tintColor = [self barButtonItemDefaultColor];
     }
     
@@ -542,7 +583,7 @@ static Class hackishFixClass = Nil;
     self.toolBarScroll.contentSize = CGSizeMake(self.toolbar.frame.size.width, 44);
 }
 
-
+/*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -556,13 +597,9 @@ static Class hackishFixClass = Nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
+*/
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Editor Interaction
 
@@ -616,7 +653,7 @@ static Class hackishFixClass = Nil;
 }
 
 - (void)dismissKeyboard {
-    [self.view endEditing:YES];
+    [self endEditing:YES];
 }
 
 - (void)showHTMLSource:(ZSSBarButtonItem *)barButtonItem {
@@ -761,6 +798,7 @@ static Class hackishFixClass = Nil;
     colorPicker.tag = 1;
     colorPicker.title = NSLocalizedString(@"Text Color", nil);
     [self.navigationController pushViewController:colorPicker animated:YES];
+//    [self persentv]
     
 }
 
@@ -856,7 +894,7 @@ static Class hackishFixClass = Nil;
             }
             [self focusTextEditor];
         }]];
-        [self presentViewController:alertController animated:YES completion:NULL];
+        [self.navigationController presentViewController:alertController animated:YES completion:NULL];
         
     } else {
         
@@ -944,7 +982,7 @@ static Class hackishFixClass = Nil;
 - (void)selectImage {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册选择", nil];
     actionSheet.tag = kActionSheetInsertImageTag;
-    [actionSheet showInView:self.view];
+    [actionSheet showInView:self];
 }
 
 - (void)takePhoto {
@@ -954,20 +992,20 @@ static Class hackishFixClass = Nil;
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     picker.delegate = self;
     [picker setAllowsEditing:YES];
-    [self presentViewController:picker animated:YES completion:nil];
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)selectImageFromAlbum {
     [self backupRange];
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    [self presentViewController:picker animated:YES completion:nil];
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)selectVideo {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄",@"从相册选择", nil];
     actionSheet.tag = kActionSheetInsertVideoTag;
-    [actionSheet showInView:self.view];
+    [actionSheet showInView:self];
 }
 
 - (void)selectVideoFromAlbum {
@@ -977,7 +1015,7 @@ static Class hackishFixClass = Nil;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.mediaTypes = @[(NSString *)kUTTypeMovie];
     picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
-    [self presentViewController:picker animated:YES completion:nil];
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)shootVideo {
@@ -986,19 +1024,17 @@ static Class hackishFixClass = Nil;
     picker.delegate = self;
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+//        picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
     }
     picker.mediaTypes = @[(NSString *)kUTTypeMovie];
     picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
-    [self presentViewController:picker animated:YES completion:nil];
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
-
-
 
 - (void)showRecordView {
     [self backupRange];
     
-    [self.view endEditing:YES];
+    [self endEditing:YES];
     
 //    UIView *maskView = [[UIView alloc] initWithFrame:self.view.window.frame];
 //    maskView.tag = kMaskViewTag;
@@ -1006,7 +1042,7 @@ static Class hackishFixClass = Nil;
 //    [maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapMask)]];
 //    [self.view.window addSubview:maskView];
     
-    [RecordView showInView:self.view finish:^(NSString *path) {
+    [RecordView showInView:self.window finish:^(NSString *path) {
         [self insertMP3:[NSURL fileURLWithPath:path].absoluteString];
     }];
 //    recordView.center = CGPointMake(self.view.window.center.x, CGRectGetHeight(self.view.window.frame) - CGRectGetHeight(recordView.frame));
@@ -1084,7 +1120,7 @@ static Class hackishFixClass = Nil;
             }
             [self focusTextEditor];
         }]];
-        [self presentViewController:alertController animated:YES completion:NULL];
+        [self.navigationController presentViewController:alertController animated:YES completion:NULL];
         
     } else {
         
@@ -1408,14 +1444,23 @@ static Class hackishFixClass = Nil;
     NSDictionary *info = notification.userInfo;
     CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     int curve = [[info objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
-    CGRect keyboardEnd = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    CGRect keyboardEnd = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     // Toolbar Sizes
-    CGFloat sizeOfToolbar = self.toolbarHolder.frame.size.height;
+    CGFloat toolbarHeight = self.toolbarHolder.frame.size.height;
     
     // Keyboard Size
     //Checks if IOS8, gets correct keyboard height
-    CGFloat keyboardHeight = UIInterfaceOrientationIsLandscape(orientation) ? ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.000000) ? keyboardEnd.size.height : keyboardEnd.size.width : keyboardEnd.size.height;
+//    CGFloat keyboardHeight = UIInterfaceOrientationIsLandscape(orientation) ? ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.000000) ? keyboardEnd.size.height : keyboardEnd.size.width : keyboardEnd.size.height;
+    
+    // Get the size of the keyboard.
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    //Given size may not account for screen rotation
+    NSInteger keyboardHeight = MIN(keyboardSize.height,keyboardSize.width);
+    CGFloat keyboardTop = CGRectGetHeight(self.window.frame) - keyboardHeight;
+//    NSInteger keyboardWidth = MAX(keyboardSize.height,keyboardSize.width);
+    
     
     // Correct Curve
     UIViewAnimationOptions animationOptions = curve << 16;
@@ -1425,27 +1470,35 @@ static Class hackishFixClass = Nil;
         [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
             
             // Toolbar
-            CGRect frame = self.toolbarHolder.frame;
-            frame.origin.y = self.view.frame.size.height - (keyboardHeight + sizeOfToolbar);
-            self.toolbarHolder.frame = frame;
+            CGRect toolBarFrame = self.toolbarHolder.frame;
+//            toolBarFrame.origin.y = self.frame.size.height - (keyboardHeight + sizeOfToolbar - 64);
+            toolBarFrame.origin.y = keyboardTop - toolbarHeight - 64;
+//            frame.origin.y = 0;
+            self.toolbarHolder.frame = toolBarFrame;
+            NSLog(@"toolBarFrame %@", NSStringFromCGRect(toolBarFrame));
             
             // Editor View
             const int extraHeight = 10;
             
             CGRect editorFrame = self.editorView.frame;
-            editorFrame.size.height = (self.view.frame.size.height - keyboardHeight) - sizeOfToolbar - extraHeight;
+            editorFrame.size.height = (self.frame.size.height - keyboardHeight) - toolbarHeight - extraHeight;
+//            editorFrame.size.height = keyboardTop - CGRectGetMidY(self.editorView.frame) - toolbarHeight - 64;
             self.editorView.frame = editorFrame;
             self.editorViewFrame = self.editorView.frame;
             self.editorView.scrollView.contentInset = UIEdgeInsetsZero;
             self.editorView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
             
+            NSLog(@"editorFrame %@", NSStringFromCGRect(editorFrame));
+            
             // Source View
             CGRect sourceFrame = self.sourceView.frame;
-            sourceFrame.size.height = (self.view.frame.size.height - keyboardHeight) - sizeOfToolbar - extraHeight;
+            sourceFrame.size.height = (self.frame.size.height - keyboardHeight) - toolbarHeight - extraHeight;
             self.sourceView.frame = sourceFrame;
+
             
             // Provide editor with keyboard height and editor view height
-            [self setFooterHeight:(keyboardHeight - 8)];
+//            [self setFooterHeight:(keyboardHeight - 8)];
+//            [self setFooterHeight:toolbarHeight];
             [self setContentHeight: self.editorViewFrame.size.height];
             
         } completion:nil];
@@ -1455,12 +1508,12 @@ static Class hackishFixClass = Nil;
         [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
             
             CGRect frame = self.toolbarHolder.frame;
-            frame.origin.y = self.view.frame.size.height + keyboardHeight;
+            frame.origin.y = self.frame.size.height + keyboardHeight;
             self.toolbarHolder.frame = frame;
             
             // Editor View
             CGRect editorFrame = self.editorView.frame;
-            editorFrame.size.height = self.view.frame.size.height;
+            editorFrame.size.height = self.frame.size.height;
             self.editorView.frame = editorFrame;
             self.editorViewFrame = self.editorView.frame;
             self.editorView.scrollView.contentInset = UIEdgeInsetsZero;
@@ -1468,7 +1521,7 @@ static Class hackishFixClass = Nil;
             
             // Source View
             CGRect sourceFrame = self.sourceView.frame;
-            sourceFrame.size.height = self.view.frame.size.height;
+            sourceFrame.size.height = self.frame.size.height;
             self.sourceView.frame = sourceFrame;
             
         } completion:nil];

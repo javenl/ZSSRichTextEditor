@@ -9,6 +9,6 @@
 #import "ZSSRichTextEditor.h"
 #import <MediaPlayer/MPMediaPickerController.h>
 
-@interface ZSSDemoSelectiveViewController : ZSSRichTextEditor <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, MPMediaPickerControllerDelegate>
+@interface ZSSDemoSelectiveViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, MPMediaPickerControllerDelegate>
 
 @end

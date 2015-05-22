@@ -52,14 +52,14 @@
 - (void)saveURL {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    
+    /*
     ZSSDemoViewController *vc = self.demoView;
     if (!self.isInsertImagePicker) {
         [vc showInsertLinkDialogWithLink:self.textField.text title:nil];
     } else {
         [vc showInsertImageDialogWithLink:self.textField.text alt:nil];
     }
-    
+    */
 }
 
 - (void)didReceiveMemoryWarning

@@ -17,6 +17,8 @@
 
 @interface ZSSDemoSelectiveViewController ()
 
+@property (strong, nonatomic) ZSSRichTextEditor *editor;
+
 @end
 
 @implementation ZSSDemoSelectiveViewController
@@ -28,27 +30,32 @@
     
     self.title = @"Selective";
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.editor = [[ZSSRichTextEditor alloc] initWithFrame:self.view.bounds navigationController:self.navigationController delegate:nil];
+    [self.view addSubview:self.editor];
+    
     // HTML Content to set in the editor
     NSString *html = @"<p>Example showing just a few toolbar buttons.</p>";
     
     // Custom image button
     ZSSBarButtonItem *item0 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapTest:)];
-    [self addCustomToolbarItem:item0];
+    [self.editor addCustomToolbarItem:item0];
     
     ZSSBarButtonItem *item1 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapInsertImage:)];
-    [self addCustomToolbarItem:item1];
+    [self.editor addCustomToolbarItem:item1];
     
     ZSSBarButtonItem *item2 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapInsertMP3:)];
-    [self addCustomToolbarItem:item2];
+    [self.editor addCustomToolbarItem:item2];
     
     ZSSBarButtonItem *item3 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapInsertVideo:)];
-    [self addCustomToolbarItem:item3];
+    [self.editor addCustomToolbarItem:item3];
     
     // Choose which toolbar items to show
-    self.enabledToolbarItems = @[ZSSRichTextEditorToolbarViewSource];
+    self.editor.enabledToolbarItems = @[ZSSRichTextEditorToolbarViewSource];
     
     // Set the HTML contents of the editor
-    [self setHTML:html];
+    [self.editor setHTML:html];
     
     
 }
@@ -56,27 +63,27 @@
 - (void)didTapTest:(id)sender {
 //    [self debug:@"test"];
 //    [self.editorView e]
-    [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"zss_extend.showRange();"]];
+    [self.editor.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"zss_extend.showRange();"]];
 //    zss_extend.showRange
 //    zss_editor.backuprange();
 }
 
 - (void)didTapInsertImage:(id)sender {
-    [self selectImage];
+    [self.editor selectImage];
 }
 
 - (void)didTapInsertMP3:(id)sender {
 //    [self backupRange];
 //    [self restoreRange];
 //    [self insertMP3:@"http://m1.music.126.net/AvO6aqtdT-UshoytHXs3xg==/6656443395518310.mp3"];
-    [self showRecordView];
+    [self.editor showRecordView];
 }
 
 - (void)didTapInsertVideo:(id)sender {
 //    NSArray *array1 = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 //    NSArray *array2 = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
 //    NSArray *array3 = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-    [self selectVideo];
+    [self.editor selectVideo];
     /*
     [self backupRange];
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];

@@ -49,10 +49,19 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 @class ZSSBarButtonItem;
 
+@protocol ZSSRichTextEditorDelegate <NSObject>
+
+@optional
+- (UIButton *)keyboardButton;
+
+@end
+
 /**
  *  The viewController used with ZSSRichTextEditor
  */
-@interface ZSSRichTextEditor : UIViewController <UIWebViewDelegate, HRColorPickerViewControllerDelegate, UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+@interface ZSSRichTextEditor : UIView <UIWebViewDelegate, HRColorPickerViewControllerDelegate, UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+
+@property (nonatomic, weak)   id<ZSSRichTextEditorDelegate> delegate;
 
 @property (nonatomic, strong) UIWebView *editorView;
 
@@ -90,6 +99,11 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
  *  Color to tint selected items
  */
 @property (nonatomic, strong) UIColor *toolbarItemSelectedTintColor;
+
+
+@property (nonatomic, strong) UINavigationController *navigationController;
+
+- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate;
 
 /**
  *  Sets the HTML for the entire editor
@@ -201,6 +215,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)debug:(NSString *)msg;
 
+#pragma mark -
+
 - (void)insertMP3:(NSString *)url;
 
 - (void)insertVideo:(NSString *)url;
@@ -210,5 +226,68 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 - (void)selectImage;
 
 - (void)showRecordView;
+
+- (void)shootVideo;
+
+- (void)takePhoto;
+
+- (void)selectImageFromAlbum;
+
+- (void)removeFormat;
+
+- (void)alignLeft;
+
+- (void)alignCenter;
+
+- (void)alignRight;
+
+- (void)alignFull;
+
+- (void)setBold;
+
+- (void)setItalic;
+
+- (void)setSubscript;
+
+- (void)setUnderline;
+
+- (void)setSuperscript;
+
+- (void)setStrikethrough;
+
+- (void)setUnorderedList;
+
+- (void)setOrderedList;
+
+- (void)setHR;
+
+- (void)setIndent;
+
+- (void)setOutdent;
+
+- (void)heading1;
+
+- (void)heading2;
+
+- (void)heading3;
+
+- (void)heading4;
+
+- (void)heading5;
+
+- (void)heading6;
+
+- (void)paragraph;
+
+- (void)textColor;
+
+- (void)bgColor;
+
+- (void)setSelectedColor:(UIColor*)color tag:(int)tag;
+
+- (void)undo:(ZSSBarButtonItem *)barButtonItem;
+
+- (void)redo:(ZSSBarButtonItem *)barButtonItem;
+
 
 @end

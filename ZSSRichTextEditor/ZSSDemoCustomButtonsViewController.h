@@ -8,6 +8,6 @@
 
 #import "ZSSRichTextEditor.h"
 
-@interface ZSSDemoCustomButtonsViewController : ZSSRichTextEditor
+@interface ZSSDemoCustomButtonsViewController : UIViewController
 
 @end

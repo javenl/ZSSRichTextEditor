@@ -118,6 +118,7 @@
 		5A0C3DC81B01EF1F001C225B /* ZSSRichTextEditor.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 5A0C3DC71B01EF1F001C225B /* ZSSRichTextEditor.podspec */; };
 		5A0F54FD1B00A726002247BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */; };
 		5A0F54FF1B00A791002247BB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */; };
+		5A3782D81B0EFABB003DA265 /* test.htm in Resources */ = {isa = PBXBuildFile; fileRef = 5A3782D71B0EFABB003DA265 /* test.htm */; };
 		5A3CD2BA1B0D767100E605F4 /* MaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3CD2B91B0D767100E605F4 /* MaskView.m */; };
 		5A830E001B0B3FBB001DE206 /* ZSSDemoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */; };
 		5A830E021B0B4045001DE206 /* test_mp3.htm in Resources */ = {isa = PBXBuildFile; fileRef = 5A830E011B0B4045001DE206 /* test_mp3.htm */; };
@@ -268,6 +269,7 @@
 		5A0C3DC71B01EF1F001C225B /* ZSSRichTextEditor.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZSSRichTextEditor.podspec; sourceTree = "<group>"; };
 		5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5A3782D71B0EFABB003DA265 /* test.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.htm; sourceTree = "<group>"; };
 		5A3CD2B81B0D767100E605F4 /* MaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskView.h; sourceTree = "<group>"; };
 		5A3CD2B91B0D767100E605F4 /* MaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskView.m; sourceTree = "<group>"; };
 		5A830DFE1B0B3FBB001DE206 /* ZSSDemoWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSDemoWebViewController.h; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 		4581EBBE184BB92E0048CAB0 /* Editor Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A3782D71B0EFABB003DA265 /* test.htm */,
 				5A830E011B0B4045001DE206 /* test_mp3.htm */,
 				23A76DC2187532F1000169F6 /* editor.html */,
 				23A76DC3187532F1000169F6 /* ZSSRichTextEditor.js */,
@@ -635,6 +638,7 @@
 				45F73D2F18D7AE9700CD6DBA /* ZSSforcejustify.png in Resources */,
 				45F860BA18A84CFA0011266B /* ZSSoutdent@2x.png in Resources */,
 				45F73D3818D7AE9700CD6DBA /* ZSSindent.png in Resources */,
+				5A3782D81B0EFABB003DA265 /* test.htm in Resources */,
 				45F73D3A18D7AE9700CD6DBA /* ZSSkeyboard.png in Resources */,
 				45F73D3118D7AE9700CD6DBA /* ZSSh2.png in Resources */,
 				45F73D3F18D7AE9700CD6DBA /* ZSSparagraph.png in Resources */,

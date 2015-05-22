@@ -131,7 +131,10 @@
         if (self.finishBlock) {
             self.finishBlock(self.mp3FilePath);
         }
-        [self cleanTmpFile];
+//        [self cleanTmpFile];
+        if (self.cancelBlock) {
+            self.cancelBlock();
+        }
         [self dismiss];
 //        NSArray *parts = [self.mp3FilePath componentsSeparatedByString:@"/"];
 //        [self uploadFile:self.mp3FilePath bucket:kQiniuSoundBuket key:[parts lastObject]];

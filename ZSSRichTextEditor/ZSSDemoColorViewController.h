@@ -8,6 +8,6 @@
 
 #import "ZSSRichTextEditor.h"
 
-@interface ZSSDemoColorViewController : ZSSRichTextEditor
+@interface ZSSDemoColorViewController : UIViewController
 
 @end

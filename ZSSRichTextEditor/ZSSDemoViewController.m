@@ -11,6 +11,8 @@
 
 @interface ZSSDemoViewController ()
 
+@property (strong, nonatomic) ZSSRichTextEditor *editor;
+
 @end
 
 @implementation ZSSDemoViewController
@@ -21,6 +23,11 @@
     
     self.title = @"Standard";
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.editor = [[ZSSRichTextEditor alloc] initWithFrame:self.view.bounds navigationController:self.navigationController delegate:nil];
+    [self.view addSubview:self.editor];
+    
     // Export HTML
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Export" style:UIBarButtonItemStylePlain target:self action:@selector(exportHTML)];
 	
@@ -29,17 +36,17 @@
     "<p>This is a test of the <strong>ZSSRichTextEditor</strong> by <a title=\"Zed Said\" href=\"http://www.zedsaid.com\">Zed Said Studio</a></p>";
     
     // Set the base URL if you would like to use relative links, such as to images.
-    self.baseURL = [NSURL URLWithString:@"http://www.zedsaid.com"];
+    self.editor.baseURL = [NSURL URLWithString:@"http://www.zedsaid.com"];
     
     // Set the HTML contents of the editor
-    [self setHTML:html];
+    [self.editor setHTML:html];
     
 }
 
 
 - (void)showInsertURLAlternatePicker {
     
-    [self dismissAlertView];
+    [self.editor dismissAlertView];
     
 //    ZSSDemoPickerViewController *picker = [[ZSSDemoPickerViewController alloc] init];
 //    picker.demoView = self;
@@ -52,13 +59,13 @@
 
 - (void)showInsertImageAlternatePicker {
     
-    [self dismissAlertView];
+    [self.editor dismissAlertView];
 }
 
 
 - (void)exportHTML {
     
-    NSLog(@"%@", [self getHTML]);
+    NSLog(@"%@", [self.editor getHTML]);
     
 }
 

@@ -20,10 +20,13 @@
     [super viewDidLoad];
     
     self.webView = [UIWebView new];
-    self.webView.frame = self.view.frame;
+    self.webView.frame = self.view.bounds;
+    self.webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 64, 0);
+//    self.automaticallyAdjustsScrollViewInsets = YES;
+//    self.webView.co
     [self.view addSubview:self.webView];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"test_mp3" ofType:@"htm"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"htm"];
     NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     [self.webView loadHTMLString:html baseURL:nil];
 }

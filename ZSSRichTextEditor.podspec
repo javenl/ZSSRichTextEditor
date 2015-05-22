@@ -35,6 +35,9 @@ Pod::Spec.new do |s|
   s.exclude_files = "**/ZSSDemo*.{h,m}", "**/ZSSAppDelegate*.{h,m}", "**/main.m"
   s.resources = "**/ZSS*.png", "**/ZSSRichTextEditor.js", "**/ZSSExtend.js", "**/editor.html"
 
+  s.vendored_libraries = 'ZSSRichTextEditor/Lame/libmp3lame.a'
+  s.libraries = "mp3lame"
+
   s.frameworks = "CoreGraphics", "CoreText", "MobileCoreServices", "AssetsLibrary"
 
   s.requires_arc = true
