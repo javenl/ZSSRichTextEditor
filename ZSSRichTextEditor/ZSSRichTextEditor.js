@@ -51,26 +51,29 @@ zss_editor.init = function() {
                    zss_editor.setScrollPosition();
                    });
     
-    $(window).on('scroll', function(e) {
-                 zss_editor.updateOffset();
-                 });
+//    $(window).on('scroll', function(e) {
+//                 zss_editor.updateOffset();
+//                 });
     
     // Make sure that when we tap anywhere in the document we focus on the editor
+    /*
     $(window).on('touchmove', function(e) {
                  zss_editor.isDragging = true;
                  zss_editor.updateScrollOffset = true;
                  zss_editor.setScrollPosition();
                  });
+    */
     $(window).on('touchstart', function(e) {
-                 zss_editor.isDragging = false;
+//                 zss_editor.isDragging = false;
+                 zss_editor.calculateEditorHeightWithCaretPosition;
                  });
-    
+    /*
     $(window).on('touchend', function(e) {
                  if (!zss_editor.isDragging) {
                  zss_editor.focusEditor();
                  }
                  });
-    
+    */
 }//end
 
 zss_editor.updateOffset = function() {
@@ -153,7 +156,7 @@ zss_editor.getCaretYPosition = function() {
         pos = document.body.scrollTop;
     }
     
-    return pos;
+    return pos + 64;
     /*
     var sel = window.getSelection();
     // Next line is comented to prevent deselecting selection. It looks like work but if there are any issues will appear then uconmment it as well as code above.

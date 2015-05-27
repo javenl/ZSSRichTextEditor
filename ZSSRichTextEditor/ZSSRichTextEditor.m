@@ -115,8 +115,8 @@ static Class hackishFixClass = Nil;
 @implementation ZSSRichTextEditor
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -124,6 +124,7 @@ static Class hackishFixClass = Nil;
     [super layoutSubviews];
     self.sourceView.frame = self.bounds;
     self.editorView.frame = self.bounds;
+//    [self setContentHeight:CGRectGetHeight(self.frame)];
 }
 
 - (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController {
@@ -145,14 +146,14 @@ static Class hackishFixClass = Nil;
         self.enabledToolbarItems = [[NSArray alloc] init];
         
         // Source View
-        CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+//        CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         self.sourceView = [[ZSSTextView alloc] initWithFrame:frame];
         self.sourceView.hidden = YES;
         self.sourceView.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.sourceView.autocorrectionType = UITextAutocorrectionTypeNo;
         self.sourceView.font = [UIFont fontWithName:@"Courier" size:13.0];
-        self.sourceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self.sourceView.autoresizesSubviews = YES;
+//        self.sourceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//        self.sourceView.autoresizesSubviews = YES;
         self.sourceView.delegate = self;
         [self addSubview:self.sourceView];
         
@@ -160,12 +161,15 @@ static Class hackishFixClass = Nil;
         self.editorView = [[UIWebView alloc] initWithFrame:frame];
         self.editorView.delegate = self;
         self.editorView.hidesInputAccessoryView = YES;
-        self.editorView.keyboardDisplayRequiresUserAction = NO;
-        self.editorView.scalesPageToFit = YES;
-        self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-        self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
+//        self.editorView.keyboardDisplayRequiresUserAction = NO;
+//        self.editorView.scalesPageToFit = YES;
+//        self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+//        self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
         self.editorView.scrollView.bounces = NO;
+        self.editorView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
+        self.editorView.scrollView.contentInset = UIEdgeInsetsZero;
         self.editorView.backgroundColor = [UIColor whiteColor];
+//        self.editorView.scrollView.scrollEnabled = NO;
         [self addSubview:self.editorView];
         
         // Scrolling View
@@ -175,18 +179,18 @@ static Class hackishFixClass = Nil;
         
         // Toolbar with icons
         self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-        self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.toolbar.backgroundColor = [UIColor clearColor];
         [self.toolBarScroll addSubview:self.toolbar];
-        self.toolBarScroll.autoresizingMask = self.toolbar.autoresizingMask;
+//        self.toolBarScroll.autoresizingMask = self.toolbar.autoresizingMask;
         
         // Background Toolbar
         UIToolbar *backgroundToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44)];
-        backgroundToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        backgroundToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         // Parent holding view
         self.toolbarHolder = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, 44)];
-        self.toolbarHolder.autoresizingMask = self.toolbar.autoresizingMask;
+//        self.toolbarHolder.autoresizingMask = self.toolbar.autoresizingMask;
         [self.toolbarHolder addSubview:self.toolBarScroll];
         [self.toolbarHolder insertSubview:backgroundToolbar atIndex:0];
         
@@ -195,7 +199,7 @@ static Class hackishFixClass = Nil;
             
             // Toolbar holder used to crop and position toolbar
             UIView *toolbarCropper = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width-44, 0, 44, 44)];
-            toolbarCropper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//            toolbarCropper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
             toolbarCropper.clipsToBounds = YES;
             
             // Use a toolbar so that we can tint
@@ -219,7 +223,7 @@ static Class hackishFixClass = Nil;
             line.alpha = 0.7f;
             [toolbarCropper addSubview:line];
         }
-        [self addSubview:self.toolbarHolder];
+//        [self addSubview:self.toolbarHolder];
         
         // Build the toolbar
         [self buildToolbar];
@@ -241,8 +245,12 @@ static Class hackishFixClass = Nil;
             self.resourcesLoaded = YES;
         }
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillHideNotification object:nil];
+        
+        [self setFooterHeight:44];
+        [self setContentHeight:CGRectGetHeight(frame)];
+        
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillShowNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillHideNotification object:nil];
         
     }
     return self;
@@ -1255,7 +1263,6 @@ static Class hackishFixClass = Nil;
 #pragma mark - UIWebView Delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
     NSString *urlString = [[request URL] absoluteString];
     NSLog(@"web request");
     NSLog(@"%@", urlString);
@@ -1592,6 +1599,24 @@ static Class hackishFixClass = Nil;
             item.enabled = enable;
         }
     }
+}
+
+- (void)showToolBarInView:(UIView *)view frame:(CGRect)frame {
+    [view addSubview:self.toolbarHolder];
+    CGRect rect = frame;
+    rect.origin.y = CGRectGetMaxY(view.frame);
+    self.toolbarHolder.frame = rect;
+    NSLog(@"rect1 %@", NSStringFromCGRect(rect));
+//    NSLog(@"rect2 %@", NSStringFromCGRect(rect2));
+    [UIView animateWithDuration:0.35 animations:^{
+        self.toolbarHolder.frame = frame;
+//        NSLog(@"rect1 %@", NSStringFromCGRect(rect1));
+        NSLog(@"rect2 %@", NSStringFromCGRect(frame));
+    }];
+}
+
+- (void)removeToolbar {
+    [self.toolbarHolder removeFromSuperview];
 }
 
 

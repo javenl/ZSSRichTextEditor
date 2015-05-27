@@ -289,5 +289,10 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)redo:(ZSSBarButtonItem *)barButtonItem;
 
+- (void)showToolBarInView:(UIView *)view frame:(CGRect)frame;
+
+- (void)removeToolbar;
+
+- (void)showHTMLSource:(ZSSBarButtonItem *)barButtonItem;
 
 @end
