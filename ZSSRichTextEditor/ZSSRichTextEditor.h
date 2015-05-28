@@ -295,4 +295,6 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)showHTMLSource:(ZSSBarButtonItem *)barButtonItem;
 
+- (NSArray *)getLocalPaths;
+
 @end

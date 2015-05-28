@@ -127,6 +127,7 @@
 		5A99E1B11B0C9EAC00B1633A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E1AA1B0C9EAC00B1633A /* UIAlertView+Blocks.m */; };
 		5A99E1B21B0C9EAC00B1633A /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A99E1AD1B0C9EAC00B1633A /* libmp3lame.a */; };
 		5A99E1B31B0C9EAC00B1633A /* MP3Converter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E1AF1B0C9EAC00B1633A /* MP3Converter.m */; };
+		5AF662201B16EC3E00581399 /* JsonSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6621F1B16EC3E00581399 /* JsonSerialization.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -285,6 +286,8 @@
 		5A99E1AD1B0C9EAC00B1633A /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		5A99E1AE1B0C9EAC00B1633A /* MP3Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MP3Converter.h; sourceTree = "<group>"; };
 		5A99E1AF1B0C9EAC00B1633A /* MP3Converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MP3Converter.m; sourceTree = "<group>"; };
+		5AF6621E1B16EC3E00581399 /* JsonSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonSerialization.h; sourceTree = "<group>"; };
+		5AF6621F1B16EC3E00581399 /* JsonSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonSerialization.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -559,6 +562,8 @@
 		5A99E1A61B0C9EAC00B1633A /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				5AF6621E1B16EC3E00581399 /* JsonSerialization.h */,
+				5AF6621F1B16EC3E00581399 /* JsonSerialization.m */,
 				5A99E1A71B0C9EAC00B1633A /* UIActionSheet+Blocks.h */,
 				5A99E1A81B0C9EAC00B1633A /* UIActionSheet+Blocks.m */,
 				5A99E1A91B0C9EAC00B1633A /* UIAlertView+Blocks.h */,
@@ -738,6 +743,7 @@
 				4552C491189A094C004EF847 /* ZSSTextView.m in Sources */,
 				45A0CA4D18A8522A00F3F35E /* HRCgUtil.m in Sources */,
 				45A0CA5018A8522A00F3F35E /* HRColorPickerViewController.m in Sources */,
+				5AF662201B16EC3E00581399 /* JsonSerialization.m in Sources */,
 				5A830E001B0B3FBB001DE206 /* ZSSDemoWebViewController.m in Sources */,
 				2343B1E0199BE4D000349048 /* ZSSDemoLargeViewController.m in Sources */,
 				45A0CA4C18A8522A00F3F35E /* HRBrightnessCursor.m in Sources */,

@@ -70,4 +70,19 @@ zss_extend.insertVideo = function(url) {
     zss_editor.enabledEditingItems();
 }
 
+zss_extend.getAllImageLinks = function() {
+    var array = [];
+    var s = "";
+    $("img").each(function (index, el) {
+                  
+        array.push(el.src);
+//                  if (s != "") {
+//                  s += el.src;
+//                  } else {
+//                  s += "," + el.src;
+//                  }
+    });
+
+    return JSON.stringify(array);
+}
 

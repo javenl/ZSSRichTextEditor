@@ -15,6 +15,7 @@
 #import "HRColorUtil.h"
 #import "ZSSTextView.h"
 #import "RecordView.h"
+#import "JsonSerialization.h"
 
 #define kActionSheetInsertImageTag 1001
 #define kActionSheetInsertVideoTag 1002
@@ -246,7 +247,7 @@ static Class hackishFixClass = Nil;
         }
         
         
-        [self setFooterHeight:44];
+//        [self setFooterHeight:44];
         [self setContentHeight:CGRectGetHeight(frame)];
         
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillShowNotification object:nil];
@@ -1239,6 +1240,18 @@ static Class hackishFixClass = Nil;
 
 - (void)debug:(NSString *)msg {
     [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"zss_editor.debug('%@');", msg]];
+}
+
+- (NSArray *)getLocalPaths {
+//    getLocalLinks
+    NSString *json = [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_extend.getAllImageLinks();"];
+    NSMutableArray *links = [NSMutableArray arrayWithArray:[json toJsonArray]];
+    for (NSString *link in links) {
+        if (![link hasPrefix:@"file://"]) {
+            [links removeObject:link];
+        }
+    }
+    return links;
 }
 
 
