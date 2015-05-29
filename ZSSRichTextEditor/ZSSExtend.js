@@ -2,6 +2,11 @@
 var zss_extend = {};
 
 zss_extend.insertImage = function (url, alt) {
+    zss_editor.restorerange();
+    var html = '<img src="'+url+'" alt="'+alt+'" style:"display:block; maxWidth:100%;"/>';
+    zss_editor.insertHTML(html);
+    zss_editor.enabledEditingItems();
+    /*
     zss_editor.debug('insert');
     var image = new Image();
     alt = alt || "";
@@ -22,9 +27,10 @@ zss_extend.insertImage = function (url, alt) {
         }
         image = null;
     };
+    */
 }
 
-
+/*
 zss_extend.insertImageWithClass = function(url, alt, scale) {
     zss_editor.restorerange();
 //    zss_editor.debug(scale);
@@ -37,7 +43,7 @@ zss_extend.insertImageWithClass = function(url, alt, scale) {
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();
 }
-
+*/
 zss_extend.showRange = function() {
     alert(document.getSelection().toString());
 }

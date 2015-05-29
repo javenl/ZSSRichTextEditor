@@ -1243,15 +1243,15 @@ static Class hackishFixClass = Nil;
 }
 
 - (NSArray *)getLocalPaths {
-//    getLocalLinks
     NSString *json = [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_extend.getAllImageLinks();"];
-    NSMutableArray *links = [NSMutableArray arrayWithArray:[json toJsonArray]];
-    for (NSString *link in links) {
-        if (![link hasPrefix:@"file://"]) {
-            [links removeObject:link];
+    NSArray *links = [NSMutableArray arrayWithArray:[json toJsonArray]];
+    NSMutableArray *loaclPaths = [NSMutableArray array];
+    [links enumerateObjectsUsingBlock:^(NSString *link, NSUInteger idx, BOOL *stop) {
+        if ([link hasPrefix:@"file://"]) {
+            [loaclPaths addObject:link];
         }
-    }
-    return links;
+    }];
+    return loaclPaths;
 }
 
 
