@@ -299,4 +299,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)enableToolbarItems:(BOOL)enable;
 
++ (NSArray *)localPathsInHtml:(NSString *)html;
+
++ (NSString *)getRawTextInHtml:(NSString *)html;
+
 @end

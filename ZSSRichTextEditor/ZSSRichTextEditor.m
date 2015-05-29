@@ -613,7 +613,7 @@ static Class hackishFixClass = Nil;
 #pragma mark - Editor Interaction
 
 - (void)focusTextEditor {
-    self.editorView.keyboardDisplayRequiresUserAction = NO;
+//    self.editorView.keyboardDisplayRequiresUserAction = NO;
     NSString *js = [NSString stringWithFormat:@"zss_editor.focusEditor();"];
     [self.editorView stringByEvaluatingJavaScriptFromString:js];
 }
@@ -1252,6 +1252,18 @@ static Class hackishFixClass = Nil;
         }
     }];
     return loaclPaths;
+}
+
++ (NSArray *)localPathsInHtml:(NSString *)html {
+    ZSSRichTextEditor *editor = [[ZSSRichTextEditor alloc] init];
+    [editor setHTML:html];
+    return [editor getLocalPaths];
+}
+
++ (NSString *)getRawTextInHtml:(NSString *)html {
+    ZSSRichTextEditor *editor = [[ZSSRichTextEditor alloc] init];
+    [editor setHTML:html];
+    return [editor getText];
 }
 
 
