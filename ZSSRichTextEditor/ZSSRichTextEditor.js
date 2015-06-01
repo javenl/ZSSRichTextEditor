@@ -591,8 +591,8 @@ zss_editor.enabledEditingItems = function(e) {
     }
     // Images
     $('img').bind('touchstart', function(e) {
-                  $('img').removeClass('zs_active');
-                  $(this).addClass('zs_active');
+//                  $('img').removeClass('zs_active');
+//                  $(this).addClass('zs_active');
                   });
     
     // Use jQuery to figure out those that are not supported
