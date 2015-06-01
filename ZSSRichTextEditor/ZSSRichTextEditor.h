@@ -65,6 +65,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 @property (nonatomic, strong) UIWebView *editorView;
 
+@property (nonatomic, strong) UIView *toolbarHolder;
+
 /**
  *  The base URL to use for the webView
  */
@@ -299,8 +301,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)enableToolbarItems:(BOOL)enable;
 
-+ (NSArray *)localPathsInHtml:(NSString *)html;
+//+ (NSArray *)localPathsInHtml:(NSString *)html;
 
-+ (NSString *)getRawTextInHtml:(NSString *)html;
+//+ (NSString *)getRawTextInHtml:(NSString *)html;
 
 @end

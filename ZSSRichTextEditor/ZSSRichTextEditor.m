@@ -90,7 +90,7 @@ static Class hackishFixClass = Nil;
 @interface ZSSRichTextEditor ()
 @property (nonatomic, strong) UIScrollView *toolBarScroll;
 @property (nonatomic, strong) UIToolbar *toolbar;
-@property (nonatomic, strong) UIView *toolbarHolder;
+
 @property (nonatomic, strong) NSString *htmlString;
 @property (nonatomic, strong) UIBarButtonItem *keyboardItem;
 @property (nonatomic, strong) ZSSTextView *sourceView;
@@ -125,7 +125,13 @@ static Class hackishFixClass = Nil;
     [super layoutSubviews];
     self.sourceView.frame = self.bounds;
     self.editorView.frame = self.bounds;
+    NSLog(@"%@", NSStringFromCGRect(self.editorView.frame));
+//    [self.editorView reload];
 //    [self setContentHeight:CGRectGetHeight(self.frame)];
+}
+
+- (id)init {
+    return [self initWithFrame:CGRectNull navigationController:nil];
 }
 
 - (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController {
@@ -142,7 +148,8 @@ static Class hackishFixClass = Nil;
         
         self.editorLoaded = NO;
         self.shouldShowKeyboard = YES;
-        self.formatHTML = YES;
+//        self.formatHTML = YES;
+        self.formatHTML = NO;
         
         self.enabledToolbarItems = [[NSArray alloc] init];
         
@@ -163,7 +170,7 @@ static Class hackishFixClass = Nil;
         self.editorView.delegate = self;
         self.editorView.hidesInputAccessoryView = YES;
 //        self.editorView.keyboardDisplayRequiresUserAction = NO;
-//        self.editorView.scalesPageToFit = YES;
+        self.editorView.scalesPageToFit = YES;
 //        self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 //        self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
         self.editorView.scrollView.bounces = NO;
@@ -649,7 +656,6 @@ static Class hackishFixClass = Nil;
     html = [self tidyHTML:html];
     return html;
 }
-
 
 - (void)insertHTML:(NSString *)html {
     NSString *cleanedHTML = [self removeQuotesFromHTML:html];
@@ -1253,19 +1259,21 @@ static Class hackishFixClass = Nil;
     }];
     return loaclPaths;
 }
-
+/*
 + (NSArray *)localPathsInHtml:(NSString *)html {
     ZSSRichTextEditor *editor = [[ZSSRichTextEditor alloc] init];
     [editor setHTML:html];
+    [editor updateHTML];
     return [editor getLocalPaths];
 }
 
 + (NSString *)getRawTextInHtml:(NSString *)html {
     ZSSRichTextEditor *editor = [[ZSSRichTextEditor alloc] init];
     [editor setHTML:html];
+    [editor updateHTML];
     return [editor getText];
 }
-
+*/
 
 #pragma mark - UITextView Delegate
 
@@ -1359,7 +1367,7 @@ static Class hackishFixClass = Nil;
         NSString *fileName = [NSString stringWithFormat:@"%f.%@", [[NSDate date] timeIntervalSince1970], @"jpg"];
         NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
         UIImage *image = info[UIImagePickerControllerOriginalImage];
-        NSData *webData = UIImageJPEGRepresentation(image, 1);
+        NSData *webData = UIImageJPEGRepresentation(image, 0.5);
         [webData writeToFile:filePath atomically:YES];
         
         NSURL *url = [NSURL fileURLWithPath:filePath];

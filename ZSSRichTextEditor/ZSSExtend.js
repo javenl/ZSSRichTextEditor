@@ -3,7 +3,7 @@ var zss_extend = {};
 
 zss_extend.insertImage = function (url, alt) {
     zss_editor.restorerange();
-    var html = '<img src="'+url+'" alt="'+alt+'" style:"display:block; maxWidth:100%;"/>';
+    var html = '<img src="'+url+'" alt="'+alt+'" style="display:block; maxWidth:100%;"/>';
     zss_editor.insertHTML(html);
     zss_editor.enabledEditingItems();
     /*
