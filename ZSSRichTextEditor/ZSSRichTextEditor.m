@@ -677,13 +677,13 @@ static Class hackishFixClass = Nil;
         self.sourceView.hidden = NO;
         barButtonItem.tintColor = [UIColor blackColor];
         self.editorView.hidden = YES;
-        [self enableToolbarItems:NO];
+//        [self enableToolbarItems:NO];
     } else {
         [self setHTML:self.sourceView.text];
         barButtonItem.tintColor = [self barButtonItemDefaultColor];
         self.sourceView.hidden = YES;
         self.editorView.hidden = NO;
-        [self enableToolbarItems:YES];
+//        [self enableToolbarItems:YES];
     }
 }
 

@@ -2,34 +2,51 @@
 var zss_extend = {};
 
 zss_extend.insertImage = function (url, alt) {
+    
+    var range;
+    var select;
+    var nextNode;
+    var html = '<img src="'+url+'" alt="'+alt+'" style="display:block; max-width:100%;"/>';
+    
     zss_editor.restorerange();
-    var html = '<img src="'+url+'" alt="'+alt+'" style="display:block; maxWidth:100%;"/>';
+    
+    select = window.getSelection();
+    if ( document.TEXT_NODE == select.baseNode.nodeType) {
+        html = "<div>" + html + "</div>";
+    }
+    
     zss_editor.insertHTML(html);
+    
+    range = window.getSelection().getRangeAt(0);
+    nextNode = range.endContainer.nextSibling;
+    
+    console.log(range, nextNode);
+    
+    if (nextNode) {
+        zss_editor.currentSelection = {
+            "startContainer": nextNode,
+            "startOffset": 0,
+            "endContainer": nextNode,
+            "endOffset": 0
+        };
+        zss_editor.restorerange();
+    }
+    
     zss_editor.enabledEditingItems();
-    /*
-    zss_editor.debug('insert');
-    var image = new Image();
-    alt = alt || "";
-    image.src = url;
-    if (image.complete) {
-        __onload__();
-    }
-    else {
-        image.onload = __onload__;
-    }
-//    zss_editor.debug('insert');
-    function __onload__() {
-        var width = image.width;
-        if (width >= $("#zss_editor_content").width()) {
-            zss_extend.insertImageWithClass(url, alt, true);
-        } else {
-            zss_extend.insertImageWithClass(url, alt, false);
-        }
-        image = null;
-    };
-    */
 }
 
+
+/*
+zss_extend.insertImage = function (url, alt) {
+    zss_editor.restorerange();
+//    </br></br></br>
+    var html = '<img src="'+url+'" alt="'+alt+'" style="display:block; max-width:100%;"/> <div></br></div> <div></br></div>';
+    zss_editor.insertHTML(html);
+    zss_editor.enabledEditingItems();
+//    zss_extend.restorerange();
+//    zss_editor.focusEditor();
+}
+*/
 /*
 zss_extend.insertImageWithClass = function(url, alt, scale) {
     zss_editor.restorerange();
@@ -90,5 +107,14 @@ zss_extend.getAllImageLinks = function() {
     });
 
     return JSON.stringify(array);
+}
+
+zss_extend.restorerange = function(){
+    var selection = window.getSelection();
+    selection.removeAllRanges();
+    var range = document.createRange();
+    range.setStart(zss_editor.currentSelection.startContainer, zss_editor.currentSelection.startOffset);
+    range.setEnd(zss_editor.currentSelection.endContainer, zss_editor.currentSelection.endOffset);
+    selection.addRange(range);
 }
 
