@@ -119,10 +119,10 @@
 		5A0F54FD1B00A726002247BB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */; };
 		5A0F54FF1B00A791002247BB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */; };
 		5A3782D81B0EFABB003DA265 /* test.htm in Resources */ = {isa = PBXBuildFile; fileRef = 5A3782D71B0EFABB003DA265 /* test.htm */; };
-		5A3CD2BA1B0D767100E605F4 /* MaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3CD2B91B0D767100E605F4 /* MaskView.m */; };
+		5A3CD2BA1B0D767100E605F4 /* ZSSMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3CD2B91B0D767100E605F4 /* ZSSMaskView.m */; };
 		5A830E001B0B3FBB001DE206 /* ZSSDemoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */; };
 		5A830E021B0B4045001DE206 /* test_mp3.htm in Resources */ = {isa = PBXBuildFile; fileRef = 5A830E011B0B4045001DE206 /* test_mp3.htm */; };
-		5A99E19F1B0C925000B1633A /* RecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E19E1B0C925000B1633A /* RecordView.m */; };
+		5A99E19F1B0C925000B1633A /* ZSSRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E19E1B0C925000B1633A /* ZSSRecordView.m */; };
 		5A99E1B01B0C9EAC00B1633A /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E1A81B0C9EAC00B1633A /* UIActionSheet+Blocks.m */; };
 		5A99E1B11B0C9EAC00B1633A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E1AA1B0C9EAC00B1633A /* UIAlertView+Blocks.m */; };
 		5A99E1B21B0C9EAC00B1633A /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A99E1AD1B0C9EAC00B1633A /* libmp3lame.a */; };
@@ -271,13 +271,13 @@
 		5A0F54FC1B00A725002247BB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5A3782D71B0EFABB003DA265 /* test.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.htm; sourceTree = "<group>"; };
-		5A3CD2B81B0D767100E605F4 /* MaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskView.h; sourceTree = "<group>"; };
-		5A3CD2B91B0D767100E605F4 /* MaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskView.m; sourceTree = "<group>"; };
+		5A3CD2B81B0D767100E605F4 /* ZSSMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSMaskView.h; sourceTree = "<group>"; };
+		5A3CD2B91B0D767100E605F4 /* ZSSMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSMaskView.m; sourceTree = "<group>"; };
 		5A830DFE1B0B3FBB001DE206 /* ZSSDemoWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSDemoWebViewController.h; sourceTree = "<group>"; };
 		5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSDemoWebViewController.m; sourceTree = "<group>"; };
 		5A830E011B0B4045001DE206 /* test_mp3.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test_mp3.htm; sourceTree = "<group>"; };
-		5A99E19D1B0C925000B1633A /* RecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordView.h; sourceTree = "<group>"; };
-		5A99E19E1B0C925000B1633A /* RecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordView.m; sourceTree = "<group>"; };
+		5A99E19D1B0C925000B1633A /* ZSSRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRecordView.h; sourceTree = "<group>"; };
+		5A99E19E1B0C925000B1633A /* ZSSRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSRecordView.m; sourceTree = "<group>"; };
 		5A99E1A71B0C9EAC00B1633A /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
 		5A99E1A81B0C9EAC00B1633A /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
 		5A99E1A91B0C9EAC00B1633A /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
@@ -433,10 +433,10 @@
 				4513B3D7184E8F5100A9CA86 /* ZSSBarButtonItem.m */,
 				4552C48F189A094C004EF847 /* ZSSTextView.h */,
 				4552C490189A094C004EF847 /* ZSSTextView.m */,
-				5A3CD2B81B0D767100E605F4 /* MaskView.h */,
-				5A3CD2B91B0D767100E605F4 /* MaskView.m */,
-				5A99E19D1B0C925000B1633A /* RecordView.h */,
-				5A99E19E1B0C925000B1633A /* RecordView.m */,
+				5A3CD2B81B0D767100E605F4 /* ZSSMaskView.h */,
+				5A3CD2B91B0D767100E605F4 /* ZSSMaskView.m */,
+				5A99E19D1B0C925000B1633A /* ZSSRecordView.h */,
+				5A99E19E1B0C925000B1633A /* ZSSRecordView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -750,7 +750,7 @@
 				4581EB8C1848457A0048CAB0 /* main.m in Sources */,
 				45A0CA3C18A8521600F3F35E /* CYRTextStorage.m in Sources */,
 				2343B1DD199B34B500349048 /* ZSSDemoColorViewController.m in Sources */,
-				5A99E19F1B0C925000B1633A /* RecordView.m in Sources */,
+				5A99E19F1B0C925000B1633A /* ZSSRecordView.m in Sources */,
 				4581EB901848457A0048CAB0 /* ZSSAppDelegate.m in Sources */,
 				45A0CA3E18A8521600F3F35E /* CYRToken.m in Sources */,
 				4581EBBB184B0F5C0048CAB0 /* ZSSRichTextEditor.m in Sources */,
@@ -761,7 +761,7 @@
 				45A0CA3D18A8521600F3F35E /* CYRTextView.m in Sources */,
 				45A0CA3B18A8521600F3F35E /* CYRLayoutManager.m in Sources */,
 				45A0CA4E18A8522A00F3F35E /* HRColorCursor.m in Sources */,
-				5A3CD2BA1B0D767100E605F4 /* MaskView.m in Sources */,
+				5A3CD2BA1B0D767100E605F4 /* ZSSMaskView.m in Sources */,
 				4581EBB81848F8190048CAB0 /* ZSSDemoViewController.m in Sources */,
 				45F80458189B1E9300A1EDD9 /* ZSSDemoPickerViewController.m in Sources */,
 				4513B3D8184E8F5100A9CA86 /* ZSSBarButtonItem.m in Sources */,

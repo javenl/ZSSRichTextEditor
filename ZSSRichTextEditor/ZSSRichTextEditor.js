@@ -56,24 +56,24 @@ zss_editor.init = function() {
 //                 });
     
     // Make sure that when we tap anywhere in the document we focus on the editor
-    /*
+    
     $(window).on('touchmove', function(e) {
                  zss_editor.isDragging = true;
-                 zss_editor.updateScrollOffset = true;
-                 zss_editor.setScrollPosition();
+                 /*zss_editor.updateScrollOffset = true;
+                 zss_editor.setScrollPosition();*/
                  });
-    */
+    
     $(window).on('touchstart', function(e) {
-//                 zss_editor.isDragging = false;
+                 zss_editor.isDragging = false;
                  zss_editor.calculateEditorHeightWithCaretPosition;
                  });
-    /*
+    
     $(window).on('touchend', function(e) {
                  if (!zss_editor.isDragging) {
                  zss_editor.focusEditor();
                  }
                  });
-    */
+    
 }//end
 
 zss_editor.updateOffset = function() {

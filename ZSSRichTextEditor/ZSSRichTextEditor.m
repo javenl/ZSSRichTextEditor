@@ -14,7 +14,7 @@
 #import "ZSSBarButtonItem.h"
 #import "HRColorUtil.h"
 #import "ZSSTextView.h"
-#import "RecordView.h"
+#import "ZSSRecordView.h"
 #import "JsonSerialization.h"
 
 #define kActionSheetInsertImageTag 1001
@@ -1057,7 +1057,7 @@ static Class hackishFixClass = Nil;
 //    [maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapMask)]];
 //    [self.view.window addSubview:maskView];
     
-    [RecordView showInView:self.window finish:^(NSString *path) {
+    [ZSSRecordView showInView:self.window finish:^(NSString *path) {
         [self insertMP3:[NSURL fileURLWithPath:path].absoluteString];
     }];
 //    recordView.center = CGPointMake(self.view.window.center.x, CGRectGetHeight(self.view.window.frame) - CGRectGetHeight(recordView.frame));

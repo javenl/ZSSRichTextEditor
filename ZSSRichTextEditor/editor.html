@@ -792,7 +792,13 @@ function style_html(html_source, options) {
 
   <style type="text/css">
       * {outline: 0px solid transparent; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-touch-callout: none;}
-      html, body {padding:0; margin:0; font-family:Arial, Helvetica, sans-serif;}
+      html, body {
+          padding:0;
+          margin:0;
+          font-family:Arial, Helvetica, sans-serif;
+          /*height: 100%;*/
+          /*box-sizing: border-box;*/
+      }
       body {padding:10px; overflow-y: scroll; -webkit-overflow-scrolling: touch; height:100%;}
       /* img.fullscreen { width: 100%; box-sizing: border-box; } */
       img.zs_active {border: 2px dashed #000;}
@@ -800,10 +806,25 @@ function style_html(html_source, options) {
       img {max-width: 100%;}
 	</style>
   </head>
-  <body onLoad="zss_editor.init();">
-      <div id="zss_editor_content" style="width: 100%; height: 100%;" contenteditable="true"></div>
-      <div></div>
+  <body>
+      
+      <div id="zss_editor_content" style="width: 100%; height: 100%;" contenteditable="true">
+          <div><br/></div>
+          
+      </div>
+      <div><br/></div>
       <div id="zss_editor_footer"> </div>
+      
+      <script type="text/javascript">
+          window.onload = function () {
+              zss_editor.init();
+              //zss_editor.insertHTML("<div>werewrq<br></div>");
+              //alert('ets');
+              //document.execCommand('insertHTML', false, 'wnfhicnwoqneoir');
+              //$("#zss_editor_content").html("<div><br></div>").focus();
+              
+          };
+      </script>
   </body>
 
 

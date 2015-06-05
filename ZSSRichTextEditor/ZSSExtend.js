@@ -8,12 +8,13 @@ zss_extend.insertImage = function (url, alt) {
     var nextNode;
     var html = '<img src="'+url+'" alt="'+alt+'" style="display:block; max-width:100%;"/>';
     
-    zss_editor.restorerange();
+//    zss_editor.restorerange();
     
     select = window.getSelection();
     if ( document.TEXT_NODE == select.baseNode.nodeType) {
         html = "<div>" + html + "</div>";
     }
+//    alert(html);
     
     zss_editor.insertHTML(html);
     
@@ -29,7 +30,12 @@ zss_extend.insertImage = function (url, alt) {
             "endContainer": nextNode,
             "endOffset": 0
         };
-        zss_editor.restorerange();
+//        zss_editor.restorerange();
+    }
+    else {
+        html = "<div><br/></div> <div><br/></div>";
+//        alert("<div><br></div>");
+        zss_editor.insertHTML(html);
     }
     
     zss_editor.enabledEditingItems();
