@@ -105,6 +105,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 @property (nonatomic, strong) UINavigationController *navigationController;
 
+@property (nonatomic, strong) NSString *tmpDir;
+
 - (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate;
 
 /**

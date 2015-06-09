@@ -1365,7 +1365,7 @@ static Class hackishFixClass = Nil;
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *) kUTTypeImage] || [mediaType isEqualToString:ALAssetTypePhoto]) {
         NSString *fileName = [NSString stringWithFormat:@"%f.%@", [[NSDate date] timeIntervalSince1970], @"jpg"];
-        NSString *filePath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+        NSString *filePath = [self.tmpDir stringByAppendingPathComponent:fileName];
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         NSData *webData = UIImageJPEGRepresentation(image, 0.5);
         [webData writeToFile:filePath atomically:YES];
@@ -1650,6 +1650,15 @@ static Class hackishFixClass = Nil;
 
 - (void)removeToolbar {
     [self.toolbarHolder removeFromSuperview];
+}
+
+#pragma mark - Properties
+
+- (NSString *)tmpDir {
+    if (!_tmpDir) {
+        _tmpDir = NSTemporaryDirectory();
+    }
+    return _tmpDir;
 }
 
 
