@@ -37,13 +37,14 @@ zss_editor.updateScrollOffset = false;
  * The initializer function that must be called onLoad
  */
 zss_editor.init = function() {
+
     
     $('#zss_editor_content').on('touchend', function(e) {
                                 zss_editor.enabledEditingItems(e);
-                                var clicked = $(e.target);
-                                if (!clicked.hasClass('zs_active')) {
-                                $('img').removeClass('zs_active');
-                                }
+//                                var clicked = $(e.target);
+//                                if (!clicked.hasClass('zs_active')) {
+//                                $('img').removeClass('zs_active');
+//                                }
                                 });
     
     $(document).on('selectionchange',function(e){
@@ -59,9 +60,10 @@ zss_editor.init = function() {
     
     $(window).on('touchmove', function(e) {
                  zss_editor.isDragging = true;
-                 /*zss_editor.updateScrollOffset = true;
-                 zss_editor.setScrollPosition();*/
+                 //zss_editor.updateScrollOffset = true;
+                 //zss_editor.setScrollPosition();
                  });
+    
     
     $(window).on('touchstart', function(e) {
                  zss_editor.isDragging = false;
@@ -70,7 +72,7 @@ zss_editor.init = function() {
     
     $(window).on('touchend', function(e) {
                  if (!zss_editor.isDragging) {
-                 zss_editor.focusEditor();
+                    zss_editor.focusEditor();
                  }
                  });
     
@@ -106,8 +108,8 @@ zss_editor.debug = function(msg) {
 
 
 zss_editor.setScrollPosition = function() {
-    var position = window.pageYOffset;
-    window.location = 'scroll://'+position;
+//    var position = window.pageYOffset;
+//    window.location = 'scroll://'+position;
 }
 
 
@@ -641,7 +643,7 @@ zss_editor.enabledEditingItems = function(e) {
         }
         
     }
-    
+    /*
     if (items.length > 0) {
         if (zss_editor.isUsingiOS) {
             //window.location = "zss-callback/"+items.join(',');
@@ -656,7 +658,7 @@ zss_editor.enabledEditingItems = function(e) {
             console.log("callback://");
         }
     }
-    
+    */
 }
 
 zss_editor.focusEditor = function() {
@@ -670,6 +672,7 @@ zss_editor.focusEditor = function() {
     var selection = window.getSelection();
     selection.removeAllRanges();
     selection.addRange(range);
+//    alert(editor);
     editor.focus();
 }
 

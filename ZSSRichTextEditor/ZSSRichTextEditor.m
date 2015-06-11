@@ -147,7 +147,7 @@ static Class hackishFixClass = Nil;
         self.frame = frame;
         
         self.editorLoaded = NO;
-        self.shouldShowKeyboard = YES;
+//        self.shouldShowKeyboard = YES;
         self.formatHTML = YES;
 //        self.formatHTML = NO;
         
@@ -169,7 +169,7 @@ static Class hackishFixClass = Nil;
         self.editorView = [[UIWebView alloc] initWithFrame:frame];
         self.editorView.delegate = self;
         self.editorView.hidesInputAccessoryView = YES;
-//        self.editorView.keyboardDisplayRequiresUserAction = NO;
+        self.editorView.keyboardDisplayRequiresUserAction = NO;
         self.editorView.scalesPageToFit = YES;
 //        self.editorView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 //        self.editorView.dataDetectorTypes = UIDataDetectorTypeNone;
@@ -621,6 +621,7 @@ static Class hackishFixClass = Nil;
 
 - (void)focusTextEditor {
 //    self.editorView.keyboardDisplayRequiresUserAction = NO;
+//    NSString *js = @"var editor = $('#zss_editor_content'); editor.focus();";
     NSString *js = [NSString stringWithFormat:@"zss_editor.focusEditor();"];
     [self.editorView stringByEvaluatingJavaScriptFromString:js];
 }
@@ -1327,17 +1328,24 @@ static Class hackishFixClass = Nil;
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    self.editorLoaded = YES;
+    
     //[self setPlaceholderText];
-    if (!self.internalHTML) {
-        self.internalHTML = @"";
+    if (!self.editorLoaded) {
+        if (!self.internalHTML) {
+            self.internalHTML = @"";
+        }
+        
+        [self updateHTML];
+        if (self.shouldShowKeyboard) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self focusTextEditor];
+            });
+        }
+        self.editorLoaded = YES;
     }
-    [self updateHTML];
-    if (self.shouldShowKeyboard) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self focusTextEditor];
-        });
-    }
+
+    
+    
 }
 
 #pragma mark UIActionSheetDelegate

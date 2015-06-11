@@ -127,6 +127,7 @@
 		5A99E1B11B0C9EAC00B1633A /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E1AA1B0C9EAC00B1633A /* UIAlertView+Blocks.m */; };
 		5A99E1B21B0C9EAC00B1633A /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A99E1AD1B0C9EAC00B1633A /* libmp3lame.a */; };
 		5A99E1B31B0C9EAC00B1633A /* MP3Converter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E1AF1B0C9EAC00B1633A /* MP3Converter.m */; };
+		5AB4CBDA1B29481A0057E7EF /* editor_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 5AB4CBD91B29481A0057E7EF /* editor_test.html */; };
 		5AF662201B16EC3E00581399 /* JsonSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6621F1B16EC3E00581399 /* JsonSerialization.m */; };
 /* End PBXBuildFile section */
 
@@ -286,6 +287,7 @@
 		5A99E1AD1B0C9EAC00B1633A /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		5A99E1AE1B0C9EAC00B1633A /* MP3Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MP3Converter.h; sourceTree = "<group>"; };
 		5A99E1AF1B0C9EAC00B1633A /* MP3Converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MP3Converter.m; sourceTree = "<group>"; };
+		5AB4CBD91B29481A0057E7EF /* editor_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor_test.html; sourceTree = "<group>"; };
 		5AF6621E1B16EC3E00581399 /* JsonSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonSerialization.h; sourceTree = "<group>"; };
 		5AF6621F1B16EC3E00581399 /* JsonSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonSerialization.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -523,6 +525,7 @@
 				5A3782D71B0EFABB003DA265 /* test.htm */,
 				5A830E011B0B4045001DE206 /* test_mp3.htm */,
 				23A76DC2187532F1000169F6 /* editor.html */,
+				5AB4CBD91B29481A0057E7EF /* editor_test.html */,
 				23A76DC3187532F1000169F6 /* ZSSRichTextEditor.js */,
 				5A0C3DC51B01DBCF001C225B /* ZSSExtend.js */,
 				4562858E184CFBE400B6168E /* Images */,
@@ -645,6 +648,7 @@
 				45F73D3818D7AE9700CD6DBA /* ZSSindent.png in Resources */,
 				5A3782D81B0EFABB003DA265 /* test.htm in Resources */,
 				45F73D3A18D7AE9700CD6DBA /* ZSSkeyboard.png in Resources */,
+				5AB4CBDA1B29481A0057E7EF /* editor_test.html in Resources */,
 				45F73D3118D7AE9700CD6DBA /* ZSSh2.png in Resources */,
 				45F73D3F18D7AE9700CD6DBA /* ZSSparagraph.png in Resources */,
 				23A76DC61875345B000169F6 /* ZSSRichTextEditor.js in Resources */,
