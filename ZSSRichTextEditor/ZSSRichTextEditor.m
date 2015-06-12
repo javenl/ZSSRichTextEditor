@@ -1299,7 +1299,7 @@ static Class hackishFixClass = Nil;
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlString = [[request URL] absoluteString];
     NSLog(@"web request");
-    NSLog(@"%@", urlString);
+    NSLog(@"urlString %@", urlString);
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         return NO;
     } else if ([urlString rangeOfString:@"callback://0/"].location != NSNotFound) {
@@ -1547,6 +1547,7 @@ static Class hackishFixClass = Nil;
             // Provide editor with keyboard height and editor view height
 //            [self setFooterHeight:(keyboardHeight - 8)];
 //            [self setFooterHeight:toolbarHeight];
+            [self setFooterHeight:50];
             [self setContentHeight: self.editorViewFrame.size.height];
             
         } completion:nil];

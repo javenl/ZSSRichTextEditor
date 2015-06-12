@@ -28,7 +28,7 @@ zss_editor.currentEditingLink;
 zss_editor.enabledItems = {};
 
 // Height of content window, will be set by viewController
-zss_editor.contentHeight = 244;
+zss_editor.contentHeight = 180; // 244;
 
 // Sets to true when extra footer gap shows and requires to hide
 zss_editor.updateScrollOffset = false;
@@ -52,16 +52,16 @@ zss_editor.init = function() {
                    zss_editor.setScrollPosition();
                    });
     
-//    $(window).on('scroll', function(e) {
-//                 zss_editor.updateOffset();
-//                 });
+    $(window).on('scroll', function(e) {
+                 zss_editor.updateOffset();
+                 });
     
     // Make sure that when we tap anywhere in the document we focus on the editor
     
     $(window).on('touchmove', function(e) {
                  zss_editor.isDragging = true;
-                 //zss_editor.updateScrollOffset = true;
-                 //zss_editor.setScrollPosition();
+                 zss_editor.updateScrollOffset = true;
+                 zss_editor.setScrollPosition();
                  });
     
     
@@ -144,6 +144,36 @@ zss_editor.setFooterHeight = function(footerHeight) {
 
 zss_editor.getCaretYPosition = function() {
     
+    try {
+        var sel = window.getSelection();
+        // Next line is comented to prevent deselecting selection. It looks like work but if there are any issues will appear then uconmment it as well as code above.
+        //sel.collapseToStart();
+        var range  = sel.getRangeAt(0);
+        var rangeRects = range.getClientRects();
+        var scrollTop = window.document.body.scrollTop;
+        var topPosition = 0;
+        
+        if (rangeRects.length) {
+            topPosition = scrollTop + rangeRects[0].top;
+        }
+        else {
+            var span = document.createElement('span');// something happening here preventing selection of elements
+            range.insertNode(span);
+            topPosition = span.offsetTop;
+            span.parentNode.removeChild(span);
+        }
+        
+        return topPosition;
+        
+    }
+    catch (err) {
+        setTimeout(function () {
+                   zss_editor.debug(err.message);
+                   });
+        return window.document.body.scrollTop;
+    }
+    
+    /*
     var sel = window.getSelection();
     var baseNode = sel.baseNode;
     var pos;
@@ -159,6 +189,7 @@ zss_editor.getCaretYPosition = function() {
     }
     
     return pos + 64;
+    */
     /*
     var sel = window.getSelection();
     // Next line is comented to prevent deselecting selection. It looks like work but if there are any issues will appear then uconmment it as well as code above.

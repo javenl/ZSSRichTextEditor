@@ -303,6 +303,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)enableToolbarItems:(BOOL)enable;
 
+- (void)setFooterHeight:(float)footerHeight;
+
 //+ (NSArray *)localPathsInHtml:(NSString *)html;
 
 //+ (NSString *)getRawTextInHtml:(NSString *)html;
