@@ -50,6 +50,19 @@ zss_editor.init = function() {
     $(document).on('selectionchange',function(e){
                    zss_editor.calculateEditorHeightWithCaretPosition();
                    zss_editor.setScrollPosition();
+                   zss_editor.enabledEditingItems(e);
+                   
+//                   zss_editor.debug("change");
+//                   if (editor.is(":focus")) {
+//                       ZSSEditor.selectionChangedCallback();
+//                       ZSSEditor.sendEnabledStyles(e);
+                   
+//                       var clicked = $(e.target);
+//                       if (!clicked.hasClass('zs_active')) {
+//                           $('img').removeClass('zs_active');
+//                       }
+//                   }
+                   
                    });
     
     $(window).on('scroll', function(e) {
@@ -577,7 +590,8 @@ zss_editor.isCommandEnabled = function(commandName) {
 
 zss_editor.enabledEditingItems = function(e) {
     
-    console.log('enabledEditingItems');
+//    zss_editor.debug('enabledEditingItems');
+//    console.log('enabledEditingItems');
     var items = [];
     if (zss_editor.isCommandEnabled('bold')) {
         items.push('bold');
@@ -636,6 +650,7 @@ zss_editor.enabledEditingItems = function(e) {
         var nodeName = e.target.nodeName.toLowerCase();
         
         // Background Color
+        /*
         var bgColor = t.css('backgroundColor');
         if (bgColor.length != 0 && bgColor != 'rgba(0, 0, 0, 0)' && bgColor != 'rgb(0, 0, 0)' && bgColor != 'transparent') {
             items.push('backgroundColor');
@@ -645,6 +660,7 @@ zss_editor.enabledEditingItems = function(e) {
         if (textColor.length != 0 && textColor != 'rgba(0, 0, 0, 0)' && textColor != 'rgb(0, 0, 0)' && textColor != 'transparent') {
             items.push('textColor');
         }
+        */
         // Link
         if (nodeName == 'a') {
             zss_editor.currentEditingLink = t;
@@ -674,22 +690,23 @@ zss_editor.enabledEditingItems = function(e) {
         }
         
     }
-    /*
+    
+//    zss_editor.isUsingiOS = false;
     if (items.length > 0) {
         if (zss_editor.isUsingiOS) {
-            //window.location = "zss-callback/"+items.join(',');
+//            window.location = "zss-callback/"+items.join(',');
             window.location = "callback://0/"+items.join(',');
         } else {
             console.log("callback://"+items.join(','));
         }
     } else {
         if (zss_editor.isUsingiOS) {
-            window.location = "zss-callback/";
+//            window.location = "zss-callback/";
         } else {
             console.log("callback://");
         }
     }
-    */
+    
 }
 
 zss_editor.focusEditor = function() {

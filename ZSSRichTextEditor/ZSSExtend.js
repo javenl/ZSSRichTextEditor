@@ -6,7 +6,7 @@ zss_extend.insertImage = function (url, alt) {
     var range;
     var select;
     var nextNode;
-    var html = '<img src="'+url+'" alt="'+alt+'" style="display:block; max-width:100%;"/>';
+    var html = '<img src="'+url+'" alt="'+alt+'" style="display:table; max-width:100%;"/>';
     
 //    zss_editor.restorerange();
     

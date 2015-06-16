@@ -54,6 +54,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 @optional
 - (UIButton *)keyboardButton;
 
+- (void)selectionChangeWithStyle:(NSString *)styleString;
+
 @end
 
 /**

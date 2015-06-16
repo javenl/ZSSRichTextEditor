@@ -1298,15 +1298,19 @@ static Class hackishFixClass = Nil;
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlString = [[request URL] absoluteString];
-    NSLog(@"web request");
-    NSLog(@"urlString %@", urlString);
+//    NSLog(@"web request");
+//    NSLog(@"urlString %@", urlString);
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         return NO;
     } else if ([urlString rangeOfString:@"callback://0/"].location != NSNotFound) {
         
         // We recieved the callback
-        NSString *className = [urlString stringByReplacingOccurrencesOfString:@"callback://0/" withString:@""];
-        [self updateToolBarWithButtonName:className];
+        NSString *styleString = [urlString stringByReplacingOccurrencesOfString:@"callback://0/" withString:@""];
+        [self updateToolBarWithButtonName:styleString];
+        
+        if ([self.delegate respondsToSelector:@selector(selectionChangeWithStyle:)]) {
+            [self.delegate selectionChangeWithStyle:styleString];
+        }
         
     } else if ([urlString rangeOfString:@"debug://"].location != NSNotFound) {
         
@@ -1420,7 +1424,6 @@ static Class hackishFixClass = Nil;
     
     
 }
-
 
 #pragma mark - AlertView
 
