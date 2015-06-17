@@ -26,18 +26,19 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "HRColorUtil.h"
+#import "HRHSVColorUtil.h"
 
-@interface HRColorCursor : UIView{
-    HRRGBColor _currentColor;
-}
+@protocol HRColorCursor
+@optional
+- (void)setEditing:(BOOL)editing;
+@end
 
+@interface HRColorCursor : UIView <HRColorCursor>
 
-+ (CGSize) cursorSize;
-+ (float) outlineSize;
-+ (float) shadowSize;
+@property (nonatomic, strong) UIColor *color;
 
-- (id)initWithPoint:(CGPoint)point;
-- (void)setColorRed:(float)red andGreen:(float)green andBlue:(float)blue;
++ (CGSize)cursorSize;
+
++ (HRColorCursor *)colorCursorWithPoint:(CGPoint)point;
 
 @end

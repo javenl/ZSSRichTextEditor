@@ -41,4 +41,8 @@ Pod::Spec.new do |s|
   s.frameworks = "CoreGraphics", "CoreText", "MobileCoreServices", "AssetsLibrary"
 
   s.requires_arc = true
+
+#s.dependency 'CYRTextView', '~> 0.4.0'
+#s.dependency 'MSColorPicker', '~> 0.2.1'
+
 end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HRColorPickerViewController.h"
+//#import "HRColorPickerViewController.h"
+#import "MSColorSelectionViewController.h"
+#import "MSColorPicker.h"
+#import "ZSSColorPicker.h"
 
 /**
  *  The types of toolbar items that can be added
@@ -61,7 +64,7 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 /**
  *  The viewController used with ZSSRichTextEditor
  */
-@interface ZSSRichTextEditor : UIView <UIWebViewDelegate, HRColorPickerViewControllerDelegate, UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
+@interface ZSSRichTextEditor : UIView <UIWebViewDelegate, UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, MSColorSelectionViewControllerDelegate, ZSSColorPickerDelegate>
 
 @property (nonatomic, weak)   id<ZSSRichTextEditorDelegate> delegate;
 

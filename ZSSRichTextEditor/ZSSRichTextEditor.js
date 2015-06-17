@@ -50,8 +50,7 @@ zss_editor.init = function() {
     $(document).on('selectionchange',function(e){
                    zss_editor.calculateEditorHeightWithCaretPosition();
                    zss_editor.setScrollPosition();
-                   zss_editor.enabledEditingItems(e);
-                   
+                   zss_extend.enabledEditingItems(e);
 //                   zss_editor.debug("change");
 //                   if (editor.is(":focus")) {
 //                       ZSSEditor.selectionChangedCallback();
@@ -650,17 +649,19 @@ zss_editor.enabledEditingItems = function(e) {
         var nodeName = e.target.nodeName.toLowerCase();
         
         // Background Color
-        /*
+        
         var bgColor = t.css('backgroundColor');
         if (bgColor.length != 0 && bgColor != 'rgba(0, 0, 0, 0)' && bgColor != 'rgb(0, 0, 0)' && bgColor != 'transparent') {
-            items.push('backgroundColor');
+            bgColor = zss_extend.RGBToHex(bgColor);
+            items.push('backgroundColor:'+bgColor);
         }
         // Text Color
         var textColor = t.css('color');
         if (textColor.length != 0 && textColor != 'rgba(0, 0, 0, 0)' && textColor != 'rgb(0, 0, 0)' && textColor != 'transparent') {
-            items.push('textColor');
+            textColor = zss_extend.RGBToHex(textColor);
+            items.push('textColor:'+textColor);
         }
-        */
+        
         // Link
         if (nodeName == 'a') {
             zss_editor.currentEditingLink = t;
@@ -706,7 +707,7 @@ zss_editor.enabledEditingItems = function(e) {
             console.log("callback://");
         }
     }
-    
+    return items;
 }
 
 zss_editor.focusEditor = function() {
@@ -727,3 +728,5 @@ zss_editor.focusEditor = function() {
 zss_editor.blurEditor = function() {
     $('#zss_editor_content').blur();
 }//end
+
+

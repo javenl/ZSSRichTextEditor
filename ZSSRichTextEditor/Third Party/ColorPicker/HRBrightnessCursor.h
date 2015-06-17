@@ -25,9 +25,10 @@
  * $FreeBSD$
  */
 
-#import "HRColorUtil.h"
+#import <UIKit/UIKit.h>
 
-// 角丸のパスをセット
-void HRSetRoundedRectanglePath(CGContextRef context,const CGRect rect,CGFloat radius);
-// かっこいい角丸の四角を描きます。色付き。
-void HRDrawSquareColorBatch(CGContextRef context,CGPoint position,HRRGBColor* color,float size);
+@interface HRBrightnessCursor : UIView
+@property (nonatomic, strong) UIColor *color;
+@property (nonatomic) BOOL editing;
+@end
+

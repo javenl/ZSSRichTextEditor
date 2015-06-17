@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2012 Ryota Hayashi
+ * Copyright (c) 2011 Ryota Hayashi
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,13 +25,17 @@
  * $FreeBSD$
  */
 
-#ifndef HRColorPickerMacros_h
-#define HRColorPickerMacros_h
+/////////////////////////////////////////////////////////////////////////////
+//
+// 0.0f~1.0fの値をとるHSVの構造体です
+//
+/////////////////////////////////////////////////////////////////////////////
 
-#if !__has_feature(objc_arc_weak)
-#define weak    unsafe_unretained
-#undef __weak
-#define __weak  __unsafe_unretained
-#endif
+typedef struct {
+    CGFloat h;
+    CGFloat s;
+    CGFloat v;
+} HRHSVColor;
 
-#endif
+void HSVColorFromUIColor(UIColor *, HRHSVColor *outHSV);
+

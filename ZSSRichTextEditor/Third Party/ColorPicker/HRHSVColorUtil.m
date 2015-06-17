@@ -25,10 +25,10 @@
  * $FreeBSD$
  */
 
-#import <UIKit/UIKit.h>
+#import "HRHSVColorUtil.h"
 
-@interface HRBrightnessCursor : UIView
+void HSVColorFromUIColor(UIColor *uiColor, HRHSVColor *hsv) {
+    CGFloat alpha;
+    [uiColor getHue:&hsv->h saturation:&hsv->s brightness:&hsv->v alpha:&alpha];
+}
 
-- (id)initWithPoint:(CGPoint)point;
-
-@end

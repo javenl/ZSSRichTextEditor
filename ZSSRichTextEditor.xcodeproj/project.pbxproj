@@ -32,16 +32,6 @@
 		4581EB901848457A0048CAB0 /* ZSSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581EB8F1848457A0048CAB0 /* ZSSAppDelegate.m */; };
 		4581EBB81848F8190048CAB0 /* ZSSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581EBB71848F8190048CAB0 /* ZSSDemoViewController.m */; };
 		4581EBBB184B0F5C0048CAB0 /* ZSSRichTextEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581EBBA184B0F5C0048CAB0 /* ZSSRichTextEditor.m */; };
-		45A0CA3B18A8521600F3F35E /* CYRLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA3418A8521600F3F35E /* CYRLayoutManager.m */; };
-		45A0CA3C18A8521600F3F35E /* CYRTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA3618A8521600F3F35E /* CYRTextStorage.m */; };
-		45A0CA3D18A8521600F3F35E /* CYRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA3818A8521600F3F35E /* CYRTextView.m */; };
-		45A0CA3E18A8521600F3F35E /* CYRToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA3A18A8521600F3F35E /* CYRToken.m */; };
-		45A0CA4C18A8522A00F3F35E /* HRBrightnessCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA4018A8522A00F3F35E /* HRBrightnessCursor.m */; };
-		45A0CA4D18A8522A00F3F35E /* HRCgUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA4218A8522A00F3F35E /* HRCgUtil.m */; };
-		45A0CA4E18A8522A00F3F35E /* HRColorCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA4418A8522A00F3F35E /* HRColorCursor.m */; };
-		45A0CA4F18A8522A00F3F35E /* HRColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA4718A8522A00F3F35E /* HRColorPickerView.m */; };
-		45A0CA5018A8522A00F3F35E /* HRColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA4918A8522A00F3F35E /* HRColorPickerViewController.m */; };
-		45A0CA5118A8522A00F3F35E /* HRColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A0CA4B18A8522A00F3F35E /* HRColorUtil.m */; };
 		45E38AB618AC3AA70079C928 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45E38AB518AC3AA70079C928 /* Default-568h@2x.png */; };
 		45F73D0718D7ADAE00CD6DBA /* ZSSpicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F73D0618D7ADAE00CD6DBA /* ZSSpicker@2x.png */; };
 		45F73D2B18D7AE9700CD6DBA /* ZSSbgcolor.png in Resources */ = {isa = PBXBuildFile; fileRef = 45F73D0818D7AE9700CD6DBA /* ZSSbgcolor.png */; };
@@ -120,6 +110,29 @@
 		5A0F54FF1B00A791002247BB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0F54FE1B00A791002247BB /* MobileCoreServices.framework */; };
 		5A3782D81B0EFABB003DA265 /* test.htm in Resources */ = {isa = PBXBuildFile; fileRef = 5A3782D71B0EFABB003DA265 /* test.htm */; };
 		5A3CD2BA1B0D767100E605F4 /* ZSSMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3CD2B91B0D767100E605F4 /* ZSSMaskView.m */; };
+		5A43692D1B3110570077433B /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A43692C1B3110570077433B /* UIColor+Hex.m */; };
+		5A43694C1B3128F10077433B /* ZSSColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A43694B1B3128F10077433B /* ZSSColorPicker.m */; };
+		5A43695E1B3129480077433B /* HRBrightnessCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A43694F1B3129480077433B /* HRBrightnessCursor.m */; };
+		5A43695F1B3129480077433B /* HRBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4369511B3129480077433B /* HRBrightnessSlider.m */; };
+		5A4369601B3129480077433B /* HRColorCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4369531B3129480077433B /* HRColorCursor.m */; };
+		5A4369611B3129480077433B /* HRColorInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4369551B3129480077433B /* HRColorInfoView.m */; };
+		5A4369621B3129480077433B /* HRColorMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4369571B3129480077433B /* HRColorMapView.m */; };
+		5A4369631B3129480077433B /* HRColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4369591B3129480077433B /* HRColorPickerView.m */; };
+		5A4369641B3129480077433B /* HRHSVColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A43695B1B3129480077433B /* HRHSVColorUtil.m */; };
+		5A4369651B3129480077433B /* UIImage+CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A43695D1B3129480077433B /* UIImage+CoreGraphics.m */; };
+		5A43696B1B312AEA0077433B /* HRColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A43696A1B312AEA0077433B /* HRColorUtil.m */; };
+		5A5656461B3021FE005FA42F /* CYRLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56561E1B3021FE005FA42F /* CYRLayoutManager.m */; };
+		5A5656471B3021FE005FA42F /* CYRTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656201B3021FE005FA42F /* CYRTextStorage.m */; };
+		5A5656481B3021FE005FA42F /* CYRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656221B3021FE005FA42F /* CYRTextView.m */; };
+		5A5656491B3021FE005FA42F /* CYRToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656241B3021FE005FA42F /* CYRToken.m */; };
+		5A5656501B3021FE005FA42F /* MSColorComponentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656351B3021FE005FA42F /* MSColorComponentView.m */; };
+		5A5656511B3021FE005FA42F /* MSColorSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656381B3021FE005FA42F /* MSColorSelectionView.m */; };
+		5A5656521B3021FE005FA42F /* MSColorSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56563A1B3021FE005FA42F /* MSColorSelectionViewController.m */; };
+		5A5656531B3021FE005FA42F /* MSColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56563C1B3021FE005FA42F /* MSColorUtils.m */; };
+		5A5656541B3021FE005FA42F /* MSColorWheelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A56563F1B3021FE005FA42F /* MSColorWheelView.m */; };
+		5A5656551B3021FE005FA42F /* MSHSBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656411B3021FE005FA42F /* MSHSBView.m */; };
+		5A5656561B3021FE005FA42F /* MSRGBView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656431B3021FE005FA42F /* MSRGBView.m */; };
+		5A5656571B3021FE005FA42F /* MSSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5656451B3021FE005FA42F /* MSSliderView.m */; };
 		5A830E001B0B3FBB001DE206 /* ZSSDemoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */; };
 		5A830E021B0B4045001DE206 /* test_mp3.htm in Resources */ = {isa = PBXBuildFile; fileRef = 5A830E011B0B4045001DE206 /* test_mp3.htm */; };
 		5A99E19F1B0C925000B1633A /* ZSSRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E19E1B0C925000B1633A /* ZSSRecordView.m */; };
@@ -173,27 +186,6 @@
 		4581EBB71848F8190048CAB0 /* ZSSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSDemoViewController.m; sourceTree = "<group>"; };
 		4581EBB9184B0F5C0048CAB0 /* ZSSRichTextEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSRichTextEditor.h; sourceTree = "<group>"; };
 		4581EBBA184B0F5C0048CAB0 /* ZSSRichTextEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSRichTextEditor.m; sourceTree = "<group>"; };
-		45A0CA3318A8521600F3F35E /* CYRLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRLayoutManager.h; path = "ZSSRichTextEditor/Third Party/CYRLayoutManager.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA3418A8521600F3F35E /* CYRLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRLayoutManager.m; path = "ZSSRichTextEditor/Third Party/CYRLayoutManager.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA3518A8521600F3F35E /* CYRTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRTextStorage.h; path = "ZSSRichTextEditor/Third Party/CYRTextStorage.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA3618A8521600F3F35E /* CYRTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRTextStorage.m; path = "ZSSRichTextEditor/Third Party/CYRTextStorage.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA3718A8521600F3F35E /* CYRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRTextView.h; path = "ZSSRichTextEditor/Third Party/CYRTextView.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA3818A8521600F3F35E /* CYRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRTextView.m; path = "ZSSRichTextEditor/Third Party/CYRTextView.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA3918A8521600F3F35E /* CYRToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYRToken.h; path = "ZSSRichTextEditor/Third Party/CYRToken.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA3A18A8521600F3F35E /* CYRToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYRToken.m; path = "ZSSRichTextEditor/Third Party/CYRToken.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA3F18A8522A00F3F35E /* HRBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRBrightnessCursor.h; path = "ZSSRichTextEditor/Third Party/HRBrightnessCursor.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA4018A8522A00F3F35E /* HRBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRBrightnessCursor.m; path = "ZSSRichTextEditor/Third Party/HRBrightnessCursor.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA4118A8522A00F3F35E /* HRCgUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRCgUtil.h; path = "ZSSRichTextEditor/Third Party/HRCgUtil.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA4218A8522A00F3F35E /* HRCgUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRCgUtil.m; path = "ZSSRichTextEditor/Third Party/HRCgUtil.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA4318A8522A00F3F35E /* HRColorCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorCursor.h; path = "ZSSRichTextEditor/Third Party/HRColorCursor.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA4418A8522A00F3F35E /* HRColorCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorCursor.m; path = "ZSSRichTextEditor/Third Party/HRColorCursor.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA4518A8522A00F3F35E /* HRColorPickerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorPickerMacros.h; path = "ZSSRichTextEditor/Third Party/HRColorPickerMacros.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA4618A8522A00F3F35E /* HRColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorPickerView.h; path = "ZSSRichTextEditor/Third Party/HRColorPickerView.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA4718A8522A00F3F35E /* HRColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorPickerView.m; path = "ZSSRichTextEditor/Third Party/HRColorPickerView.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA4818A8522A00F3F35E /* HRColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorPickerViewController.h; path = "ZSSRichTextEditor/Third Party/HRColorPickerViewController.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA4918A8522A00F3F35E /* HRColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorPickerViewController.m; path = "ZSSRichTextEditor/Third Party/HRColorPickerViewController.m"; sourceTree = SOURCE_ROOT; };
-		45A0CA4A18A8522A00F3F35E /* HRColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HRColorUtil.h; path = "ZSSRichTextEditor/Third Party/HRColorUtil.h"; sourceTree = SOURCE_ROOT; };
-		45A0CA4B18A8522A00F3F35E /* HRColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HRColorUtil.m; path = "ZSSRichTextEditor/Third Party/HRColorUtil.m"; sourceTree = SOURCE_ROOT; };
 		45E38AB518AC3AA70079C928 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		45F73D0618D7ADAE00CD6DBA /* ZSSpicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ZSSpicker@2x.png"; path = "Images/ZSSpicker@2x.png"; sourceTree = "<group>"; };
 		45F73D0818D7AE9700CD6DBA /* ZSSbgcolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZSSbgcolor.png; path = Images/ZSSbgcolor.png; sourceTree = "<group>"; };
@@ -274,6 +266,54 @@
 		5A3782D71B0EFABB003DA265 /* test.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.htm; sourceTree = "<group>"; };
 		5A3CD2B81B0D767100E605F4 /* ZSSMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSMaskView.h; sourceTree = "<group>"; };
 		5A3CD2B91B0D767100E605F4 /* ZSSMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSMaskView.m; sourceTree = "<group>"; };
+		5A43692B1B3110570077433B /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		5A43692C1B3110570077433B /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		5A43694A1B3128F10077433B /* ZSSColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSColorPicker.h; sourceTree = "<group>"; };
+		5A43694B1B3128F10077433B /* ZSSColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSColorPicker.m; sourceTree = "<group>"; };
+		5A43694E1B3129480077433B /* HRBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBrightnessCursor.h; sourceTree = "<group>"; };
+		5A43694F1B3129480077433B /* HRBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBrightnessCursor.m; sourceTree = "<group>"; };
+		5A4369501B3129480077433B /* HRBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBrightnessSlider.h; sourceTree = "<group>"; };
+		5A4369511B3129480077433B /* HRBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBrightnessSlider.m; sourceTree = "<group>"; };
+		5A4369521B3129480077433B /* HRColorCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorCursor.h; sourceTree = "<group>"; };
+		5A4369531B3129480077433B /* HRColorCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorCursor.m; sourceTree = "<group>"; };
+		5A4369541B3129480077433B /* HRColorInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorInfoView.h; sourceTree = "<group>"; };
+		5A4369551B3129480077433B /* HRColorInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorInfoView.m; sourceTree = "<group>"; };
+		5A4369561B3129480077433B /* HRColorMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorMapView.h; sourceTree = "<group>"; };
+		5A4369571B3129480077433B /* HRColorMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorMapView.m; sourceTree = "<group>"; };
+		5A4369581B3129480077433B /* HRColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorPickerView.h; sourceTree = "<group>"; };
+		5A4369591B3129480077433B /* HRColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorPickerView.m; sourceTree = "<group>"; };
+		5A43695A1B3129480077433B /* HRHSVColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRHSVColorUtil.h; sourceTree = "<group>"; };
+		5A43695B1B3129480077433B /* HRHSVColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRHSVColorUtil.m; sourceTree = "<group>"; };
+		5A43695C1B3129480077433B /* UIImage+CoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CoreGraphics.h"; sourceTree = "<group>"; };
+		5A43695D1B3129480077433B /* UIImage+CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CoreGraphics.m"; sourceTree = "<group>"; };
+		5A4369691B312AEA0077433B /* HRColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorUtil.h; sourceTree = "<group>"; };
+		5A43696A1B312AEA0077433B /* HRColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorUtil.m; sourceTree = "<group>"; };
+		5A56561D1B3021FE005FA42F /* CYRLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRLayoutManager.h; sourceTree = "<group>"; };
+		5A56561E1B3021FE005FA42F /* CYRLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRLayoutManager.m; sourceTree = "<group>"; };
+		5A56561F1B3021FE005FA42F /* CYRTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRTextStorage.h; sourceTree = "<group>"; };
+		5A5656201B3021FE005FA42F /* CYRTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRTextStorage.m; sourceTree = "<group>"; };
+		5A5656211B3021FE005FA42F /* CYRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRTextView.h; sourceTree = "<group>"; };
+		5A5656221B3021FE005FA42F /* CYRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRTextView.m; sourceTree = "<group>"; };
+		5A5656231B3021FE005FA42F /* CYRToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYRToken.h; sourceTree = "<group>"; };
+		5A5656241B3021FE005FA42F /* CYRToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYRToken.m; sourceTree = "<group>"; };
+		5A5656341B3021FE005FA42F /* MSColorComponentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorComponentView.h; sourceTree = "<group>"; };
+		5A5656351B3021FE005FA42F /* MSColorComponentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorComponentView.m; sourceTree = "<group>"; };
+		5A5656361B3021FE005FA42F /* MSColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorPicker.h; sourceTree = "<group>"; };
+		5A5656371B3021FE005FA42F /* MSColorSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorSelectionView.h; sourceTree = "<group>"; };
+		5A5656381B3021FE005FA42F /* MSColorSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorSelectionView.m; sourceTree = "<group>"; };
+		5A5656391B3021FE005FA42F /* MSColorSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorSelectionViewController.h; sourceTree = "<group>"; };
+		5A56563A1B3021FE005FA42F /* MSColorSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorSelectionViewController.m; sourceTree = "<group>"; };
+		5A56563B1B3021FE005FA42F /* MSColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorUtils.h; sourceTree = "<group>"; };
+		5A56563C1B3021FE005FA42F /* MSColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorUtils.m; sourceTree = "<group>"; };
+		5A56563D1B3021FE005FA42F /* MSColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorView.h; sourceTree = "<group>"; };
+		5A56563E1B3021FE005FA42F /* MSColorWheelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSColorWheelView.h; sourceTree = "<group>"; };
+		5A56563F1B3021FE005FA42F /* MSColorWheelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSColorWheelView.m; sourceTree = "<group>"; };
+		5A5656401B3021FE005FA42F /* MSHSBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSHSBView.h; sourceTree = "<group>"; };
+		5A5656411B3021FE005FA42F /* MSHSBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSHSBView.m; sourceTree = "<group>"; };
+		5A5656421B3021FE005FA42F /* MSRGBView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRGBView.h; sourceTree = "<group>"; };
+		5A5656431B3021FE005FA42F /* MSRGBView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRGBView.m; sourceTree = "<group>"; };
+		5A5656441B3021FE005FA42F /* MSSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSliderView.h; sourceTree = "<group>"; };
+		5A5656451B3021FE005FA42F /* MSSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSliderView.m; sourceTree = "<group>"; };
 		5A830DFE1B0B3FBB001DE206 /* ZSSDemoWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZSSDemoWebViewController.h; sourceTree = "<group>"; };
 		5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSDemoWebViewController.m; sourceTree = "<group>"; };
 		5A830E011B0B4045001DE206 /* test_mp3.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test_mp3.htm; sourceTree = "<group>"; };
@@ -332,21 +372,6 @@
 				5A830DFF1B0B3FBB001DE206 /* ZSSDemoWebViewController.m */,
 			);
 			name = Demo;
-			sourceTree = "<group>";
-		};
-		4552C4821899DD1D004EF847 /* CYRTextView */ = {
-			isa = PBXGroup;
-			children = (
-				45A0CA3318A8521600F3F35E /* CYRLayoutManager.h */,
-				45A0CA3418A8521600F3F35E /* CYRLayoutManager.m */,
-				45A0CA3518A8521600F3F35E /* CYRTextStorage.h */,
-				45A0CA3618A8521600F3F35E /* CYRTextStorage.m */,
-				45A0CA3718A8521600F3F35E /* CYRTextView.h */,
-				45A0CA3818A8521600F3F35E /* CYRTextView.m */,
-				45A0CA3918A8521600F3F35E /* CYRToken.h */,
-				45A0CA3A18A8521600F3F35E /* CYRToken.m */,
-			);
-			path = CYRTextView;
 			sourceTree = "<group>";
 		};
 		4562858E184CFBE400B6168E /* Images */ = {
@@ -513,6 +538,8 @@
 				456A5977189C58C400FAEF89 /* Views */,
 				4581EBB9184B0F5C0048CAB0 /* ZSSRichTextEditor.h */,
 				4581EBBA184B0F5C0048CAB0 /* ZSSRichTextEditor.m */,
+				5A43694A1B3128F10077433B /* ZSSColorPicker.h */,
+				5A43694B1B3128F10077433B /* ZSSColorPicker.m */,
 				5A99E1A61B0C9EAC00B1633A /* Category */,
 				5A99E1AB1B0C9EAC00B1633A /* Lame */,
 			);
@@ -536,30 +563,79 @@
 		45EC1D6018763A75009B6B61 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
-				4552C4821899DD1D004EF847 /* CYRTextView */,
-				45EC1D6218763BDE009B6B61 /* ColorPicker */,
+				5A43694D1B3129480077433B /* ColorPicker */,
+				5A56561C1B3021FE005FA42F /* CRYTextView */,
+				5A5656331B3021FE005FA42F /* MSColorPicker */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
 		};
-		45EC1D6218763BDE009B6B61 /* ColorPicker */ = {
+		5A43694D1B3129480077433B /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				45A0CA3F18A8522A00F3F35E /* HRBrightnessCursor.h */,
-				45A0CA4018A8522A00F3F35E /* HRBrightnessCursor.m */,
-				45A0CA4118A8522A00F3F35E /* HRCgUtil.h */,
-				45A0CA4218A8522A00F3F35E /* HRCgUtil.m */,
-				45A0CA4318A8522A00F3F35E /* HRColorCursor.h */,
-				45A0CA4418A8522A00F3F35E /* HRColorCursor.m */,
-				45A0CA4518A8522A00F3F35E /* HRColorPickerMacros.h */,
-				45A0CA4618A8522A00F3F35E /* HRColorPickerView.h */,
-				45A0CA4718A8522A00F3F35E /* HRColorPickerView.m */,
-				45A0CA4818A8522A00F3F35E /* HRColorPickerViewController.h */,
-				45A0CA4918A8522A00F3F35E /* HRColorPickerViewController.m */,
-				45A0CA4A18A8522A00F3F35E /* HRColorUtil.h */,
-				45A0CA4B18A8522A00F3F35E /* HRColorUtil.m */,
+				5A4369691B312AEA0077433B /* HRColorUtil.h */,
+				5A43696A1B312AEA0077433B /* HRColorUtil.m */,
+				5A43694E1B3129480077433B /* HRBrightnessCursor.h */,
+				5A43694F1B3129480077433B /* HRBrightnessCursor.m */,
+				5A4369501B3129480077433B /* HRBrightnessSlider.h */,
+				5A4369511B3129480077433B /* HRBrightnessSlider.m */,
+				5A4369521B3129480077433B /* HRColorCursor.h */,
+				5A4369531B3129480077433B /* HRColorCursor.m */,
+				5A4369541B3129480077433B /* HRColorInfoView.h */,
+				5A4369551B3129480077433B /* HRColorInfoView.m */,
+				5A4369561B3129480077433B /* HRColorMapView.h */,
+				5A4369571B3129480077433B /* HRColorMapView.m */,
+				5A4369581B3129480077433B /* HRColorPickerView.h */,
+				5A4369591B3129480077433B /* HRColorPickerView.m */,
+				5A43695A1B3129480077433B /* HRHSVColorUtil.h */,
+				5A43695B1B3129480077433B /* HRHSVColorUtil.m */,
+				5A43695C1B3129480077433B /* UIImage+CoreGraphics.h */,
+				5A43695D1B3129480077433B /* UIImage+CoreGraphics.m */,
 			);
-			path = ColorPicker;
+			name = ColorPicker;
+			path = "Third Party/ColorPicker";
+			sourceTree = "<group>";
+		};
+		5A56561C1B3021FE005FA42F /* CRYTextView */ = {
+			isa = PBXGroup;
+			children = (
+				5A56561D1B3021FE005FA42F /* CYRLayoutManager.h */,
+				5A56561E1B3021FE005FA42F /* CYRLayoutManager.m */,
+				5A56561F1B3021FE005FA42F /* CYRTextStorage.h */,
+				5A5656201B3021FE005FA42F /* CYRTextStorage.m */,
+				5A5656211B3021FE005FA42F /* CYRTextView.h */,
+				5A5656221B3021FE005FA42F /* CYRTextView.m */,
+				5A5656231B3021FE005FA42F /* CYRToken.h */,
+				5A5656241B3021FE005FA42F /* CYRToken.m */,
+			);
+			name = CRYTextView;
+			path = "Third Party/CRYTextView";
+			sourceTree = "<group>";
+		};
+		5A5656331B3021FE005FA42F /* MSColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				5A5656341B3021FE005FA42F /* MSColorComponentView.h */,
+				5A5656351B3021FE005FA42F /* MSColorComponentView.m */,
+				5A5656361B3021FE005FA42F /* MSColorPicker.h */,
+				5A5656371B3021FE005FA42F /* MSColorSelectionView.h */,
+				5A5656381B3021FE005FA42F /* MSColorSelectionView.m */,
+				5A5656391B3021FE005FA42F /* MSColorSelectionViewController.h */,
+				5A56563A1B3021FE005FA42F /* MSColorSelectionViewController.m */,
+				5A56563B1B3021FE005FA42F /* MSColorUtils.h */,
+				5A56563C1B3021FE005FA42F /* MSColorUtils.m */,
+				5A56563D1B3021FE005FA42F /* MSColorView.h */,
+				5A56563E1B3021FE005FA42F /* MSColorWheelView.h */,
+				5A56563F1B3021FE005FA42F /* MSColorWheelView.m */,
+				5A5656401B3021FE005FA42F /* MSHSBView.h */,
+				5A5656411B3021FE005FA42F /* MSHSBView.m */,
+				5A5656421B3021FE005FA42F /* MSRGBView.h */,
+				5A5656431B3021FE005FA42F /* MSRGBView.m */,
+				5A5656441B3021FE005FA42F /* MSSliderView.h */,
+				5A5656451B3021FE005FA42F /* MSSliderView.m */,
+			);
+			name = MSColorPicker;
+			path = "Third Party/MSColorPicker";
 			sourceTree = "<group>";
 		};
 		5A99E1A61B0C9EAC00B1633A /* Category */ = {
@@ -571,6 +647,8 @@
 				5A99E1A81B0C9EAC00B1633A /* UIActionSheet+Blocks.m */,
 				5A99E1A91B0C9EAC00B1633A /* UIAlertView+Blocks.h */,
 				5A99E1AA1B0C9EAC00B1633A /* UIAlertView+Blocks.m */,
+				5A43692B1B3110570077433B /* UIColor+Hex.h */,
+				5A43692C1B3110570077433B /* UIColor+Hex.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -739,36 +817,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45A0CA4F18A8522A00F3F35E /* HRColorPickerView.m in Sources */,
+				5A43694C1B3128F10077433B /* ZSSColorPicker.m in Sources */,
 				2343B1DA199B2C9300349048 /* ZSSDemoList.m in Sources */,
+				5A4369641B3129480077433B /* HRHSVColorUtil.m in Sources */,
 				2343B22F199D6E6700349048 /* ZSSDemoCustomButtonsViewController.m in Sources */,
 				5A99E1B11B0C9EAC00B1633A /* UIAlertView+Blocks.m in Sources */,
+				5A5656461B3021FE005FA42F /* CYRLayoutManager.m in Sources */,
 				2343B22C199D6D6400349048 /* ZSSDemoSelectiveViewController.m in Sources */,
+				5A5656471B3021FE005FA42F /* CYRTextStorage.m in Sources */,
 				4552C491189A094C004EF847 /* ZSSTextView.m in Sources */,
-				45A0CA4D18A8522A00F3F35E /* HRCgUtil.m in Sources */,
-				45A0CA5018A8522A00F3F35E /* HRColorPickerViewController.m in Sources */,
 				5AF662201B16EC3E00581399 /* JsonSerialization.m in Sources */,
 				5A830E001B0B3FBB001DE206 /* ZSSDemoWebViewController.m in Sources */,
+				5A4369611B3129480077433B /* HRColorInfoView.m in Sources */,
 				2343B1E0199BE4D000349048 /* ZSSDemoLargeViewController.m in Sources */,
-				45A0CA4C18A8522A00F3F35E /* HRBrightnessCursor.m in Sources */,
 				4581EB8C1848457A0048CAB0 /* main.m in Sources */,
-				45A0CA3C18A8521600F3F35E /* CYRTextStorage.m in Sources */,
+				5A5656501B3021FE005FA42F /* MSColorComponentView.m in Sources */,
+				5A5656531B3021FE005FA42F /* MSColorUtils.m in Sources */,
+				5A5656551B3021FE005FA42F /* MSHSBView.m in Sources */,
 				2343B1DD199B34B500349048 /* ZSSDemoColorViewController.m in Sources */,
+				5A5656541B3021FE005FA42F /* MSColorWheelView.m in Sources */,
+				5A43696B1B312AEA0077433B /* HRColorUtil.m in Sources */,
+				5A4369621B3129480077433B /* HRColorMapView.m in Sources */,
+				5A5656491B3021FE005FA42F /* CYRToken.m in Sources */,
+				5A4369601B3129480077433B /* HRColorCursor.m in Sources */,
+				5A5656521B3021FE005FA42F /* MSColorSelectionViewController.m in Sources */,
+				5A5656511B3021FE005FA42F /* MSColorSelectionView.m in Sources */,
+				5A43695E1B3129480077433B /* HRBrightnessCursor.m in Sources */,
 				5A99E19F1B0C925000B1633A /* ZSSRecordView.m in Sources */,
 				4581EB901848457A0048CAB0 /* ZSSAppDelegate.m in Sources */,
-				45A0CA3E18A8521600F3F35E /* CYRToken.m in Sources */,
+				5A5656561B3021FE005FA42F /* MSRGBView.m in Sources */,
+				5A43692D1B3110570077433B /* UIColor+Hex.m in Sources */,
+				5A5656481B3021FE005FA42F /* CYRTextView.m in Sources */,
 				4581EBBB184B0F5C0048CAB0 /* ZSSRichTextEditor.m in Sources */,
 				5A99E1B01B0C9EAC00B1633A /* UIActionSheet+Blocks.m in Sources */,
 				2343B229199D237100349048 /* ZSSDemoPlaceholderViewController.m in Sources */,
-				45A0CA5118A8522A00F3F35E /* HRColorUtil.m in Sources */,
+				5A4369631B3129480077433B /* HRColorPickerView.m in Sources */,
+				5A43695F1B3129480077433B /* HRBrightnessSlider.m in Sources */,
 				5A99E1B31B0C9EAC00B1633A /* MP3Converter.m in Sources */,
-				45A0CA3D18A8521600F3F35E /* CYRTextView.m in Sources */,
-				45A0CA3B18A8521600F3F35E /* CYRLayoutManager.m in Sources */,
-				45A0CA4E18A8522A00F3F35E /* HRColorCursor.m in Sources */,
 				5A3CD2BA1B0D767100E605F4 /* ZSSMaskView.m in Sources */,
+				5A4369651B3129480077433B /* UIImage+CoreGraphics.m in Sources */,
 				4581EBB81848F8190048CAB0 /* ZSSDemoViewController.m in Sources */,
 				45F80458189B1E9300A1EDD9 /* ZSSDemoPickerViewController.m in Sources */,
 				4513B3D8184E8F5100A9CA86 /* ZSSBarButtonItem.m in Sources */,
+				5A5656571B3021FE005FA42F /* MSSliderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

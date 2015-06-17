@@ -124,3 +124,39 @@ zss_extend.restorerange = function(){
     selection.addRange(range);
 }
 
+zss_extend.closerParentNode = function() {
+    
+    var parentNode = null;
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0).cloneRange();
+    
+    var currentNode = range.commonAncestorContainer;
+    
+    while (currentNode) {
+        if (currentNode.nodeType == document.ELEMENT_NODE) {
+            parentNode = currentNode;
+            
+            break;
+        }
+        
+        currentNode = currentNode.parentElement;
+    }
+    
+    return parentNode;
+};
+
+zss_extend.enabledEditingItems = function (e) {
+    var element = this.closerParentNode();
+    var result;
+    e.target = element;
+    result = zss_editor.enabledEditingItems(e);
+    console.log(result.join(','));
+};
+
+zss_extend.RGBToHex = function (rgb){
+    rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+    return (rgb && rgb.length === 4) ? "#" +
+    ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+}
