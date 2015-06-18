@@ -83,11 +83,17 @@ zss_editor.init = function() {
                  });
     
     $(window).on('touchend', function(e) {
-                 if (!zss_editor.isDragging) {
-                    zss_editor.focusEditor();
+                 console.log(e);
+                 var t = $(e.target);
+                 var nodeName = e.target.nodeName.toLowerCase();
+                 if (nodeName == "html") {
+                     //点击任何地方都可以进入编辑
+                     if (!zss_editor.isDragging) {
+                        zss_editor.focusEditor();
+                     }
                  }
                  });
-    
+
 }//end
 
 zss_editor.updateOffset = function() {

@@ -1331,13 +1331,13 @@ static Class hackishFixClass = Nil;
         self.currentBgColor = nil;
         self.currentTextColor = nil;
         for (NSString *style in styles) {
-            if ([style containsString:@"backgroundColor"]) {
+            if ([style rangeOfString:@"backgroundColor"].location != NSNotFound) {
                 NSString *str = [style stringByReplacingOccurrencesOfString:@"backgroundColor:" withString:@""];
 //                unsigned long red = strtoul([str UTF8String],0,16);
 //                NSLog(@"%@", @(red));
                 self.currentBgColor = [UIColor colorWithHexString:str];
             }
-            if ([style containsString:@"textColor"]) {
+            if ([style rangeOfString:@"textColor"].location != NSNotFound) {
                 NSString *str = [style stringByReplacingOccurrencesOfString:@"textColor:" withString:@""];
                 self.currentTextColor = [UIColor colorWithHexString:str];
 //                unsigned long red = strtoul([str UTF8String],0,16);
