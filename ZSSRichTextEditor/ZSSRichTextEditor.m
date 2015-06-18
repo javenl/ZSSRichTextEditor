@@ -1563,7 +1563,7 @@ static Class hackishFixClass = Nil;
 
 
 #pragma mark - Keyboard status
-
+/*
 - (void)keyboardWillShowOrHide:(NSNotification *)notification {
     
     // Orientation
@@ -1659,7 +1659,7 @@ static Class hackishFixClass = Nil;
     }//end
     
 }
-
+*/
 
 #pragma mark - Utilities
 

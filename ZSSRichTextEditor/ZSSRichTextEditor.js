@@ -45,10 +45,17 @@ zss_editor.init = function() {
 //                                if (!clicked.hasClass('zs_active')) {
 //                                $('img').removeClass('zs_active');
 //                                }
-                                });
+                                })
+    .on('input', function (e) {
+        zss_editor.calculateEditorHeightWithCaretPosition(e);
+        zss_editor.setScrollPosition();
+        zss_extend.enabledEditingItems(e);
+        // e.stopPropagation();
+        // console.log(document.body.scrollTop);
+    });
     
     $(document).on('selectionchange',function(e){
-                   zss_editor.calculateEditorHeightWithCaretPosition();
+                   zss_editor.calculateEditorHeightWithCaretPosition(e);
                    zss_editor.setScrollPosition();
                    zss_extend.enabledEditingItems(e);
 //                   zss_editor.debug("change");
@@ -83,7 +90,7 @@ zss_editor.init = function() {
                  });
     
     $(window).on('touchend', function(e) {
-                 console.log(e);
+                 // console.log(e);
                  var t = $(e.target);
                  var nodeName = e.target.nodeName.toLowerCase();
                  if (nodeName == "html") {
@@ -93,6 +100,9 @@ zss_editor.init = function() {
                      }
                  }
                  });
+    
+    // @add
+//    document.execCommand('formatBlock', false, 'div');
 
 }//end
 
@@ -160,8 +170,9 @@ zss_editor.setFooterHeight = function(footerHeight) {
     footer.height(footerHeight + 'px');
 }
 
-zss_editor.getCaretYPosition = function() {
-    
+zss_editor.getCaretYPosition = function(e) {
+    // console.log( window.getSelection().anchorNode.data ||
+    //              window.getSelection().anchorNode.parentNode.innerHTML );
     try {
         var sel = window.getSelection();
         // Next line is comented to prevent deselecting selection. It looks like work but if there are any issues will appear then uconmment it as well as code above.
@@ -181,6 +192,11 @@ zss_editor.getCaretYPosition = function() {
             span.parentNode.removeChild(span);
         }
         
+//        setInterval(function () {
+//                    console.log("test");
+//                    }, 1000);
+        // console.log(topPosition);
+//        zss_editor.debug(topPosition);
         return topPosition;
         
     }
@@ -190,6 +206,8 @@ zss_editor.getCaretYPosition = function() {
                    });
         return window.document.body.scrollTop;
     }
+    
+
     
     /*
     var sel = window.getSelection();
@@ -239,10 +257,10 @@ zss_editor.getCaretYPosition = function() {
     */
 }
 
-zss_editor.calculateEditorHeightWithCaretPosition = function() {
+zss_editor.calculateEditorHeightWithCaretPosition = function(e) {
     
     var padding = 50;
-    var c = zss_editor.getCaretYPosition();
+    var c = zss_editor.getCaretYPosition(e);
 //    var c = 0;
     var e = document.getElementById('zss_editor_content');
     
@@ -259,7 +277,12 @@ zss_editor.calculateEditorHeightWithCaretPosition = function() {
         var newPos = c - height + padding - 18;
     }
     
+    // setTimeout(function () {
+    //            window.scrollTo(0, newPos);
+    //            console.log(newPos, document.body.scrollTop);
+    //            }, 1000);
     window.scrollTo(0, newPos);
+    console.log(newPos, document.body.scrollTop);
 }
 
 zss_editor.backuprange = function(){

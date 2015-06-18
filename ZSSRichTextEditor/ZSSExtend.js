@@ -150,7 +150,7 @@ zss_extend.enabledEditingItems = function (e) {
     var result;
     e.target = element;
     result = zss_editor.enabledEditingItems(e);
-    console.log(result.join(','));
+    // console.log(result.join(','));
 };
 
 zss_extend.RGBToHex = function (rgb){
