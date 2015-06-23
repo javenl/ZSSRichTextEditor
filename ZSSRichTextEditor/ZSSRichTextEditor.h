@@ -12,6 +12,10 @@
 #import "MSColorPicker.h"
 #import "ZSSColorPicker.h"
 
+//typedef NS_ENUM(long long, Test) {
+//    test,
+//};
+
 /**
  *  The types of toolbar items that can be added
  */
@@ -299,6 +303,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 - (void)redo:(ZSSBarButtonItem *)barButtonItem;
 
 - (void)showToolBarInView:(UIView *)view frame:(CGRect)frame;
+
+- (void)showToolBarInView:(UIView *)view frame:(CGRect)frame during:(CGFloat)during;
 
 - (void)removeToolbar;
 

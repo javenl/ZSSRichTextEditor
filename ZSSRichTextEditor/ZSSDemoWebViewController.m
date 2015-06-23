@@ -32,7 +32,6 @@
 //    self.webView.scrollView.bounces = NO;
 //    self.webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 64, 0);
 //    self.automaticallyAdjustsScrollViewInsets = YES;
-//    self.webView.co
     [self.view addSubview:self.webView];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"htm"];
