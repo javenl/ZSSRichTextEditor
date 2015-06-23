@@ -70,13 +70,17 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 /**
  *  The viewController used with ZSSRichTextEditor
  */
-@interface ZSSRichTextEditor : UIView <UIWebViewDelegate, UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, MSColorSelectionViewControllerDelegate, ZSSColorPickerDelegate>
+@interface ZSSRichTextEditor : UIView <UIWebViewDelegate, UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate, ZSSColorPickerDelegate>
 
 @property (nonatomic, weak)   id<ZSSRichTextEditorDelegate> delegate;
 
+@property (nonatomic, strong) UIView *actionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
+@property (nonatomic, strong) UICollectionView *collectionView;
+
 @property (nonatomic, strong) UIWebView *editorView;
 
-@property (nonatomic, strong) UIView *toolbarHolder;
+//@property (nonatomic, strong) UIView *toolbarHolder;
 
 /**
  *  The base URL to use for the webView
@@ -166,7 +170,7 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
  *  @param url The URL for the image
  *  @param alt The alt for the image
  */
-- (void)showInsertImageDialogWithLink:(NSString *)url alt:(NSString *)alt;
+//- (void)showInsertImageDialogWithLink:(NSString *)url alt:(NSString *)alt;
 
 /**
  *  Inserts an image
@@ -182,7 +186,7 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
  *  @param url   The URL for the link
  *  @param title The tile for the link
  */
-- (void)showInsertLinkDialogWithLink:(NSString *)url title:(NSString *)title;
+//- (void)showInsertLinkDialogWithLink:(NSString *)url title:(NSString *)title;
 
 /**
  *  Inserts a link
@@ -300,7 +304,7 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)bgColor;
 
-- (void)setSelectedColor:(UIColor*)color tag:(int)tag;
+//- (void)setSelectedColor:(UIColor*)color tag:(int)tag;
 
 - (void)undo:(ZSSBarButtonItem *)barButtonItem;
 

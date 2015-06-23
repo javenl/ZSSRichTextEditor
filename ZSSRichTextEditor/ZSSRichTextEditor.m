@@ -46,9 +46,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 @property (nonatomic, strong) NSMutableArray *customZSSBarButtonItems;
 */
 
-@property (nonatomic, strong) UIView *actionView;
-@property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
-@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIButton *keyboardBtn;
 @property (nonatomic, strong) NSMutableArray *toolbarBtns;
 @property (nonatomic, strong) NSMutableArray *toolbarBtnKinds;
@@ -119,7 +116,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 //        self.formatHTML = NO;
         
 //        self.enabledToolbarItems = [[NSArray alloc] init];
-        
         ///init view
         
         self.actionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
@@ -215,70 +211,70 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         if ([self.delegate respondsToSelector:@selector(actionViewBtns)]) {
             [self.toolbarBtns addObjectsFromArray:[self.delegate actionViewBtns]];
         } else {
-        
-        [self.toolbarBtnKinds addObjectsFromArray:@[
-                                                    ZSSRichTextEditorToolbarBold,
-                                                    ZSSRichTextEditorToolbarItalic,
-                                                    ZSSRichTextEditorToolbarSubscript,
-                                                    ZSSRichTextEditorToolbarSuperscript,
-                                                    ZSSRichTextEditorToolbarStrikeThrough,
-                                                    ZSSRichTextEditorToolbarUnderline,
-                                                    ZSSRichTextEditorToolbarRemoveFormat,
-                                                    ZSSRichTextEditorToolbarJustifyLeft,
-                                                    ZSSRichTextEditorToolbarJustifyCenter,
-                                                    ZSSRichTextEditorToolbarJustifyRight]];
-        
-        for (int i = 0; i < self.toolbarBtnKinds.count; i++) {
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            btn.frame = CGRectMake(0, 0, kScreenWidth/7.0, 44);
+            [self.toolbarBtnKinds addObjectsFromArray:@[
+                                                        ZSSRichTextEditorToolbarBold,
+                                                        ZSSRichTextEditorToolbarItalic,
+                                                        ZSSRichTextEditorToolbarSubscript,
+                                                        ZSSRichTextEditorToolbarSuperscript,
+                                                        ZSSRichTextEditorToolbarStrikeThrough,
+                                                        ZSSRichTextEditorToolbarUnderline,
+                                                        ZSSRichTextEditorToolbarRemoveFormat,
+                                                        ZSSRichTextEditorToolbarJustifyLeft,
+                                                        ZSSRichTextEditorToolbarJustifyCenter,
+                                                        ZSSRichTextEditorToolbarJustifyRight]];
             
-            NSString *kind = self.toolbarBtnKinds[i];
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarBold]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSbold"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(setBold) forControlEvents:UIControlEventTouchUpInside];
+            for (int i = 0; i < self.toolbarBtnKinds.count; i++) {
+                UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+                btn.frame = CGRectMake(0, 0, kScreenWidth/7.0, 44);
+                btn.tag = i;
+                NSString *kind = self.toolbarBtnKinds[i];
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarBold]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSbold"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(setBold) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarItalic]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSitalic"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(setItalic) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarSubscript]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSsubscript"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(setSubscript) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarSuperscript]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSsuperscript"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(setSuperscript) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarStrikeThrough]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSstrikethrough"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(setStrikethrough) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarUnderline]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSunderline"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(setUnderline) forControlEvents:UIControlEventTouchUpInside];
+//                    [btn addTarget:self action:@selector(testAction:) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarRemoveFormat]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSclearstyle"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(removeFormat) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyLeft]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSleftjustify"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(alignLeft) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyCenter]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSScenterjustify"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(alignCenter) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyRight]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSrightjustify"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(alignRight) forControlEvents:UIControlEventTouchUpInside];
+                }
+                if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyFull]) {
+                    [btn setImage:[UIImage imageNamed:@"ZSSforcejustify"] forState:UIControlStateNormal];
+                    [btn addTarget:self action:@selector(alignRight) forControlEvents:UIControlEventTouchUpInside];
+                }
+                [self.toolbarBtns addObject:btn];
             }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarItalic]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSitalic"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(setItalic) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarSubscript]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSsubscript"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(setSubscript) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarSuperscript]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSsuperscript"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(setSuperscript) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarStrikeThrough]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSstrikethrough"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(setStrikethrough) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarUnderline]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSunderline"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(setUnderline) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarRemoveFormat]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSclearstyle"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(removeFormat) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyLeft]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSleftjustify"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(alignLeft) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyCenter]) {
-                [btn setImage:[UIImage imageNamed:@"ZSScenterjustify"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(alignCenter) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyRight]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSrightjustify"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(alignRight) forControlEvents:UIControlEventTouchUpInside];
-            }
-            if ([kind isEqualToString:ZSSRichTextEditorToolbarJustifyFull]) {
-                [btn setImage:[UIImage imageNamed:@"ZSSforcejustify"] forState:UIControlStateNormal];
-                [btn addTarget:self action:@selector(alignRight) forControlEvents:UIControlEventTouchUpInside];
-            }
-            [self.toolbarBtns addObject:btn];
-        }
         }
         
     }
@@ -623,6 +619,15 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     }
 }
 
+- (void)testAction:(UIButton *)sender {
+    UICollectionViewLayoutAttributes *attributes = [self.flowLayout initialLayoutAttributesForAppearingItemAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0]];
+//    self.collectionView.contentOffset.x
+    DLog(@"btn frame %@", NSStringFromCGRect(attributes.frame));
+    CGRect real = attributes.frame;
+    real.origin.x = attributes.frame.origin.x - self.collectionView.contentOffset.x;
+    DLog(@"real frame %@", NSStringFromCGRect(real));
+}
+
 - (void)removeFormat {
     NSString *trigger = @"zss_editor.removeFormating();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
@@ -631,6 +636,9 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 - (void)alignLeft {
     NSString *trigger = @"zss_editor.setJustifyLeft();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+    
+//    [self.flowLayout initialLayoutAttributesForAppearingItemAtIndexPath:]
+//    initialLayoutAttributesForAppearingItemAtIndexPath
 }
 
 - (void)alignCenter {
@@ -1538,6 +1546,10 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     }
     [cell.contentView addSubview:self.toolbarBtns[indexPath.row]];
     //    cell.backgroundColor = HEXCOLOR(0x2be7e9);
+    
+    UICollectionViewLayoutAttributes *atrbs = [self.flowLayout initialLayoutAttributesForAppearingItemAtIndexPath:indexPath];
+//    atrbs.frame
+    DLog(@"frame %@", NSStringFromCGRect(atrbs.frame));
     return cell;
 }
 
