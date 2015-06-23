@@ -61,6 +61,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 @optional
 - (UIButton *)keyboardButton;
 
+- (NSArray *)actionViewBtns;
+
 - (void)selectionChangeWithStyle:(NSString *)styleString;
 
 @end
@@ -116,7 +118,9 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 @property (nonatomic, strong) NSString *tmpDir;
 
-- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate;
+//- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate;
+
+- (id)initWithNavigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate;
 
 /**
  *  Sets the HTML for the entire editor
@@ -210,12 +214,12 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 /**
  *  Add a custom UIBarButtonItem by using a UIButton
  */
-- (void)addCustomToolbarItemWithButton:(UIButton*)button;
+//- (void)addCustomToolbarItemWithButton:(UIButton*)button;
 
 /**
  *  Add a custom ZSSBarButtonItem
  */
-- (void)addCustomToolbarItem:(ZSSBarButtonItem *)item;
+//- (void)addCustomToolbarItem:(ZSSBarButtonItem *)item;
 
 /**
  *  Scroll event callback with position
@@ -308,11 +312,11 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)removeToolbar;
 
-- (void)showHTMLSource:(ZSSBarButtonItem *)barButtonItem;
+- (void)showHTMLSource;
 
 - (NSArray *)getLocalPaths;
 
-- (void)enableToolbarItems:(BOOL)enable;
+//- (void)enableToolbarItems:(BOOL)enable;
 
 - (void)setFooterHeight:(float)footerHeight;
 

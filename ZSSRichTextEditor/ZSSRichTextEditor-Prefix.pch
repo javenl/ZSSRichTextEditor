@@ -14,9 +14,3 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
-
-#if DEBUG
-#define DLog(format,...) NSLog(format, ##__VA_ARGS__)
-#else
-#define DLog(format,...)
-#endif

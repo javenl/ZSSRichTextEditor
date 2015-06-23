@@ -20,6 +20,12 @@
 #import "ZSSColorPicker.h"
 #import "UIWebView+HackishAccessoryHiding.h"
 
+#if DEBUG
+#define DLog(format,...) NSLog(format, ##__VA_ARGS__)
+#else
+#define DLog(format,...)
+#endif
+
 #define HEXCOLOR(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define kScreenWidth [[UIScreen mainScreen] applicationFrame].size.width
@@ -51,7 +57,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 @property (nonatomic, strong) ZSSTextView *sourceView;
 
-@property (nonatomic) BOOL resourcesLoaded;
+//@property (nonatomic) BOOL resourcesLoaded;
 //@property (nonatomic, strong) NSArray *editorItemsEnabled;
 
 @property (nonatomic, strong) UIAlertView *alertView;
@@ -69,8 +75,8 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 - (NSString *)removeQuotesFromHTML:(NSString *)html;
 - (NSString *)tidyHTML:(NSString *)html;
-- (void)enableToolbarItems:(BOOL)enable;
-- (BOOL)isIpad;
+//- (void)enableToolbarItems:(BOOL)enable;
+//- (BOOL)isIpad;
 
 @end
 
@@ -91,21 +97,21 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 //    [self setContentHeight:CGRectGetHeight(self.frame)];
 }
 
-- (id)init {
-    return [self initWithFrame:CGRectNull navigationController:nil];
-}
+//- (id)init {
+//    return [self initWithFrame:CGRectNull navigationController:nil];
+//}
 
-- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController {
-    return [self initWithFrame:frame navigationController:navgationController delegate:nil];
-}
+//- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController {
+//    return [self initWithFrame:frame navigationController:navgationController delegate:nil];
+//}
 
-- (id)initWithFrame:(CGRect)frame navigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate {
-    self = [super initWithFrame:frame];
+- (id)initWithNavigationController:(UINavigationController *)navgationController delegate:(id<ZSSRichTextEditorDelegate>)delegate {
+    self = [super init];
     if (self) {
         self.navigationController = navgationController;
         self.delegate = delegate;
         
-        self.frame = frame;
+//        self.frame = frame;
         
         self.editorLoaded = NO;
 //        self.shouldShowKeyboard = YES;
@@ -126,12 +132,16 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         self.collectionView.showsHorizontalScrollIndicator = NO;
         [self.actionView addSubview:self.collectionView];
         
-        self.keyboardBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.keyboardBtn.frame = CGRectMake(kScreenWidth-45, 0, 45, 44);
-        self.keyboardBtn.backgroundColor = [UIColor whiteColor];
-        [self.keyboardBtn setImage:[UIImage imageNamed:@"ZSSkeyboard"] forState:UIControlStateNormal];
-        [self.keyboardBtn setTintColor:[UIColor blueColor]];
+        if ([self.delegate respondsToSelector:@selector(keyboardButton)]) {
+            self.keyboardBtn = [self.delegate keyboardButton];
+        } else {
+            self.keyboardBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+            [self.keyboardBtn setImage:[UIImage imageNamed:@"ZSSkeyboard"] forState:UIControlStateNormal];
+            [self.keyboardBtn setTintColor:[UIColor blueColor]];
+            self.keyboardBtn.backgroundColor = [UIColor whiteColor];
+        }
         [self.keyboardBtn addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
+        self.keyboardBtn.frame = CGRectMake(kScreenWidth-45, 0, 45, 44);
         [self.actionView addSubview:self.keyboardBtn];
         
         CALayer *topSeparator = [CALayer layer];
@@ -153,7 +163,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         
         // Source View
 //        CGRect frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-        self.sourceView = [[ZSSTextView alloc] initWithFrame:frame];
+        self.sourceView = [[ZSSTextView alloc] initWithFrame:CGRectZero];
         self.sourceView.hidden = YES;
         self.sourceView.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.sourceView.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -164,7 +174,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         [self addSubview:self.sourceView];
         
         // Editor View
-        self.editorView = [[UIWebView alloc] initWithFrame:frame];
+        self.editorView = [[UIWebView alloc] initWithFrame:CGRectZero];
         self.editorView.delegate = self;
         self.editorView.hidesInputAccessoryView = YES;
         self.editorView.keyboardDisplayRequiresUserAction = NO;
@@ -177,89 +187,34 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         self.editorView.backgroundColor = [UIColor whiteColor];
 //        self.editorView.scrollView.scrollEnabled = NO;
         [self addSubview:self.editorView];
-        /*
-        // Scrolling View
-        self.toolBarScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [self isIpad] ? self.frame.size.width : self.frame.size.width - 44, 44)];
-        self.toolBarScroll.backgroundColor = [UIColor clearColor];
-        self.toolBarScroll.showsHorizontalScrollIndicator = NO;
+
         
-        // Toolbar with icons
-        self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-//        self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.toolbar.backgroundColor = [UIColor clearColor];
-        [self.toolBarScroll addSubview:self.toolbar];
-//        self.toolBarScroll.autoresizingMask = self.toolbar.autoresizingMask;
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"editor" ofType:@"html"];
+        NSData *htmlData = [NSData dataWithContentsOfFile:filePath];
+        NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
         
-        // Background Toolbar
-        UIToolbar *backgroundToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44)];
-//        backgroundToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        NSString *source = [[NSBundle mainBundle] pathForResource:@"ZSSRichTextEditor" ofType:@"js"];
+        NSString *jsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:source] encoding:NSUTF8StringEncoding];
+        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--editor-->" withString:jsString];
         
-        // Parent holding view
-        self.toolbarHolder = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, 44)];
-//        self.toolbarHolder.autoresizingMask = self.toolbar.autoresizingMask;
-        [self.toolbarHolder addSubview:self.toolBarScroll];
-        [self.toolbarHolder insertSubview:backgroundToolbar atIndex:0];
-        */
-        // Hide Keyboard
-        /*
-        if (![self isIpad]) {
-            
-            // Toolbar holder used to crop and position toolbar
-            UIView *toolbarCropper = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width-44, 0, 44, 44)];
-//            toolbarCropper.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-            toolbarCropper.clipsToBounds = YES;
-            
-            // Use a toolbar so that we can tint
-            UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(-7, -1, 44, 44)];
-            [toolbarCropper addSubview:keyboardToolbar];
-            
-            if ([self.delegate respondsToSelector:@selector(keyboardButton)]) {
-                UIButton *btn = [self.delegate keyboardButton];
-                [btn addTarget:self action:@selector(dismissKeyboard) forControlEvents:UIControlEventTouchUpInside];
-                self.keyboardItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-//                self.keyboardItem.target = self;
-//                self.keyboardItem.action = @selector(dismissKeyboard);
-            } else {
-                self.keyboardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSkeyboard.png"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissKeyboard)];
-            }
-            keyboardToolbar.items = @[self.keyboardItem];
-            [self.toolbarHolder addSubview:toolbarCropper];
-            
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0.6f, 44)];
-            line.backgroundColor = [UIColor lightGrayColor];
-            line.alpha = 0.7f;
-            [toolbarCropper addSubview:line];
-        }
-        [self addSubview:self.toolbarHolder];
+        NSString *exSource = [[NSBundle mainBundle] pathForResource:@"ZSSExtend" ofType:@"js"];
+        NSString *exJsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:exSource] encoding:NSUTF8StringEncoding];
+        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--extend-->" withString:exJsString];
         
-        // Build the toolbar
-        [self buildToolbar];
-        */
-        if (!self.resourcesLoaded) {
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"editor" ofType:@"html"];
-            NSData *htmlData = [NSData dataWithContentsOfFile:filePath];
-            NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
-            
-            NSString *source = [[NSBundle mainBundle] pathForResource:@"ZSSRichTextEditor" ofType:@"js"];
-            NSString *jsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:source] encoding:NSUTF8StringEncoding];
-            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--editor-->" withString:jsString];
-            
-            NSString *exSource = [[NSBundle mainBundle] pathForResource:@"ZSSExtend" ofType:@"js"];
-            NSString *exJsString = [[NSString alloc] initWithData:[NSData dataWithContentsOfFile:exSource] encoding:NSUTF8StringEncoding];
-            htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<!--extend-->" withString:exJsString];
-            
-            [self.editorView loadHTMLString:htmlString baseURL:self.baseURL];
-            self.resourcesLoaded = YES;
-        }
+        [self.editorView loadHTMLString:htmlString baseURL:self.baseURL];
         
         
 //        [self setFooterHeight:44];
-        [self setContentHeight:CGRectGetHeight(frame)];
+//        [self setContentHeight:CGRectGetHeight(frame)];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         
         self.toolbarBtnKinds = [NSMutableArray array];
+        
+        if ([self.delegate respondsToSelector:@selector(actionViewBtns)]) {
+            [self.toolbarBtns addObjectsFromArray:[self.delegate actionViewBtns]];
+        } else {
         
         [self.toolbarBtnKinds addObjectsFromArray:@[
                                                     ZSSRichTextEditorToolbarBold,
@@ -324,64 +279,23 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
             }
             [self.toolbarBtns addObject:btn];
         }
+        }
         
     }
     return self;
 }
-/*
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    
-    if (self) {
-        
-        
-        
-    return self;
-}
-
-
-- (void)setEnabledToolbarItems:(NSArray *)enabledToolbarItems {
-    
-    _enabledToolbarItems = enabledToolbarItems;
-    [self buildToolbar];
-    
-}
-
-
-- (void)setToolbarItemTintColor:(UIColor *)toolbarItemTintColor {
-    
-    _toolbarItemTintColor = toolbarItemTintColor;
-    
-    // Update the color
-    for (ZSSBarButtonItem *item in self.toolbar.items) {
-        item.tintColor = [self barButtonItemDefaultColor];
-    }
-    self.keyboardItem.tintColor = toolbarItemTintColor;
-}
-
-
-- (void)setToolbarItemSelectedTintColor:(UIColor *)toolbarItemSelectedTintColor {
-    
-    _toolbarItemSelectedTintColor = toolbarItemSelectedTintColor;
-    
-}
-*/
 
 - (void)setPlaceholderText {
-    
     NSString *js = [NSString stringWithFormat:@"zss_editor.setPlaceholder(\"%@\");", self.placeholder];
     [self.editorView stringByEvaluatingJavaScriptFromString:js];
-    
 }
 
 - (void)setFooterHeight:(float)footerHeight {
-    
     NSString *js = [NSString stringWithFormat:@"zss_editor.setFooterHeight(\"%f\");", footerHeight];
     [self.editorView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (void)setContentHeight:(float)contentHeight {
-    
     NSString *js = [NSString stringWithFormat:@"zss_editor.contentHeight = %f;", contentHeight];
     [self.editorView stringByEvaluatingJavaScriptFromString:js];
 }
@@ -626,44 +540,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     return [NSArray arrayWithArray:items];
     
 }
-
-
-- (void)buildToolbar {
-    
-    // Check to see if we have any toolbar items, if not, add them all
-    NSArray *items = [self itemsForToolbar];
-    if (items.count == 0 && !(_enabledToolbarItems && [_enabledToolbarItems containsObject:ZSSRichTextEditorToolbarNone])) {
-        _enabledToolbarItems = @[ZSSRichTextEditorToolbarAll];
-        items = [self itemsForToolbar];
-    }
-
-    if (self.customZSSBarButtonItems != nil) {
-        items = [items arrayByAddingObjectsFromArray:self.customZSSBarButtonItems];
-    }
-    
-    // get the width before we add custom buttons
-    CGFloat btnWidth = 56;
-//    btnWidth = 39;
-    CGFloat toolbarWidth = items.count == 0 ? 0.0f : (CGFloat)(items.count * btnWidth) - 10;
-    
-    if(self.customBarButtonItems != nil)
-    {
-        items = [items arrayByAddingObjectsFromArray:self.customBarButtonItems];
-        for(ZSSBarButtonItem *buttonItem in self.customBarButtonItems)
-        {
-            toolbarWidth += buttonItem.customView.frame.size.width + 11.0f;
-        }
-    }
-    
-    self.toolbar.items = items;
-    for (ZSSBarButtonItem *item in items) {
-        item.width = 46;
-        item.tintColor = [self barButtonItemDefaultColor];
-    }
-    
-    self.toolbar.frame = CGRectMake(0, 0, toolbarWidth, 44);
-    self.toolBarScroll.contentSize = CGSizeMake(self.toolbar.frame.size.width, 44);
-}
 */
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -681,9 +557,11 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 }
 */
 
-
-
 #pragma mark - Editor Interaction
+
+- (void)dismissKeyboard {
+    [self endEditing:YES];
+}
 
 - (void)focusTextEditor {
 //    self.editorView.keyboardDisplayRequiresUserAction = NO;
@@ -698,23 +576,18 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 }
 
 - (void)setHTML:(NSString *)html {
-    
     self.internalHTML = html;
-    
     if (self.editorLoaded) {
         [self updateHTML];
     }
-    
 }
 
 - (void)updateHTML {
-    
     NSString *html = self.internalHTML;
     self.sourceView.text = html;
     NSString *cleanedHTML = [self removeQuotesFromHTML:self.sourceView.text];
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.setHTML(\"%@\");", cleanedHTML];
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
-    
 }
 
 - (NSString *)getHTML {
@@ -734,20 +607,16 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     return [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.getText();"];
 }
 
-- (void)dismissKeyboard {
-    [self endEditing:YES];
-}
-
-- (void)showHTMLSource:(ZSSBarButtonItem *)barButtonItem {
+- (void)showHTMLSource {
     if (self.sourceView.hidden) {
         self.sourceView.text = [self getHTML];
         self.sourceView.hidden = NO;
-        barButtonItem.tintColor = [UIColor blackColor];
+//        barButtonItem.tintColor = [UIColor blackColor];
         self.editorView.hidden = YES;
 //        [self enableToolbarItems:NO];
     } else {
         [self setHTML:self.sourceView.text];
-        barButtonItem.tintColor = [self barButtonItemDefaultColor];
+//        barButtonItem.tintColor = [self barButtonItemDefaultColor];
         self.sourceView.hidden = YES;
         self.editorView.hidden = NO;
 //        [self enableToolbarItems:YES];
@@ -870,7 +739,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 }
 
 - (void)textColor {
-    
     // Save the selection location
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
     ZSSColorPicker *colorPicker = [[ZSSColorPicker alloc] initWithColor:self.currentTextColor];
@@ -900,7 +768,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 }
 
 - (void)bgColor {
-    
     // Save the selection location
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
     
@@ -918,7 +785,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 //    colorPicker.tag = 2;
 //    colorPicker.title = NSLocalizedString(@"BG Color", nil);
 //    [self.navigationController pushViewController:colorPicker animated:YES];
-    
 }
 
 - (void)undo:(ZSSBarButtonItem *)barButtonItem {
@@ -1019,47 +885,14 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
-
 - (void)updateLink:(NSString *)url title:(NSString *)title {
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.updateLink(\"%@\", \"%@\");", url, title];
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
-
 - (void)dismissAlertView {
     [self.alertView dismissWithClickedButtonIndex:self.alertView.cancelButtonIndex animated:YES];
 }
-/*
-- (void)addCustomToolbarItemWithButton:(UIButton *)button
-{
-    if(self.customBarButtonItems == nil)
-    {
-        self.customBarButtonItems = [NSMutableArray array];
-    }
-    
-    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:28.5f];
-    [button setTitleColor:[self barButtonItemDefaultColor] forState:UIControlStateNormal];
-    [button setTitleColor:[self barButtonItemSelectedDefaultColor] forState:UIControlStateHighlighted];
-    
-    ZSSBarButtonItem *barButtonItem = [[ZSSBarButtonItem alloc] initWithCustomView:button];
-    
-    [self.customBarButtonItems addObject:barButtonItem];
-    
-    [self buildToolbar];
-}
-
-- (void)addCustomToolbarItem:(ZSSBarButtonItem *)item {
-    
-    if(self.customZSSBarButtonItems == nil)
-    {
-        self.customZSSBarButtonItems = [NSMutableArray array];
-    }
-    [self.customZSSBarButtonItems addObject:item];
-    
-    [self buildToolbar];
-}
-*/
-
 
 - (void)removeLink {
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.unlink();"];
@@ -1158,16 +991,12 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 */
 
 - (void)insertImage {
-    
     // Save the selection location
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
-    
     [self showInsertImageDialogWithLink:self.selectedImageURL alt:self.selectedImageAlt];
-    
 }
 
 - (void)showInsertImageDialogWithLink:(NSString *)url alt:(NSString *)alt {
-    
     // Insert Button Title
     NSString *insertButtonTitle = !self.selectedImageURL ? NSLocalizedString(@"Insert", nil) : NSLocalizedString(@"Update", nil);
     
@@ -1237,7 +1066,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         
         [self.alertView show];
     }
-    
 }
 
 - (void)insertMP3:(NSString *)url {
@@ -1426,7 +1254,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
     //[self setPlaceholderText];
     if (!self.editorLoaded) {
         if (!self.internalHTML) {
@@ -1441,9 +1268,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         }
         self.editorLoaded = YES;
     }
-
-    
-    
 }
 
 #pragma mark UIActionSheetDelegate
@@ -1558,7 +1382,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 // Blank implementation
 - (void)editorDidScrollWithPosition:(NSInteger)position {
     
-    
 }
 
 #pragma mark - AlertView
@@ -1582,7 +1405,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
     if (alertView.tag == 1) {
         if (buttonIndex == 1) {
             UITextField *imageURL = [alertView textFieldAtIndex:0];
@@ -1604,7 +1426,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
             }
         }
     }
-    
 }
 
 
@@ -1637,104 +1458,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [self removeToolbar];
 }
 
-/*
-- (void)keyboardWillShowOrHide:(NSNotification *)notification {
-    
-    // Orientation
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    
-    // User Info
-    NSDictionary *info = notification.userInfo;
-    CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    int curve = [[info objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
-//    CGRect keyboardEnd = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    // Toolbar Sizes
-    CGFloat toolbarHeight = self.toolbarHolder.frame.size.height;
-    
-    // Keyboard Size
-    //Checks if IOS8, gets correct keyboard height
-//    CGFloat keyboardHeight = UIInterfaceOrientationIsLandscape(orientation) ? ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.000000) ? keyboardEnd.size.height : keyboardEnd.size.width : keyboardEnd.size.height;
-    
-    // Get the size of the keyboard.
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    //Given size may not account for screen rotation
-    NSInteger keyboardHeight = MIN(keyboardSize.height,keyboardSize.width);
-    CGFloat keyboardTop = CGRectGetHeight(self.window.frame) - keyboardHeight;
-//    NSInteger keyboardWidth = MAX(keyboardSize.height,keyboardSize.width);
-    
-    
-    // Correct Curve
-    UIViewAnimationOptions animationOptions = curve << 16;
-    
-    if ([notification.name isEqualToString:UIKeyboardWillShowNotification]) {
-        
-        [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
-            
-            // Toolbar
-            CGRect toolBarFrame = self.toolbarHolder.frame;
-//            toolBarFrame.origin.y = self.frame.size.height - (keyboardHeight + sizeOfToolbar - 64);
-            toolBarFrame.origin.y = keyboardTop - toolbarHeight - 64;
-//            frame.origin.y = 0;
-            self.toolbarHolder.frame = toolBarFrame;
-            NSLog(@"toolBarFrame %@", NSStringFromCGRect(toolBarFrame));
-            
-            // Editor View
-            const int extraHeight = 10;
-            
-            CGRect editorFrame = self.editorView.frame;
-            editorFrame.size.height = (self.frame.size.height - keyboardHeight) - toolbarHeight - extraHeight;
-//            editorFrame.size.height = keyboardTop - CGRectGetMidY(self.editorView.frame) - toolbarHeight - 64;
-            self.editorView.frame = editorFrame;
-            self.editorViewFrame = self.editorView.frame;
-            self.editorView.scrollView.contentInset = UIEdgeInsetsZero;
-            self.editorView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
-            
-            NSLog(@"editorFrame %@", NSStringFromCGRect(editorFrame));
-            
-            // Source View
-            CGRect sourceFrame = self.sourceView.frame;
-            sourceFrame.size.height = (self.frame.size.height - keyboardHeight) - toolbarHeight - extraHeight;
-            self.sourceView.frame = sourceFrame;
-
-            
-            // Provide editor with keyboard height and editor view height
-//            [self setFooterHeight:(keyboardHeight - 8)];
-//            [self setFooterHeight:toolbarHeight];
-            [self setFooterHeight:50];
-            [self setContentHeight: self.editorViewFrame.size.height];
-            
-        } completion:nil];
-        
-    } else {
-        
-        [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
-            
-            CGRect frame = self.toolbarHolder.frame;
-            frame.origin.y = self.frame.size.height + keyboardHeight;
-            self.toolbarHolder.frame = frame;
-            
-            // Editor View
-            CGRect editorFrame = self.editorView.frame;
-            editorFrame.size.height = self.frame.size.height;
-            self.editorView.frame = editorFrame;
-            self.editorViewFrame = self.editorView.frame;
-            self.editorView.scrollView.contentInset = UIEdgeInsetsZero;
-            self.editorView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
-            
-            // Source View
-            CGRect sourceFrame = self.sourceView.frame;
-            sourceFrame.size.height = self.frame.size.height;
-            self.sourceView.frame = sourceFrame;
-            
-        } completion:nil];
-        
-    }//end
-    
-}
-*/
-
 #pragma mark - Utilities
 
 - (NSString *)stringByDecodingURLFormat:(NSString *)string {
@@ -1762,39 +1485,20 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     return html;
 }//end
 
-
+/*
 - (UIColor *)barButtonItemDefaultColor {
-    
     if (self.toolbarItemTintColor) {
         return self.toolbarItemTintColor;
     }
-    
     return [UIColor colorWithRed:0.0f/255.0f green:122.0f/255.0f blue:255.0f/255.0f alpha:1.0f];
 }
 
 
 - (UIColor *)barButtonItemSelectedDefaultColor {
-    
     if (self.toolbarItemSelectedTintColor) {
         return self.toolbarItemSelectedTintColor;
     }
-    
     return [UIColor blackColor];
-}
-
-
-- (BOOL)isIpad {
-    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
-}//end
-
-/*
-- (void)enableToolbarItems:(BOOL)enable {
-    NSArray *items = self.toolbar.items;
-    for (ZSSBarButtonItem *item in items) {
-        if (![item.label isEqualToString:@"source"]) {
-            item.enabled = enable;
-        }
-    }
 }
 */
 - (void)showToolBarInView:(UIView *)view frame:(CGRect)frame {
@@ -1834,23 +1538,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     }
     [cell.contentView addSubview:self.toolbarBtns[indexPath.row]];
     //    cell.backgroundColor = HEXCOLOR(0x2be7e9);
-    /*
-    UIImageView *imageView = (NINetworkImageView *)[cell viewWithTag:1001];
-    if (!imageView) {
-        imageView = [[NINetworkImageView alloc] init];
-        imageView.initialImage = [UIImage imageWithColor:[UIColor lightGrayColor]];
-        imageView.clipsToBounds = YES;
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.tag = 1001;
-        
-        [cell.contentView addSubview:imageView];
-        [imageView makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(cell.contentView);
-        }];
-    }
-    imageView.image = imageView.initialImage;
-    [imageView setPathToNetworkImage:self.pics[indexPath.row] forDisplaySize:imageView.frame.size contentMode:UIViewContentModeScaleAspectFill];
-    */
     return cell;
 }
 

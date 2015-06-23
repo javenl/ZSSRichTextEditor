@@ -32,13 +32,15 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.editor = [[ZSSRichTextEditor alloc] initWithFrame:self.view.bounds navigationController:self.navigationController delegate:nil];
+    self.editor = [[ZSSRichTextEditor alloc] initWithNavigationController:self.navigationController delegate:nil];
+    self.editor.frame = self.view.bounds;
     [self.view addSubview:self.editor];
     
     // HTML Content to set in the editor
     NSString *html = @"<p>Example showing just a few toolbar buttons.</p>";
     
     // Custom image button
+    /*
     ZSSBarButtonItem *item0 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapTest:)];
     [self.editor addCustomToolbarItem:item0];
     
@@ -50,7 +52,7 @@
     
     ZSSBarButtonItem *item3 = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapInsertVideo:)];
     [self.editor addCustomToolbarItem:item3];
-    
+    */
     // Choose which toolbar items to show
     self.editor.enabledToolbarItems = @[ZSSRichTextEditorToolbarViewSource];
     

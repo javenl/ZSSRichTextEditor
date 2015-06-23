@@ -42,11 +42,11 @@
     [myButton addTarget:self
                  action:@selector(didTapCustomToolbarButton:)
        forControlEvents:UIControlEventTouchUpInside];
-    [self.editor addCustomToolbarItemWithButton:myButton];
+//    [self.editor addCustomToolbarItemWithButton:myButton];
     
     // Custom image button
     ZSSBarButtonItem *item = [[ZSSBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ZSSinsertkeyword.png"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCustomToolbarButton:)];
-    [self.editor addCustomToolbarItem:item];
+//    [self.editor addCustomToolbarItem:item];
     
 }
 

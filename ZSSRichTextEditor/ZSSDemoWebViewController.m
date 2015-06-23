@@ -23,8 +23,8 @@
 //
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    DLog(@"frame %@", NSStringFromCGRect(self.view.frame));
-    DLog(@"bounds %@", NSStringFromCGRect(self.view.bounds));
+    NSLog(@"frame %@", NSStringFromCGRect(self.view.frame));
+    NSLog(@"bounds %@", NSStringFromCGRect(self.view.bounds));
     
     self.webView = [UIWebView new];
     self.webView.frame = CGRectMake(0, 0, 375, 603);

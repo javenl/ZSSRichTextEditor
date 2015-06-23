@@ -25,7 +25,8 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.editorView = [[ZSSRichTextEditor alloc] initWithFrame:self.view.bounds navigationController:self.navigationController delegate:nil];
+    self.editorView = [[ZSSRichTextEditor alloc] initWithNavigationController:self.navigationController delegate:nil];
+    self.editorView.frame = self.view.bounds;
     [self.view addSubview:self.editorView];
     
     // Export HTML
@@ -77,7 +78,7 @@
 
 - (void)exportHTML {
     
-    DLog(@"%@", [self.editorView getHTML]);
+    NSLog(@"%@", [self.editorView getHTML]);
     
 }
 
