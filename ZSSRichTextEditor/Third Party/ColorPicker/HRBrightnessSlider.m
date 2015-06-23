@@ -96,7 +96,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGRect frame = (CGRect) {.origin = CGPointZero, .size = self.frame.size};
-    NSLog(@"frame %@", NSStringFromCGRect(frame));
+    DLog(@"frame %@", NSStringFromCGRect(frame));
     _renderingFrame = UIEdgeInsetsInsetRect(frame, self.alignmentRectInsets);
     _controlFrame = CGRectInset(_renderingFrame, 8, 0);
     _brightnessCursor.center = CGPointMake(

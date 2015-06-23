@@ -141,6 +141,7 @@
 		5A99E1B21B0C9EAC00B1633A /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A99E1AD1B0C9EAC00B1633A /* libmp3lame.a */; };
 		5A99E1B31B0C9EAC00B1633A /* MP3Converter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A99E1AF1B0C9EAC00B1633A /* MP3Converter.m */; };
 		5AB4CBDA1B29481A0057E7EF /* editor_test.html in Resources */ = {isa = PBXBuildFile; fileRef = 5AB4CBD91B29481A0057E7EF /* editor_test.html */; };
+		5AB8206F1B39005300BAAC5B /* UIWebView+HackishAccessoryHiding.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8206E1B39005300BAAC5B /* UIWebView+HackishAccessoryHiding.m */; };
 		5AF662201B16EC3E00581399 /* JsonSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF6621F1B16EC3E00581399 /* JsonSerialization.m */; };
 /* End PBXBuildFile section */
 
@@ -328,6 +329,8 @@
 		5A99E1AE1B0C9EAC00B1633A /* MP3Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MP3Converter.h; sourceTree = "<group>"; };
 		5A99E1AF1B0C9EAC00B1633A /* MP3Converter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MP3Converter.m; sourceTree = "<group>"; };
 		5AB4CBD91B29481A0057E7EF /* editor_test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor_test.html; sourceTree = "<group>"; };
+		5AB8206D1B39005300BAAC5B /* UIWebView+HackishAccessoryHiding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+HackishAccessoryHiding.h"; sourceTree = "<group>"; };
+		5AB8206E1B39005300BAAC5B /* UIWebView+HackishAccessoryHiding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+HackishAccessoryHiding.m"; sourceTree = "<group>"; };
 		5AF6621E1B16EC3E00581399 /* JsonSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonSerialization.h; sourceTree = "<group>"; };
 		5AF6621F1B16EC3E00581399 /* JsonSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonSerialization.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -649,6 +652,8 @@
 				5A99E1AA1B0C9EAC00B1633A /* UIAlertView+Blocks.m */,
 				5A43692B1B3110570077433B /* UIColor+Hex.h */,
 				5A43692C1B3110570077433B /* UIColor+Hex.m */,
+				5AB8206D1B39005300BAAC5B /* UIWebView+HackishAccessoryHiding.h */,
+				5AB8206E1B39005300BAAC5B /* UIWebView+HackishAccessoryHiding.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -860,6 +865,7 @@
 				45F80458189B1E9300A1EDD9 /* ZSSDemoPickerViewController.m in Sources */,
 				4513B3D8184E8F5100A9CA86 /* ZSSBarButtonItem.m in Sources */,
 				5A5656571B3021FE005FA42F /* MSSliderView.m in Sources */,
+				5AB8206F1B39005300BAAC5B /* UIWebView+HackishAccessoryHiding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

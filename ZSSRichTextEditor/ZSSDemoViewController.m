@@ -77,7 +77,7 @@
 
 - (void)exportHTML {
     
-    NSLog(@"%@", [self.editorView getHTML]);
+    DLog(@"%@", [self.editorView getHTML]);
     
 }
 
@@ -95,7 +95,7 @@
     CGRect rect1 = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect rect2 = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     //        UIView *win = [UIApplication sharedApplication].windows.lastObject;
-    NSLog(@"y %@",  @(CGRectGetMinY(rect2) - 44));
+    DLog(@"y %@",  @(CGRectGetMinY(rect2) - 44));
     //        self.view.window
     [self.editorView showToolBarInView:self.view.window frame:CGRectMake(0, CGRectGetMinY(rect2) - 44, CGRectGetWidth(self.view.frame), 44)];
     

@@ -59,7 +59,7 @@
 
 - (void)didColorChange:(HRColorPickerView *)colorPickerView {
     UIColor *color = colorPickerView.color;
-//    NSLog(@"%@", color);
+//    DLog(@"%@", color);
     self.currentColor = color;
 }
 

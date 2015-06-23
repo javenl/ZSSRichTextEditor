@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Zed Said Studio. All rights reserved.
 //
 
-#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -19,78 +18,18 @@
 #import "UIColor+Hex.h"
 #import "HRColorUtil.h"
 #import "ZSSColorPicker.h"
+#import "UIWebView+HackishAccessoryHiding.h"
+
 
 #define kActionSheetInsertImageTag 1001
 #define kActionSheetInsertVideoTag 1002
 #define kMaskViewTag 2001
 
 
-@interface UIWebView (HackishAccessoryHiding)
 
-@property (nonatomic, assign) BOOL hidesInputAccessoryView;
-
-@end
-
-@implementation UIWebView (HackishAccessoryHiding)
-
-static const char * const hackishFixClassName = "UIWebBrowserViewMinusAccessoryView";
-static Class hackishFixClass = Nil;
-
-
-- (UIView *)hackishlyFoundBrowserView {
-    UIScrollView *scrollView = self.scrollView;
-    
-    UIView *browserView = nil;
-    for (UIView *subview in scrollView.subviews) {
-        if ([NSStringFromClass([subview class]) hasPrefix:@"UIWebBrowserView"]) {
-            browserView = subview;
-            break;
-        }
-    }
-    return browserView;
-}
-
-- (id)methodReturningNil {
-    return nil;
-}
-
-- (void)ensureHackishSubclassExistsOfBrowserViewClass:(Class)browserViewClass {
-    if (!hackishFixClass) {
-        Class newClass = objc_allocateClassPair(browserViewClass, hackishFixClassName, 0);
-        newClass = objc_allocateClassPair(browserViewClass, hackishFixClassName, 0);
-        IMP nilImp = [self methodForSelector:@selector(methodReturningNil)];
-        class_addMethod(newClass, @selector(inputAccessoryView), nilImp, "@@:");
-        objc_registerClassPair(newClass);
-        
-        hackishFixClass = newClass;
-    }
-}
-
-- (BOOL) hidesInputAccessoryView {
-    UIView *browserView = [self hackishlyFoundBrowserView];
-    return [browserView class] == hackishFixClass;
-}
-
-- (void) setHidesInputAccessoryView:(BOOL)value {
-    UIView *browserView = [self hackishlyFoundBrowserView];
-    if (browserView == nil) {
-        return;
-    }
-    [self ensureHackishSubclassExistsOfBrowserViewClass:[browserView class]];
-    
-    if (value) {
-        object_setClass(browserView, hackishFixClass);
-    }
-    else {
-        Class normalClass = objc_getClass("UIWebBrowserView");
-        object_setClass(browserView, normalClass);
-    }
-    [browserView reloadInputViews];
-}
-
-@end
 
 @interface ZSSRichTextEditor ()
+
 @property (nonatomic, strong) UIScrollView *toolBarScroll;
 @property (nonatomic, strong) UIToolbar *toolbar;
 
@@ -113,10 +52,12 @@ static Class hackishFixClass = Nil;
 @property (nonatomic, strong) NSMutableArray *customZSSBarButtonItems;
 @property (nonatomic, strong) NSString *internalHTML;
 @property (nonatomic) BOOL editorLoaded;
+
 - (NSString *)removeQuotesFromHTML:(NSString *)html;
 - (NSString *)tidyHTML:(NSString *)html;
 - (void)enableToolbarItems:(BOOL)enable;
 - (BOOL)isIpad;
+
 @end
 
 @implementation ZSSRichTextEditor
@@ -131,7 +72,7 @@ static Class hackishFixClass = Nil;
     [super layoutSubviews];
     self.sourceView.frame = self.bounds;
     self.editorView.frame = self.bounds;
-    NSLog(@"%@", NSStringFromCGRect(self.editorView.frame));
+    DLog(@"%@", NSStringFromCGRect(self.editorView.frame));
 //    [self.editorView reload];
 //    [self setContentHeight:CGRectGetHeight(self.frame)];
 }
@@ -920,7 +861,7 @@ static Class hackishFixClass = Nil;
             UITextField *title = [alertController.textFields objectAtIndex:1];
             if (!self.selectedLinkURL) {
                 [self insertLink:linkURL.text title:title.text];
-                NSLog(@"insert link");
+                DLog(@"insert link");
             } else {
                 [self updateLink:linkURL.text title:title.text];
             }
@@ -1186,14 +1127,14 @@ static Class hackishFixClass = Nil;
 //    [self restoreRange];
 //    [self backupRange];
     NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertMP3(\"%@\");", url];
-    NSLog(@"insertMP3 url %@", url);
+    DLog(@"insertMP3 url %@", url);
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)insertVideo:(NSString *)url {
 //    [self restoreRange];
     NSString *trigger = [NSString stringWithFormat:@"zss_extend.insertVideo(\"%@\");", url];
-    NSLog(@"url %@", url);
+    DLog(@"url %@", url);
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
@@ -1353,7 +1294,7 @@ static Class hackishFixClass = Nil;
         // We recieved the callback
         NSString *debug = [urlString stringByReplacingOccurrencesOfString:@"debug://" withString:@""];
         debug = [debug stringByReplacingPercentEscapesUsingEncoding:NSStringEncodingConversionAllowLossy];
-        NSLog(@"%@", debug);
+        DLog(@"%@", debug);
         
     } else if ([urlString rangeOfString:@"scroll://"].location != NSNotFound) {
         
@@ -1423,7 +1364,7 @@ static Class hackishFixClass = Nil;
         [self insertImage:url.absoluteString alt:@""];
     } else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         NSURL *url = info[UIImagePickerControllerMediaURL];
-        NSLog(@"video url %@", url.absoluteString);
+        DLog(@"video url %@", url.absoluteString);
         [self restoreRange];
         [self insertVideo:url.absoluteString];
         
@@ -1729,12 +1670,12 @@ static Class hackishFixClass = Nil;
     CGRect rect = frame;
     rect.origin.y = CGRectGetMaxY(view.frame);
     self.toolbarHolder.frame = rect;
-    NSLog(@"rect1 %@", NSStringFromCGRect(rect));
+    DLog(@"rect1 %@", NSStringFromCGRect(rect));
 //    NSLog(@"rect2 %@", NSStringFromCGRect(rect2));
     [UIView animateWithDuration:0.35 animations:^{
         self.toolbarHolder.frame = frame;
 //        NSLog(@"rect1 %@", NSStringFromCGRect(rect1));
-        NSLog(@"rect2 %@", NSStringFromCGRect(frame));
+        DLog(@"rect2 %@", NSStringFromCGRect(frame));
     }];
 }
 
