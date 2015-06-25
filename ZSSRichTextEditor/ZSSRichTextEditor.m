@@ -1448,10 +1448,34 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     // Blank method. User should implement this in their subclass
 }
 
+- (BOOL)findFirstResponderInView:(UIView *)view {
+    if (view.isFirstResponder) {
+        return YES;
+    } else {
+        for (UIView *subview in view.subviews) {
+            if ([self findFirstResponderInView:subview]) {
+                return YES;
+            }
+//            if (subview.isFirstResponder) {
+//                NSLog(@"%@", subview);
+//                return YES;
+//            } else {
+//                return <#expression#>
+//            }
+        }
+    }
+    return NO;
+}
+
+- (BOOL)isFirstResponder {
+    return [self findFirstResponderInView:self.editorView];
+}
 
 #pragma mark - Keyboard Notification
 
 - (void)keyboardWillShow:(NSNotification *)notification {
+    
+    [self isFirstResponder];
     
 //    CGRect rect1 = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect rect2 = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -1547,9 +1571,9 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [cell.contentView addSubview:self.toolbarBtns[indexPath.row]];
     //    cell.backgroundColor = HEXCOLOR(0x2be7e9);
     
-    UICollectionViewLayoutAttributes *atrbs = [self.flowLayout initialLayoutAttributesForAppearingItemAtIndexPath:indexPath];
+//    UICollectionViewLayoutAttributes *atrbs = [self.flowLayout initialLayoutAttributesForAppearingItemAtIndexPath:indexPath];
 //    atrbs.frame
-    DLog(@"frame %@", NSStringFromCGRect(atrbs.frame));
+//    DLog(@"frame %@", NSStringFromCGRect(atrbs.frame));
     return cell;
 }
 

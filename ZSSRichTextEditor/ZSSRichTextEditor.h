@@ -16,6 +16,40 @@
 //    test,
 //};
 
+typedef NS_ENUM(NSInteger, ActionType) {
+    ActionTypeNone,
+    ActionTypeInsertImage,
+    ActionTypeInsertLink,
+    ActionTypeInsertSeparator,
+    ActionTypeInsertQuote,
+    ActionTypeClearFormat,
+    ActionTypeBold,
+    ActionTypeItalic,
+    ActionTypeUnderLine,
+    ActionTypeH1,
+    ActionTypeH2,
+    ActionTypeH3,
+    ActionTypeH4,
+    ActionTypeH5,
+    ActionTypeH6,
+    ActionTypeFontSize,
+    ActionTypeAlignLeft,
+    ActionTypeAlignCenter,
+    ActionTypeAlignRight,
+    ActionTypeAlignFull,
+    ActionTypeIndent,
+    ActionTypeOutdent,
+    ActionTypeCircleList,
+    ActionTypePointList,
+    ActionTypeSqureList,
+    ActionTypeNumberList,
+//    ActionTypeLowerCharList,
+    ActionTypeTextColor,
+    ActionTypeBackgroundColor,
+    ActionTypeLineSpace,
+};
+
+
 /**
  *  The types of toolbar items that can be added
  */
@@ -323,6 +357,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 //- (void)enableToolbarItems:(BOOL)enable;
 
 - (void)setFooterHeight:(float)footerHeight;
+
+- (void)setContentHeight:(float)contentHeight;
 
 //+ (NSArray *)localPathsInHtml:(NSString *)html;
 

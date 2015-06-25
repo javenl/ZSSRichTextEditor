@@ -29,6 +29,9 @@
     self.editorView.frame = self.view.bounds;
     [self.view addSubview:self.editorView];
     
+//    [self.editorView setContentHeight:self.view.bounds.size.height];
+//    [self.editorView setFooterHeight:200];
+    
     // Export HTML
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Export" style:UIBarButtonItemStylePlain target:self action:@selector(exportHTML)];
 	
@@ -46,14 +49,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -90,8 +93,14 @@
 }
 
 #pragma mark - Notification
-/*
+
 - (void)keyboardWillShow:(NSNotification *)notification {
+    
+//    CGRect rect2 = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    
+//    [self.editorView setContentHeight:CGRectGetHeight(self.view.bounds)-CGRectGetHeight(rect2)];
+    /*
     //    NSLog(@"duration %@", notification.userInfo[UIKeyboardAnimationDurationUserInfoKey]);
     CGRect rect1 = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect rect2 = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -108,9 +117,11 @@
     self.editorView.editorView.scrollView.scrollIndicatorInsets = UIEdgeInsetsZero;
     //    self.editorView.editorView.scrollView.contentInset = UIEdgeInsetsZero;
     [self.view setNeedsLayout];
+    */
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
+    /*
     [self.editorView removeToolbar];
     CGRect frame = self.editorView.frame;
     frame.size.height = CGRectGetHeight(self.view.frame) - 44;
@@ -119,6 +130,7 @@
 //        make.height.equalTo(self.view).offset(-80);
 //    }];
     [self.view setNeedsLayout];
+    */
 }
-*/
+
 @end

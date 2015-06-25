@@ -28,7 +28,7 @@ zss_editor.currentEditingLink;
 zss_editor.enabledItems = {};
 
 // Height of content window, will be set by viewController
-zss_editor.contentHeight = 180; // 244;
+zss_editor.contentHeight = 180;// 180; // 244;
 
 // Sets to true when extra footer gap shows and requires to hide
 zss_editor.updateScrollOffset = false;
