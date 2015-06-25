@@ -33,13 +33,14 @@ zss_editor.contentHeight = 180;// 180; // 244;
 // Sets to true when extra footer gap shows and requires to hide
 zss_editor.updateScrollOffset = false;
 
+zss_editor.needToScroll = true;
+
 /**
  * The initializer function that must be called onLoad
  */
 zss_editor.init = function() {
-
-    
-    $('#zss_editor_content').on('touchend', function(e) {
+    $('#zss_editor_content')
+    .on('touchend', function(e) {
                                 zss_editor.enabledEditingItems(e);
 //                                var clicked = $(e.target);
 //                                if (!clicked.hasClass('zs_active')) {
@@ -55,8 +56,10 @@ zss_editor.init = function() {
     });
     
     $(document).on('selectionchange',function(e){
-                   zss_editor.calculateEditorHeightWithCaretPosition(e);
-                   zss_editor.setScrollPosition();
+//                   if (zss_editor.needToScroll) {
+                       zss_editor.calculateEditorHeightWithCaretPosition(e);
+                       zss_editor.setScrollPosition();
+//                   }
                    zss_extend.enabledEditingItems(e);
 //                   zss_editor.debug("change");
 //                   if (editor.is(":focus")) {
@@ -86,11 +89,13 @@ zss_editor.init = function() {
     
     $(window).on('touchstart', function(e) {
                  zss_editor.isDragging = false;
+//                 zss_editor.needToScroll = false;
                  zss_editor.calculateEditorHeightWithCaretPosition;
                  });
     
     $(window).on('touchend', function(e) {
                  // console.log(e);
+//                 zss_editor.needToScroll = true;
                  var t = $(e.target);
                  var nodeName = e.target.nodeName.toLowerCase();
                  if (nodeName == "html") {
@@ -444,7 +449,7 @@ zss_editor.setOutdent = function() {
 }
 
 zss_editor.setTextColor = function(color) {
-    zss_editor.restorerange();
+//    zss_editor.restorerange();
     document.execCommand("styleWithCSS", null, true);
     document.execCommand('foreColor', false, color);
     document.execCommand("styleWithCSS", null, false);
@@ -453,7 +458,7 @@ zss_editor.setTextColor = function(color) {
 }
 
 zss_editor.setBackgroundColor = function(color) {
-    zss_editor.restorerange();
+//    zss_editor.restorerange();
     document.execCommand("styleWithCSS", null, true);
     document.execCommand('hiliteColor', false, color);
     document.execCommand("styleWithCSS", null, false);
@@ -616,6 +621,58 @@ zss_editor.isCommandEnabled = function(commandName) {
     return document.queryCommandState(commandName);
 }
 
+zss_editor.detactStyle = function() {
+    var items = [];
+    if (zss_editor.isCommandEnabled('bold')) {
+        items.push('bold');
+    }
+    if (zss_editor.isCommandEnabled('italic')) {
+        items.push('italic');
+    }
+    if (zss_editor.isCommandEnabled('subscript')) {
+        items.push('subscript');
+    }
+    if (zss_editor.isCommandEnabled('superscript')) {
+        items.push('superscript');
+    }
+    if (zss_editor.isCommandEnabled('strikeThrough')) {
+        items.push('strikeThrough');
+    }
+    if (zss_editor.isCommandEnabled('underline')) {
+        items.push('underline');
+    }
+    if (zss_editor.isCommandEnabled('insertOrderedList')) {
+        items.push('orderedList');
+    }
+    if (zss_editor.isCommandEnabled('insertUnorderedList')) {
+        items.push('unorderedList');
+    }
+    if (zss_editor.isCommandEnabled('justifyCenter')) {
+        items.push('justifyCenter');
+    }
+    if (zss_editor.isCommandEnabled('justifyFull')) {
+        items.push('justifyFull');
+    }
+    if (zss_editor.isCommandEnabled('justifyLeft')) {
+        items.push('justifyLeft');
+    }
+    if (zss_editor.isCommandEnabled('justifyRight')) {
+        items.push('justifyRight');
+    }
+    if (zss_editor.isCommandEnabled('insertHorizontalRule')) {
+        items.push('horizontalRule');
+    }
+    var formatBlock = document.queryCommandValue('formatBlock');
+    if (formatBlock.length > 0) {
+        items.push(formatBlock);
+    }
+    if (items.length > 0) {
+        return items.join(',');
+    } else {
+        return '';
+    }
+}
+
 zss_editor.enabledEditingItems = function(e) {
     
 //    zss_editor.debug('enabledEditingItems');
@@ -665,10 +722,10 @@ zss_editor.enabledEditingItems = function(e) {
         items.push(formatBlock);
     }
     // Images
-    $('img').bind('touchstart', function(e) {
+//    $('img').bind('touchstart', function(e) {
 //                  $('img').removeClass('zs_active');
 //                  $(this).addClass('zs_active');
-                  });
+//                  });
     
     // Use jQuery to figure out those that are not supported
     if (typeof(e) != "undefined") {

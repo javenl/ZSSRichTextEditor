@@ -746,7 +746,19 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
-- (void)textColor {
+- (void)setTextColor:(UIColor *)color {
+    NSString *hex = [NSString stringWithFormat:@"#%06x",HexColorFromUIColor(color)];
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setTextColor(\"%@\");", hex];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setBgColor:(UIColor *)color {
+    NSString *hex = [NSString stringWithFormat:@"#%06x",HexColorFromUIColor(color)];
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setBackgroundColor(\"%@\");", hex];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)selectTextColor {
     // Save the selection location
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
     ZSSColorPicker *colorPicker = [[ZSSColorPicker alloc] initWithColor:self.currentTextColor];
@@ -775,7 +787,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     
 }
 
-- (void)bgColor {
+- (void)selectBackgroundColor {
     // Save the selection location
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.prepareInsert();"];
     
@@ -1159,6 +1171,10 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"zss_editor.debug('%@');", msg]];
 }
 
+- (NSString *)detactStyle {
+    return [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.detactStyle();"];
+}
+
 - (NSArray *)getLocalPaths {
     NSString *json = [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_extend.getAllImageLinks();"];
     NSArray *links = [NSMutableArray arrayWithArray:[json toJsonArray]];
@@ -1374,14 +1390,12 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 #pragma mark - ZSSColorPickerDelegate
 
 - (void)colorPicker:(ZSSColorPicker *)colorPicker didPickerColor:(UIColor *)color {
-    NSString *hex = [NSString stringWithFormat:@"#%06x",HexColorFromUIColor(color)];
-    NSString *trigger;
+    [self restoreRange];
     if (colorPicker.view.tag == 1) {
-        trigger = [NSString stringWithFormat:@"zss_editor.setTextColor(\"%@\");", hex];
+        [self setTextColor:color];
     } else if (colorPicker.view.tag == 2) {
-        trigger = [NSString stringWithFormat:@"zss_editor.setBackgroundColor(\"%@\");", hex];
+        [self setBgColor:color];
     }
-    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 
@@ -1475,15 +1489,17 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     
-    [self isFirstResponder];
+//    [self isFirstResponder];
     
 //    CGRect rect1 = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect rect2 = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat during = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self showToolBarInView:self.window frame:CGRectMake(0, CGRectGetMinY(rect2) - 44, kScreenWidth, 44) during:during];
-    });
+    if ([self isFirstResponder]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showToolBarInView:self.window frame:CGRectMake(0, CGRectGetMinY(rect2) - 44, kScreenWidth, 44) during:during];
+        });
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {

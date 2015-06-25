@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, ActionType) {
     ActionTypeUnderLine,
     ActionTypeH1,
     ActionTypeH2,
-    ActionTypeH3,
+    ActionTypeH3, 
     ActionTypeH4,
     ActionTypeH5,
     ActionTypeH6,
@@ -270,6 +270,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)debug:(NSString *)msg;
 
+- (NSString *)detactStyle;
+
 #pragma mark -
 
 - (void)insertMP3:(NSString *)url;
@@ -334,9 +336,13 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)paragraph;
 
-- (void)textColor;
+- (void)setTextColor:(UIColor *)color;
 
-- (void)bgColor;
+- (void)setBgColor:(UIColor *)color;
+
+- (void)selectTextColor;
+
+- (void)selectBackgroundColor;
 
 //- (void)setSelectedColor:(UIColor*)color tag:(int)tag;
 
