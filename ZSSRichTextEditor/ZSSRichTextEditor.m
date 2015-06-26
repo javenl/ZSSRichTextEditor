@@ -795,6 +795,11 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
+- (void)setLineHeight:(CGFloat)lineHeight {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setLineHeight(%@);", @(lineHeight)];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
 - (void)setFontSize:(CGFloat)fontSize {
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.setFontSize(%@);", @(fontSize)];
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
@@ -868,7 +873,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 - (void)redo:(ZSSBarButtonItem *)barButtonItem {
     [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.redo();"];
 }
-/*
+
 - (void)insertLink {
     
     // Save the selection location
@@ -886,25 +891,25 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     NSString *insertButtonTitle = !self.selectedLinkURL ? NSLocalizedString(@"Insert", nil) : NSLocalizedString(@"Update", nil);
     
     // Picker Button
-    UIButton *am = [UIButton buttonWithType:UIButtonTypeCustom];
-    am.frame = CGRectMake(0, 0, 25, 25);
-    [am setImage:[UIImage imageNamed:@"ZSSpicker.png"] forState:UIControlStateNormal];
-    [am addTarget:self action:@selector(showInsertURLAlternatePicker) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *am = [UIButton buttonWithType:UIButtonTypeCustom];
+//    am.frame = CGRectMake(0, 0, 25, 25);
+//    [am setImage:[UIImage imageNamed:@"ZSSpicker.png"] forState:UIControlStateNormal];
+//    [am addTarget:self action:@selector(showInsertURLAlternatePicker) forControlEvents:UIControlEventTouchUpInside];
     
     if ([NSProcessInfo instancesRespondToSelector:@selector(isOperatingSystemAtLeastVersion:)]) {
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Insert Link", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            textField.placeholder = NSLocalizedString(@"URL (required)", nil);
+            textField.placeholder = NSLocalizedString(@"Input URL", nil);
             if (url) {
                 textField.text = url;
             }
-            textField.rightView = am;
+//            textField.rightView = am;
             textField.rightViewMode = UITextFieldViewModeAlways;
             textField.clearButtonMode = UITextFieldViewModeAlways;
         }];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            textField.placeholder = NSLocalizedString(@"Title", nil);
+            textField.placeholder = NSLocalizedString(@"Input Title", nil);
             textField.clearButtonMode = UITextFieldViewModeAlways;
             textField.secureTextEntry = NO;
             if (title) {
@@ -920,7 +925,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
             UITextField *title = [alertController.textFields objectAtIndex:1];
             if (!self.selectedLinkURL) {
                 [self insertLink:linkURL.text title:title.text];
-                DLog(@"insert link");
             } else {
                 [self updateLink:linkURL.text title:title.text];
             }
@@ -939,7 +943,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
             linkURL.text = url;
         }
         
-        linkURL.rightView = am;
+//        linkURL.rightView = am;
         linkURL.rightViewMode = UITextFieldViewModeAlways;
         
         UITextField *alt = [self.alertView textFieldAtIndex:1];
@@ -952,7 +956,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         [self.alertView show];
     }
 }
-*/
+
 
 - (void)insertLink:(NSString *)url title:(NSString *)title {
     NSString *trigger = [NSString stringWithFormat:@"zss_editor.insertLink(\"%@\", \"%@\");", url, title];
@@ -1084,7 +1088,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Insert Image", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            textField.placeholder = NSLocalizedString(@"URL (required)", nil);
+            textField.placeholder = NSLocalizedString(@"Input URL", nil);
             if (url) {
                 textField.text = url;
             }

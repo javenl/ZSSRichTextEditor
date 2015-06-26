@@ -579,13 +579,19 @@ zss_editor.setParagraphBottom = function(bottom) {
     zss_editor.enabledEditingItems();
 }
 
+zss_editor.setLineHeight = function (lineHeight){
+    var node = zss_extend.closerParentNode();
+    $(node).css('line-height', lineHeight);
+    zss_editor.enabledEditingItems();
+}
+
 zss_editor.setFontSize = function(fontSize) {
     document.execCommand("styleWithCSS", null, true);
     document.execCommand('FontSize', false, 1);
     document.execCommand("styleWithCSS", null, false);
-    var node = zss_editor.closerParentNode();
+    var node = zss_extend.closerParentNode();
     $(node).css('font-size', fontSize+"px");
-    ZSSEditor.sendEnabledStyles();
+    zss_editor.enabledEditingItems();
 }
 
 zss_editor.setTextColor = function(color) {
@@ -608,9 +614,26 @@ zss_editor.setBackgroundColor = function(color) {
 // Needs addClass method
 
 zss_editor.insertLink = function(url, title) {
+    zss_editor.restorerange();
+    var html = '<a href="'+url+'" title="'+title+'">'+title+'</a>';
+    zss_editor.insertHTML(html);
+    zss_editor.enabledEditingItems();
+}
+/*
+zss_editor.insertLink = function(url, title) {
     
     zss_editor.restorerange();
     var sel = document.getSelection();
+    
+    var el = document.createElement("a");
+    el.setAttribute("href", url);
+    el.setAttribute("title", title);
+    
+    var range = sel.getRangeAt(0).cloneRange();
+    range.surroundContents(el);
+    sel.removeAllRanges();
+    sel.addRange(range);
+ 
     console.log(sel);
     if (sel.toString().length != 0) {
         if (sel.rangeCount) {
@@ -625,9 +648,10 @@ zss_editor.insertLink = function(url, title) {
             sel.addRange(range);
         }
     }
+ 
     zss_editor.enabledEditingItems();
 }
-
+*/
 zss_editor.updateLink = function(url, title) {
     
     zss_editor.restorerange();
@@ -837,10 +861,38 @@ zss_editor.enabledEditingItems = function(e) {
         items.push('underline');
     }
     if (zss_editor.isCommandEnabled('insertOrderedList')) {
-        items.push('orderedList');
+//        items.push('orderedList');
+        var node = zss_extend.closerListNode();
+        if (node != null) {
+            if(node.type == "A" ){
+                items.push('upCharList');
+            }else if(node.type == "a") {
+                items.push('lowCharList');
+            }else if(node.type == "I") {
+                items.push('upRomanList');
+            }else if(node.type == "i") {
+                items.push('lowRomanList');
+            }else{
+                items.push('orderedList');
+            }
+        } else {
+            items.push('orderedList');
+        }
     }
     if (zss_editor.isCommandEnabled('insertUnorderedList')) {
-        items.push('unorderedList');
+        var node = zss_extend.closerListNode();
+        if (node != null) {
+            if(node.type == "circle" ) {
+                items.push('dotLsit');
+            } else if(node.type == "square"){
+                items.push('blockList');
+            } else {
+                items.push('unorderedList');
+            }
+        }else{
+            items.push('unorderedList');
+        }
+//        items.push('unorderedList');
     }
     if (zss_editor.isCommandEnabled('justifyCenter')) {
         items.push('justifyCenter');
@@ -867,15 +919,28 @@ zss_editor.enabledEditingItems = function(e) {
 //                  $(this).addClass('zs_active');
 //                  });
     
+    //font Size
+    var node = zss_extend.closerParentNode();
+//    var t = node.nodeName.toLowerCase();
+    
+    var fontSize = $(node).css('font-size')
+    if (fontSize.length != 0) {
+        items.push('fontSize:'+fontSize);
+    }
+    
+    var lineHeight = $(node).css('line-height')
+    if (lineHeight.length != 0) {
+        items.push('lineHeight:'+lineHeight);
+    }
+    
     // Use jQuery to figure out those that are not supported
     if (typeof(e) != "undefined") {
-        
+    
         // The target element
         var t = $(e.target);
         var nodeName = e.target.nodeName.toLowerCase();
         
         // Background Color
-        
         var bgColor = t.css('backgroundColor');
         if (bgColor.length != 0 && bgColor != 'rgba(0, 0, 0, 0)' && bgColor != 'rgb(0, 0, 0)' && bgColor != 'transparent') {
             bgColor = zss_extend.RGBToHex(bgColor);

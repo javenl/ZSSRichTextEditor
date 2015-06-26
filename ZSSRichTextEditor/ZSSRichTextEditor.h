@@ -50,6 +50,8 @@ typedef NS_ENUM(NSInteger, ActionType) {
     ActionTypeTextColor,
     ActionTypeBackgroundColor,
     ActionTypeLineSpace,
+    ActionTypeParagraphTop,
+    ActionTypeParagraphBottom,
 };
 
 
@@ -227,7 +229,7 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
  *  @param url   The URL for the link
  *  @param title The tile for the link
  */
-//- (void)showInsertLinkDialogWithLink:(NSString *)url title:(NSString *)title;
+- (void)showInsertLinkDialogWithLink:(NSString *)url title:(NSString *)title;
 
 /**
  *  Inserts a link
@@ -360,6 +362,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 - (void)heading6;
 
 - (void)paragraph;
+
+- (void)setLineHeight:(CGFloat)lineHeight;
 
 - (void)setFontSize:(CGFloat)fontSize;
 
