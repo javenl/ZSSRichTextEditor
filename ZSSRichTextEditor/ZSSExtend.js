@@ -125,25 +125,30 @@ zss_extend.restorerange = function(){
 }
 
 zss_extend.closerParentNode = function() {
-    
     var parentNode = null;
     var selection = window.getSelection();
     var range = selection.getRangeAt(0).cloneRange();
-    
     var currentNode = range.commonAncestorContainer;
-    
     while (currentNode) {
         if (currentNode.nodeType == document.ELEMENT_NODE) {
             parentNode = currentNode;
-            
             break;
         }
-        
         currentNode = currentNode.parentElement;
     }
-    
     return parentNode;
 };
+
+zss_extend.closerBlockQuoteNode = function () {
+    var node = zss_extend.closerParentNode();
+    if (node.nodeName.toLocaleLowerCase() == 'blockquote') {
+        return node;
+    } else if (node.parentNode.nodeName.toLocaleLowerCase() == 'blockquote') {
+        return node.parentNode;
+    } else {
+        return null;
+    }
+}
 
 zss_extend.closerListNode = function () {
     var node = zss_extend.closerParentNode();
@@ -156,23 +161,12 @@ zss_extend.closerListNode = function () {
     }
 }
 
-zss_extend.closerOrderListNode = function () {
-    var node = zss_extend.closerParentNode();
-    if (node.nodeName == 'LI') {
-        return node.parentNode;
-    } else if (node.parentNode.nodeName == 'LI') {
-        return node.parentNode.parentNode;
-    } else {
-        return null;
-    }
-}
-
-zss_extend.closerDivOrP = function() {
-    var node = zss_extend.closerParentNode();
-    if (node) {
-        
-    }
-};
+//zss_extend.closerDivOrP = function() {
+//    var node = zss_extend.closerParentNode();
+//    if (node) {
+//        
+//    }
+//};
 
 zss_extend.enabledEditingItems = function (e) {
     var element = this.closerParentNode();

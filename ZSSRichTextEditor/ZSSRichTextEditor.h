@@ -39,11 +39,14 @@ typedef NS_ENUM(NSInteger, ActionType) {
     ActionTypeAlignFull,
     ActionTypeIndent,
     ActionTypeOutdent,
-    ActionTypeCircleList,
-    ActionTypePointList,
-    ActionTypeSqureList,
-    ActionTypeNumberList,
-//    ActionTypeLowerCharList,
+    ActionTypeOrderList,
+    ActionTypeLowCharOrderList,
+    ActionTypeUpCharOrderList,
+    ActionTypeLowRomanOrderList,
+    ActionTypeUpRomanOrderList,
+    ActionTypeUnOrderList,
+    ActionTypeCircleUnOrderList,
+    ActionTypeSquareUnOrderList,
     ActionTypeTextColor,
     ActionTypeBackgroundColor,
     ActionTypeLineSpace,
@@ -318,9 +321,23 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)setUnorderedList;
 
+- (void)setCircleUnorderedList;
+
+- (void)setSquareUnorderedList;
+
 - (void)setOrderedList;
 
+- (void)setUpCharOrderedList;
+
+- (void)setLowCharOrderedList;
+
+- (void)setUpRomanOrderedList;
+
+- (void)setLowRomanOrderedList;
+
 - (void)setHR;
+
+- (void)setQuote;
 
 - (void)setIndent;
 

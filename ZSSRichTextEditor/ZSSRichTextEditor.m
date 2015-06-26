@@ -695,13 +695,48 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
+- (void)setCircleUnorderedList {
+    NSString *trigger = @"zss_editor.setCircleUnorderedList();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setSquareUnorderedList {
+    NSString *trigger = @"zss_editor.setSquareUnorderedList();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
 - (void)setOrderedList {
     NSString *trigger = @"zss_editor.setOrderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
+- (void)setUpCharOrderedList {
+    NSString *trigger = @"zss_editor.setUpCharOrderedList();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setLowCharOrderedList {
+    NSString *trigger = @"zss_editor.setLowCharOrderedList();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setUpRomanOrderedList {
+    NSString *trigger = @"zss_editor.setUpRomanOrderedList();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setLowRomanOrderedList {
+    NSString *trigger = @"zss_editor.setLowRomanOrderedList();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
 - (void)setHR {
     NSString *trigger = @"zss_editor.setHorizontalRule();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setQuote {
+    NSString *trigger = @"zss_editor.setQuote();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 

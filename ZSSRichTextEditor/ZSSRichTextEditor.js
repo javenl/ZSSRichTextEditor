@@ -409,19 +409,6 @@ zss_editor.redo = function() {
 }
 
 zss_editor.setOrderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertOrderedList', false, null);
-    } else if (node.nodeName == 'UL') { //原本为UL -> 更改为OL
-        document.execCommand('insertOrderedList', false, null);
-        node.removeAttribute("type");
-    } else if (node.type == "") { //原本就是自己 -> 移除UL
-        document.execCommand('insertOrderedList', false, null);
-    } else { //原本就是其他type -> 移除type
-        node.removeAttribute("type");
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "") { // 移除节点
         document.execCommand('insertOrderedList', false, null);
@@ -436,22 +423,6 @@ zss_editor.setOrderedList = function() {
 }
 
 zss_editor.setUpCharOrderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertOrderedList', false, null);
-        node = zss_extend.closerListNode();
-        node.type = "A";
-    } else if (node.nodeName == 'UL') { //原本为UL -> 更改为OL
-        document.execCommand('insertOrderedList', false, null);
-        node = zss_extend.closerListNode();
-        node.type = "A";
-    } else if (node.type == "A") { //原本就是自己 -> 移除UL
-        document.execCommand('insertOrderedList', false, null);
-    } else { //原本就是其他type -> 更改type
-        node.type = "A";
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "A") { // 移除节点
         document.execCommand('insertOrderedList', false, null);
@@ -466,21 +437,6 @@ zss_editor.setUpCharOrderedList = function() {
 }
 
 zss_editor.setLowCharOrderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertOrderedList', false, null);
-        node = zss_extend.closerListNode();
-        node.type = "a";
-    } else if (node.nodeName == 'UL') { //原本为UL -> 更改为OL
-        document.execCommand('insertOrderedList', false, null);
-        node.type = "a";
-    } else if (node.type == "a") { //原本就是自己 -> 移除UL
-        document.execCommand('insertOrderedList', false, null);
-    } else { //原本就是其他type -> 更改type
-        node.type = "a";
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "a") { // 移除节点
         document.execCommand('insertOrderedList', false, null);
@@ -495,21 +451,6 @@ zss_editor.setLowCharOrderedList = function() {
 }
 
 zss_editor.setUpRomanOrderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertOrderedList', false, null);
-        node = zss_extend.closerListNode();
-        node.type = "I";
-    } else if (node.nodeName == 'UL') { //原本为UL -> 更改为OL
-        document.execCommand('insertOrderedList', false, null);
-        node.type = "I";
-    } else if (node.type == "I") { //原本就是自己 -> 移除UL
-        document.execCommand('insertOrderedList', false, null);
-    } else { //原本就是其他type -> 更改type
-        node.type = "I";
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "I") { // 移除节点
         document.execCommand('insertOrderedList', false, null);
@@ -524,21 +465,6 @@ zss_editor.setUpRomanOrderedList = function() {
 }
 
 zss_editor.setLowRomanOrderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertOrderedList', false, null);
-        node = zss_extend.closerListNode();
-        node.type = "i";
-    } else if (node.nodeName == 'UL') { //原本为UL -> 更改为OL
-        document.execCommand('insertOrderedList', false, null);
-        node.type = "i";
-    } else if (node.type == "i") { //原本就是自己 -> 移除UL
-        document.execCommand('insertOrderedList', false, null);
-    } else { //原本就是其他type -> 更改type
-        node.type = "i";
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "i") { // 移除节点
         document.execCommand('insertOrderedList', false, null);
@@ -553,19 +479,6 @@ zss_editor.setLowRomanOrderedList = function() {
 }
 
 zss_editor.setUnorderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertUnOrderedList', false, null);
-    } else if (node.nodeName == 'OL') { //原本为OL -> 更改为UL
-        document.execCommand('insertUnOrderedList', false, null);
-        node.removeAttribute("type");
-    } else if (node.type == "") { //原本就是自己 -> 移除UL
-        document.execCommand('insertUnOrderedList', false, null);
-    } else { //原本就是其他type -> 移除type
-        node.removeAttribute("type");
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "") { // 移除节点
         document.execCommand('insertUnOrderedList', false, null);
@@ -581,21 +494,6 @@ zss_editor.setUnorderedList = function() {
 }
 
 zss_editor.setSquareUnorderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertUnOrderedList', false, null);
-        node = zss_extend.closerListNode();
-        node.type = "square";
-    } else if (node.nodeName == 'OL') { //原本为OL -> 更改为UL
-        document.execCommand('insertUnOrderedList', false, null);
-        node.type = "square";
-    } else if (node.type == "square") { //原本就是自己 -> 移除UL
-        document.execCommand('insertUnOrderedList', false, null);
-    } else { //原本就是其他type -> 更改为square
-        node.type = "square";
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "square") { // 移除节点
         document.execCommand('insertUnOrderedList', false, null);
@@ -610,21 +508,6 @@ zss_editor.setSquareUnorderedList = function() {
 }
 
 zss_editor.setCircleUnorderedList = function() {
-    /*
-    var node = zss_extend.closerListNode();
-    if (node == null) { // 原本为空 -> 直接插入
-        document.execCommand('insertUnOrderedList', false, null);
-        node = zss_extend.closerListNode();
-        node.type = "circle";
-    } else if (node.nodeName == 'OL') { //原本为OL -> 更改为UL
-        document.execCommand('insertUnOrderedList', false, null);
-        node.type = "circle";
-    } else if (node.type == "circle") { //原本就是自己 -> 移除UL
-        document.execCommand('insertUnOrderedList', false, null);
-    } else { //原本就是其他type -> 更改为square
-        node.type = "circle";
-    }
-    */
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "circle") { // 移除节点
         document.execCommand('insertUnOrderedList', false, null);
@@ -655,6 +538,18 @@ zss_editor.setJustifyLeft = function() {
 
 zss_editor.setJustifyRight = function() {
     document.execCommand('justifyRight', false, null);
+    zss_editor.enabledEditingItems();
+}
+
+zss_editor.setQuote = function() {
+    var node = zss_extend.closerBlockQuoteNode();
+    if (node == null) {
+        document.execCommand('formatBlock', false, '<blockquote>');
+        node = zss_extend.closerBlockQuoteNode();
+        node.setAttribute('style', 'border-left: 5px solid #eeeeee; margin:0; padding-left:20px;');
+    } else {
+        document.execCommand('outdent', false, null);
+    }
     zss_editor.enabledEditingItems();
 }
 
