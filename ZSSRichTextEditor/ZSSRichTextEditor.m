@@ -82,6 +82,8 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 }
 
 
@@ -205,6 +207,8 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
         
         self.toolbarBtnKinds = [NSMutableArray array];
         
@@ -1488,9 +1492,6 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 #pragma mark - Keyboard Notification
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
-//    [self isFirstResponder];
-    
 //    CGRect rect1 = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect rect2 = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat during = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
@@ -1504,6 +1505,22 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     [self removeToolbar];
+}
+
+- (void)keyboardDidShow:(NSNotification *)notification {
+    if (self.isFirstResponder) {
+        if ([self.delegate respondsToSelector:@selector(beginEditing)]) {
+            [self.delegate beginEditing];
+        }
+    }
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification {
+    if (!self.isFirstResponder) {
+        if ([self.delegate respondsToSelector:@selector(endEditing)]) {
+            [self.delegate endEditing];
+        }
+    }
 }
 
 #pragma mark - Utilities

@@ -99,6 +99,10 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)selectionChangeWithStyle:(NSString *)styleString;
 
+- (void)beginEditing;
+
+- (void)endEditing;
+
 @end
 
 /**

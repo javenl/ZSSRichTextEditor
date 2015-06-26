@@ -10,8 +10,6 @@
 	<string>ZSSRichTextEditor</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>6C2C2B670C50C326F4CDE75C16826EDA0491AEF0</key>
-		<string>https://git.coding.net/javenliu/RichTextEditor.git</string>
 		<key>fb2230de-7636-40ee-8c63-dee4e7066495++34</key>
 		<string>svn://svn.hogesoft.com/ios/dingdone/branches/feature/guangzhou</string>
 		<key>fb2230de-7636-40ee-8c63-dee4e7066495++8725</key>
@@ -21,8 +19,6 @@
 	<string>ZSSRichTextEditor.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>6C2C2B670C50C326F4CDE75C16826EDA0491AEF0</key>
-		<string>../..</string>
 		<key>fb2230de-7636-40ee-8c63-dee4e7066495++34</key>
 		<string>../../..</string>
 		<key>fb2230de-7636-40ee-8c63-dee4e7066495++8725</key>
@@ -40,7 +36,7 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>6C2C2B670C50C326F4CDE75C16826EDA0491AEF0</string>
+	<string>fb2230de-7636-40ee-8c63-dee4e7066495++8725</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -55,7 +51,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>6C2C2B670C50C326F4CDE75C16826EDA0491AEF0</string>
+			<string>fb2230de-7636-40ee-8c63-dee4e7066495++8725</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ZSSRichTextEditor</string>
 		</dict>

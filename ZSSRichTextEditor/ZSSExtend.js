@@ -145,6 +145,35 @@ zss_extend.closerParentNode = function() {
     return parentNode;
 };
 
+zss_extend.closerListNode = function () {
+    var node = zss_extend.closerParentNode();
+    if (node.nodeName == 'LI') {
+        return node.parentNode;
+    } else if (node.parentNode.nodeName == 'LI') {
+        return node.parentNode.parentNode;
+    } else {
+        return null;
+    }
+}
+
+zss_extend.closerOrderListNode = function () {
+    var node = zss_extend.closerParentNode();
+    if (node.nodeName == 'LI') {
+        return node.parentNode;
+    } else if (node.parentNode.nodeName == 'LI') {
+        return node.parentNode.parentNode;
+    } else {
+        return null;
+    }
+}
+
+zss_extend.closerDivOrP = function() {
+    var node = zss_extend.closerParentNode();
+    if (node) {
+        
+    }
+};
+
 zss_extend.enabledEditingItems = function (e) {
     var element = this.closerParentNode();
     var result;
