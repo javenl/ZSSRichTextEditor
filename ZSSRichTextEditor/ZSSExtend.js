@@ -161,12 +161,16 @@ zss_extend.closerListNode = function () {
     }
 }
 
-//zss_extend.closerDivOrP = function() {
-//    var node = zss_extend.closerParentNode();
-//    if (node) {
-//        
-//    }
-//};
+zss_extend.closerDivOrP = function() {
+    var node = zss_extend.closerParentNode();
+    if (node.nodeName == 'DIV' || node.nodeName == 'P') {
+        return node;
+    } else if (node.parentNode.nodeName == 'DIV' || node.parentNode.nodeName == 'P') {
+        return node.parentNode;
+    } else {
+        return null;
+    }
+};
 
 zss_extend.enabledEditingItems = function (e) {
     var element = this.closerParentNode();

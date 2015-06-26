@@ -343,6 +343,10 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 
 - (void)setOutdent;
 
+- (void)setParagraphTop:(CGFloat)top;
+
+- (void)setParagraphBottom:(CGFloat)bottom;
+
 - (void)heading1;
 
 - (void)heading2;
@@ -356,6 +360,8 @@ static NSString * const ZSSRichTextEditorToolbarNone = @"com.zedsaid.toolbaritem
 - (void)heading6;
 
 - (void)paragraph;
+
+- (void)setFontSize:(CGFloat)fontSize;
 
 - (void)setTextColor:(UIColor *)color;
 

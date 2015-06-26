@@ -563,6 +563,31 @@ zss_editor.setOutdent = function() {
     zss_editor.enabledEditingItems();
 }
 
+zss_editor.setParagraphTop = function(top) {
+    var node = zss_extend.closerDivOrP();
+    if (node) {
+        $(node).css('margin-top', top+'px');
+    }
+    zss_editor.enabledEditingItems();
+}
+
+zss_editor.setParagraphBottom = function(bottom) {
+    var node = zss_extend.closerDivOrP();
+    if (node) {
+        $(node).css('margin-bottom', bottom+'px');
+    }
+    zss_editor.enabledEditingItems();
+}
+
+zss_editor.setFontSize = function(fontSize) {
+    document.execCommand("styleWithCSS", null, true);
+    document.execCommand('FontSize', false, 1);
+    document.execCommand("styleWithCSS", null, false);
+    var node = zss_editor.closerParentNode();
+    $(node).css('font-size', fontSize+"px");
+    ZSSEditor.sendEnabledStyles();
+}
+
 zss_editor.setTextColor = function(color) {
 //    zss_editor.restorerange();
     document.execCommand("styleWithCSS", null, true);

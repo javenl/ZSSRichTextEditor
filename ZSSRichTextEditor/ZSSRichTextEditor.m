@@ -750,6 +750,16 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
+- (void)setParagraphTop:(CGFloat)top {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setParagraphTop(%@);", @(top)];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setParagraphBottom:(CGFloat)bottom {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setParagraphBottom(%@);", @(bottom)];
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
 - (void)heading1 {
     NSString *trigger = @"zss_editor.setHeading('h1');";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
@@ -782,6 +792,11 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 - (void)paragraph {
     NSString *trigger = @"zss_editor.setParagraph();";
+    [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+}
+
+- (void)setFontSize:(CGFloat)fontSize {
+    NSString *trigger = [NSString stringWithFormat:@"zss_editor.setFontSize(%@);", @(fontSize)];
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
