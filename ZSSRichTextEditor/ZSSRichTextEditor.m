@@ -593,8 +593,11 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 - (NSString *)getHTML {
     NSString *html = [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.getHTML();"];
     html = [self removeQuotesFromHTML:html];
-    html = [self tidyHTML:html];
     return html;
+}
+
+- (NSString *)getTidyHTML {
+    return [self tidyHTML:[self getHTML]];
 }
 
 - (void)insertHTML:(NSString *)html {
@@ -609,7 +612,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 - (void)showHTMLSource {
     if (self.sourceView.hidden) {
-        self.sourceView.text = [self getHTML];
+        self.sourceView.text = [self getTidyHTML];
         self.sourceView.hidden = NO;
 //        barButtonItem.tintColor = [UIColor blackColor];
         self.editorView.hidden = YES;
@@ -1599,6 +1602,8 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     html = [html stringByReplacingOccurrencesOfString:@"<br>" withString:@"<br />"];
     html = [html stringByReplacingOccurrencesOfString:@"<hr>" withString:@"<hr />"];
     if (self.formatHTML) {
+//        NSLog(@"%@", html);
+//        NSLog(@"%@", [NSString stringWithFormat:@"style_html(\"%@\");", html]);
         html = [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"style_html(\"%@\");", html]];
     }
     return html;

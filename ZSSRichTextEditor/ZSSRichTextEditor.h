@@ -18,6 +18,7 @@
 
 typedef NS_ENUM(NSInteger, ActionType) {
     ActionTypeNone,
+    ActionTypeViewSource,
     ActionTypeInsertImage,
     ActionTypeInsertLink,
     ActionTypeInsertSeparator,
