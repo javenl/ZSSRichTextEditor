@@ -862,7 +862,7 @@ zss_editor.enabledEditingItems = function(e) {
     if (zss_editor.isCommandEnabled('insertOrderedList')) {
 //        items.push('orderedList');
         var node = zss_extend.closerListNode();
-        if (node != null) {
+        if (node !== null) {
             if(node.type == "A" ){
                 items.push('upCharList');
             }else if(node.type == "a") {
@@ -880,7 +880,7 @@ zss_editor.enabledEditingItems = function(e) {
     }
     if (zss_editor.isCommandEnabled('insertUnorderedList')) {
         var node = zss_extend.closerListNode();
-        if (node != null) {
+        if (node !== null) {
             if(node.type == "circle" ) {
                 items.push('dotLsit');
             } else if(node.type == "square"){
@@ -922,14 +922,26 @@ zss_editor.enabledEditingItems = function(e) {
     var node = zss_extend.closerParentNode();
 //    var t = node.nodeName.toLowerCase();
     
-    var fontSize = $(node).css('font-size')
-    if (fontSize.length != 0) {
+    var fontSize = $(node).css('font-size');
+    if (fontSize.length !== '0') {
         items.push('fontSize:'+fontSize);
     }
     
-    var lineHeight = $(node).css('line-height')
-    if (lineHeight.length != 0) {
+    var lineHeight = $(node).css('line-height');
+    if (lineHeight.length !== '0') {
         items.push('lineHeight:'+lineHeight);
+    }
+
+    var pararaphNode = zss_extend.closerDivOrP();
+
+    var paragraphTop = $(pararaphNode).css('margin-top');
+    if (paragraphTop.length !== '0') {
+        items.push('paragraphTop:'+paragraphTop);
+    }
+
+    var paragraphBottom = $(pararaphNode).css('margin-bottom');
+    if (paragraphBottom.length !== '0') {
+        items.push('paragraphBottom:'+paragraphBottom);
     }
     
     // Use jQuery to figure out those that are not supported
