@@ -35,6 +35,8 @@ zss_editor.updateScrollOffset = false;
 
 zss_editor.needToScroll = true;
 
+zss_editor.fontSizeValue = 0;
+
 /**
  * The initializer function that must be called onLoad
  */
@@ -55,12 +57,66 @@ zss_editor.init = function() {
         // console.log(document.body.scrollTop);
     });
     
+    $(document).on('keypress',function(e) {
+        // console.log(zss_extend.closerParentNode().innerHTML);
+        // console.log(e);
+
+        // zss_editor.insertHTML('<span style="font-size:'+30+'px;"></span>');
+        // zss_editor.formatBlock('<span>', false, '');
+        // document.execCommand('formatBlock', false, '<span>');
+        // document.execCommand('increaseFontSize');
+/*
+        var selection = window.getSelection();
+        var range = selection.getRangeAt(0);
+        // zss_editor.currentSelection = {"startContainer": range.startContainer, "startOffset":range.startOffset,"endContainer":range.endContainer, "endOffset":range.endOffset};
+
+        // var selection = window.getSelection();
+        selection.removeAllRanges();
+        var range = document.createRange();
+        range.setStart(range.startContainer, range.startOffset-1);
+        range.setEnd(range.endContainer, range,endOffset);
+        // range.setStart(zss_editor.currentSelection.startContainer, zss_editor.currentSelection.startOffset);
+        // range.setEnd(zss_editor.currentSelection.endContainer, zss_editor.currentSelection.endOffset);
+        selection.addRange(range);
+*/
+    });
+
+    $(document).on('keydown',function(e) {
+        // zss_editor.insertHTML('<span style="font-size:'+25+'px;"></span>');
+        // console.log(e);
+        // console.log(zss_extend.closerParentNode().innerHTML);
+    });
+
+    $(document).on('keyup',function(e) {
+        // console.log(e);
+        // console.log(zss_extend.closerParentNode().innerHTML);
+    });
+
     $(document).on('selectionchange',function(e){
                     if (!zss_editor.isDragging) {
                        zss_editor.calculateEditorHeightWithCaretPosition(e);
                        zss_editor.setScrollPosition();
                     }
                     zss_extend.enabledEditingItems(e);
+                    // console.log(zss_extend.closerParentNode());
+
+                    
+                    if (zss_editor.fontSizeValue > 0) {
+                        // var node = zss_extend.closerParentNode();
+                        // $(node).css('font-size', zss_editor.fontSizeValue+"px");
+
+                        var fontElements = document.getElementsByTagName("font");
+                        for (var i = 0, len = fontElements.length; i < len; ++i) {
+                            if (fontElements[i].size == '7') {
+                                fontElements[i].removeAttribute("size");
+                                fontElements[i].style.fontSize = zss_editor.fontSizeValue+'px';
+                            }
+                        }
+
+                        zss_editor.fontSizeValue = 0;
+                    }
+                    
+
 //                   zss_editor.debug("change");
 //                   if (editor.is(":focus")) {
 //                       ZSSEditor.selectionChangedCallback();
@@ -71,7 +127,6 @@ zss_editor.init = function() {
 //                           $('img').removeClass('zs_active');
 //                       }
 //                   }
-                   
                    });
     
     $(window).on('scroll', function(e) {
@@ -286,7 +341,7 @@ zss_editor.calculateEditorHeightWithCaretPosition = function(e) {
     //            console.log(newPos, document.body.scrollTop);
     //            }, 1000);
     window.scrollTo(0, newPos);
-    console.log(newPos, document.body.scrollTop);
+    // console.log(newPos, document.body.scrollTop);
 };
 
 zss_editor.backuprange = function(){
@@ -302,8 +357,114 @@ zss_editor.restorerange = function(){
     range.setStart(zss_editor.currentSelection.startContainer, zss_editor.currentSelection.startOffset);
     range.setEnd(zss_editor.currentSelection.endContainer, zss_editor.currentSelection.endOffset);
     selection.addRange(range);
+    return selection;
+    // console.log(range);
+};
+/*
+zss_editor.testFun = function(){
+    var sel = window.getSelection();
+    try{
+        var frag = sel.getRangeAt(0).cloneContents();
+        var tempspan = document.createElement("span");
+        tempspan.appendChild(frag);
+        console.log(tempspan.childNodes);
+        return tempspan;
+    } catch(e) {
+        return(false);
+    }
 };
 
+zss_editor.findAllSpan = function(nodes) {
+    var spans = [];
+    // console.log(nodes);
+    for (var i in nodes) {
+        // console.log(nodes[node]);
+        // if  (node.nodeName === 'SPAN') {
+        var node = nodes[i];
+        spans.push(node);
+        console.log(node.childNodes);
+        // if (node.childNodes.length > 0) {
+        spans.concat(zss_editor.findAllSpan(node.childNodes));
+        // }
+        // }
+    }
+    return spans;
+};
+*/
+/*
+function nextNode(node) {
+    if (node.hasChildNodes()) {
+        return node.firstChild;
+    } else {
+        while (node && !node.nextSibling) {
+            node = node.parentNode;
+        }
+        if (!node) {
+            return null;
+        }
+        return node.nextSibling;
+    }
+}
+
+function getRangeSelectedNodes(range) {
+    var node = range.startContainer;
+    var endNode = range.endContainer;
+
+    // Special case for a range that is contained within a single node
+    if (node == endNode) {
+        return [node];
+    }
+
+    // Iterate nodes until we hit the end container
+    var rangeNodes = [];
+    while (node && node != endNode) {
+        rangeNodes.push( node = nextNode(node) );
+    }
+
+    // Add partially selected nodes at the start of the range
+    node = range.startContainer;
+    while (node && node != range.commonAncestorContainer) {
+        rangeNodes.unshift(node);
+        node = node.parentNode;
+    }
+
+    return rangeNodes;
+}
+*/
+
+/*
+zss_editor.getSelectedNodes = function(){
+    var sel = window.getSelection();
+    try{var frag=sel.getRangeAt(0).cloneContents()}catch(e){return(false);}
+    var tempspan = document.createElement("span");
+    tempspan.appendChild(frag);
+    console.log(tempspan);
+    window.selnodes = tempspan.childNodes;
+    var output = ''
+    for(var i=0, u=selnodes.length;i<u;i++){
+        if (typeof selnodes[i].tagName !== 'undefined'){
+          output += "A "+selnodes[i].tagName+" was found\n"
+        }
+        else output += "Some text was found: '"+selnodes[i].textContent+"'\n";
+        //do something cool with each element here...
+    }
+    return(output)
+}
+*/
+/*
+zss_editor.showDirection = function ShowDirection() {
+        var tbl = [];
+        var direct = (document.selection && document.selection.createRange) 
+                                         ? document.selection.createRange().parentElement() // IE
+                                         : window.getSelection().focusNode.parentNode; //FF
+        do
+        {
+            tbl.push(direct.tagName);
+        }
+        while((direct = direct.parentNode) && (direct !== document.documentElement));
+        alert(tbl.reverse().join('---->'));
+};
+*/
 zss_editor.getSelectedNode = function() {
     var node,selection;
     if (window.getSelection) {
@@ -585,16 +746,32 @@ zss_editor.setLineHeight = function (lineHeight){
 };
 
 zss_editor.setFontSize = function(fontSize) {
-    document.execCommand("styleWithCSS", null, true);
-    document.execCommand('FontSize', false, 1);
-    document.execCommand("styleWithCSS", null, false);
-    var node = zss_extend.closerParentNode();
-    $(node).css('font-size', fontSize+"px");
+    // document.execCommand("styleWithCSS", null, true);
+    document.execCommand('fontSize', false, '7');
+    // document.execCommand("styleWithCSS", null, false);
+    
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0);
+    console.log(range.toString().length);
+    if (range.toString().length > 0) {
+        console.log('override');
+        var fontElements = document.getElementsByTagName("font");
+        for (var i = 0, len = fontElements.length; i < len; ++i) {
+            if (fontElements[i].size == '7') {
+                fontElements[i].removeAttribute("size");
+                fontElements[i].style.fontSize = fontSize+'px';
+            }
+        }
+    } else {
+        // var node = zss_extend.closerParentNode();
+        // $(node).css('font-size', fontSize+"px");
+        zss_editor.fontSizeValue = fontSize;
+    }
+    
     zss_editor.enabledEditingItems();
 };
 
 zss_editor.setTextColor = function(color) {
-//    zss_editor.restorerange();
     document.execCommand("styleWithCSS", null, true);
     document.execCommand('foreColor', false, color);
     document.execCommand("styleWithCSS", null, false);
@@ -923,74 +1100,99 @@ zss_editor.enabledEditingItems = function(e) {
 //    var t = node.nodeName.toLowerCase();
     
     var fontSize = $(node).css('font-size');
-    if (fontSize.length !== '0') {
+    if (fontSize !== null) {
         items.push('fontSize:'+fontSize);
     }
     
     var lineHeight = $(node).css('line-height');
-    if (lineHeight.length !== '0') {
+    if (lineHeight !== null) {
         items.push('lineHeight:'+lineHeight);
     }
 
     var pararaphNode = zss_extend.closerDivOrP();
 
     var paragraphTop = $(pararaphNode).css('margin-top');
-    if (paragraphTop.length !== '0') {
+    if (paragraphTop !== null) {
         items.push('paragraphTop:'+paragraphTop);
     }
 
     var paragraphBottom = $(pararaphNode).css('margin-bottom');
-    if (paragraphBottom.length !== '0') {
+    if (paragraphBottom !== null) {
         items.push('paragraphBottom:'+paragraphBottom);
     }
     
+    var bgColor = $(node).css('backgroundColor');
+    if (bgColor != null && bgColor != 'rgba(0, 0, 0, 0)' && bgColor != 'rgb(0, 0, 0)' && bgColor != 'transparent') {
+        bgColor = zss_extend.RGBToHex(bgColor);
+        items.push('backgroundColor:'+bgColor);
+    }
+
+    // Text Color
+    var textColor = $(node).css('color');
+    if (textColor != null && textColor != 'rgba(0, 0, 0, 0)' && textColor != 'rgb(0, 0, 0)' && textColor != 'transparent') {
+        textColor = zss_extend.RGBToHex(textColor);
+        items.push('textColor:'+textColor);
+    }
+
+
     // Use jQuery to figure out those that are not supported
     if (typeof(e) != "undefined") {
     
         // The target element
         var t = $(e.target);
-        var nodeName = e.target.nodeName.toLowerCase();
-        
+        /*
         // Background Color
         var bgColor = t.css('backgroundColor');
-        if (bgColor.length != 0 && bgColor != 'rgba(0, 0, 0, 0)' && bgColor != 'rgb(0, 0, 0)' && bgColor != 'transparent') {
-            bgColor = zss_extend.RGBToHex(bgColor);
-            items.push('backgroundColor:'+bgColor);
-        }
+        // if (typeof(bgColor) != "undefined") {
+            if (bgColor != 'rgba(0, 0, 0, 0)' && bgColor != 'rgb(0, 0, 0)' && bgColor != 'transparent') {
+                bgColor = zss_extend.RGBToHex(bgColor);
+                items.push('backgroundColor:'+bgColor);
+            }
+        // }
+
+
         // Text Color
         var textColor = t.css('color');
-        if (textColor.length != 0 && textColor != 'rgba(0, 0, 0, 0)' && textColor != 'rgb(0, 0, 0)' && textColor != 'transparent') {
-            textColor = zss_extend.RGBToHex(textColor);
-            items.push('textColor:'+textColor);
-        }
-        
-        // Link
-        if (nodeName == 'a') {
-            zss_editor.currentEditingLink = t;
-            var title = t.attr('title');
-            items.push('link:'+t.attr('href'));
-            if (t.attr('title') !== undefined) {
-                items.push('link-title:'+t.attr('title'));
+        // if (typeof(textColor) != "undefined") {
+            if (textColor != 'rgba(0, 0, 0, 0)' && textColor != 'rgb(0, 0, 0)' && textColor != 'transparent') {
+                textColor = zss_extend.RGBToHex(textColor);
+                items.push('textColor:'+textColor);
             }
-            
-        } else {
-            zss_editor.currentEditingLink = null;
-        }
-        // Blockquote
-        if (nodeName == 'blockquote') {
-            items.push('indent');
-        }
-        // Image
-        if (nodeName == 'img') {
-            zss_editor.currentEditingImage = t;
-            items.push('image:'+t.attr('src'));
-            if (t.attr('alt') !== undefined) {
-                items.push('image-alt:'+t.attr('alt'));
+        // }
+        */
+        // console.log(t.nodeName);
+        if (typeof(t.nodeName) != "undefined") {
+            // console.log(t.nodeName != "undefined");
+            var nodeName = t.nodeName.toLowerCase();
+            // Link
+            if (nodeName == 'a') {
+                zss_editor.currentEditingLink = t;
+                var title = t.attr('title');
+                items.push('link:'+t.attr('href'));
+                if (t.attr('title') !== undefined) {
+                    items.push('link-title:'+t.attr('title'));
+                }
+                
+            } else {
+                zss_editor.currentEditingLink = null;
             }
-            
-        } else {
-            zss_editor.currentEditingImage = null;
+            // Blockquote
+            if (nodeName == 'blockquote') {
+                items.push('indent');
+            }
+            // Image
+            if (nodeName == 'img') {
+                zss_editor.currentEditingImage = t;
+                items.push('image:'+t.attr('src'));
+                if (t.attr('alt') !== undefined) {
+                    items.push('image-alt:'+t.attr('alt'));
+                }
+                
+            } else {
+                zss_editor.currentEditingImage = null;
+            }
         }
+
         
     }
     

@@ -172,10 +172,14 @@ zss_extend.closerListNode = function () {
 
 zss_extend.closerDivOrP = function() {
     var node = zss_extend.closerParentNode();
-    if (node.nodeName == 'DIV' || node.nodeName == 'P') {
-        return node;
-    } else if (node.parentNode.nodeName == 'DIV' || node.parentNode.nodeName == 'P') {
-        return node.parentNode;
+    if (node !== null) {
+        if (node.nodeName == 'DIV' || node.nodeName == 'P') {
+            return node;
+        } else if (node.parentNode.nodeName == 'DIV' || node.parentNode.nodeName == 'P') {
+            return node.parentNode;
+        } else {
+            return null;
+        }
     } else {
         return null;
     }
