@@ -28,7 +28,7 @@ zss_editor.currentEditingLink = null;
 zss_editor.enabledItems = {};
 
 // Height of content window, will be set by viewController
-zss_editor.contentHeight = 180;// 180; // 244;
+zss_editor.contentHeight = 220;// 180; // 244;
 
 // Sets to true when extra footer gap shows and requires to hide
 zss_editor.updateScrollOffset = false;
@@ -74,20 +74,20 @@ zss_editor.init = function() {
     */
 
     $(document).on('selectionchange', function(e) {
-        zss_editor.debug('selectionchange');
+        // zss_editor.debug('selectionchange');
         var range = window.getSelection().getRangeAt(0);
         if (range.endOffset === range.startOffset || range.startContainer === range.endContainer) {
            zss_editor.calculateEditorHeightWithCaretPosition(e);
            zss_editor.setScrollPosition();
         }
 
+        // zss_editor.debug(window.getComputedStyle(zss_extend.closerParentNode()).height);
+
         /*
         if (!zss_editor.isDragging) {
            zss_editor.calculateEditorHeightWithCaretPosition(e);
            zss_editor.setScrollPosition();
         }
-        zss_extend.enabledEditingItems(e);
-        // console.log(zss_extend.closerParentNode());
         */
 
         if (zss_editor.fontSizeValue > 0) {
@@ -108,16 +108,6 @@ zss_editor.init = function() {
         }
 
         zss_extend.enabledEditingItems(e);
-        //                   zss_editor.debug("change");
-        //                   if (editor.is(":focus")) {
-        //                       ZSSEditor.selectionChangedCallback();
-        //                       ZSSEditor.sendEnabledStyles(e);
-
-        //                       var clicked = $(e.target);
-        //                       if (!clicked.hasClass('zs_active')) {
-        //                           $('img').removeClass('zs_active');
-        //                       }
-        //                   }
     });
 
     
@@ -127,26 +117,8 @@ zss_editor.init = function() {
     });
 
     // Make sure that when we tap anywhere in the document we focus on the editor
-
-    $(window).on('touchenter', function(e) {
-        zss_editor.debug('touchenter');
-    });
-
-    $(window).on('touchcancel', function(e) {
-        zss_editor.debug('touchcancel');
-    });
-
-    $(window).on('drag', function(e) {
-        zss_editor.debug('drag');
-    });
-
-    $(window).on('dragend', function(e) {
-        zss_editor.debug('dragend');
-    });
-
-
     $(window).on('touchmove', function(e) {
-        zss_editor.debug('touchmove');
+        // zss_editor.debug('touchmove');
         zss_editor.isDragging = true;
         zss_editor.updateScrollOffset = true;
         zss_editor.setScrollPosition();
@@ -154,7 +126,7 @@ zss_editor.init = function() {
 
 
     $(window).on('touchstart', function(e) {
-        zss_editor.debug('touchstart');
+        // zss_editor.debug('touchstart');
         zss_editor.isDragging = false;
         //                 zss_editor.needToScroll = false;
         // zss_editor.calculateEditorHeightWithCaretPosition();
@@ -162,7 +134,7 @@ zss_editor.init = function() {
 
     
     $(window).on('touchend', function(e) {
-        zss_editor.debug('touchend');
+        // zss_editor.debug('touchend');
         // console.log(e);
         //                 zss_editor.needToScroll = true;
         var t = $(e.target);
@@ -341,16 +313,26 @@ zss_editor.calculateEditorHeightWithCaretPosition = function(e) {
     var editor = $('#zss_editor_content');
     
     var offsetY = window.document.body.scrollTop;
+    // var offsetY = window.pageYOffset;
     var height = zss_editor.contentHeight;
     
     var newPos = window.pageYOffset;
     
     if (c < offsetY) {
+        // zss_editor.debug('AAAA');
         newPos = c;
     } else if (c > (offsetY + height - padding)) {
-        newPos = c - height + padding - 18;
+        // zss_editor.debug('BBBB');
+        newPos = c - height + padding;
     }
-    
+    zss_editor.debug('pageYOffset' + window.pageYOffset + '/' + 'newPos' + newPos + '/' + 'cursor' + c + '/' + 'offsetY' + offsetY + '/offsetY+height-padding' + (offsetY + height - padding));
+    // zss_editor.debug('cursor ' + c);
+    // zss_editor.debug('offsetY ' + offsetY);
+    // zss_editor.debug('pageYOffset ' + window.pageYOffset);
+    // console.log('cursor ', c);
+    // console.log('offsetY ', offsetY);
+    // console.log('pageYOffset ', window.pageYOffset);
+
     // setTimeout(function () {
     //            window.scrollTo(0, newPos);
     //            console.log(newPos, document.body.scrollTop);
@@ -1109,7 +1091,7 @@ zss_editor.enabledEditingItems = function(e) {
     if (items.length > 0) {
         if (zss_editor.isUsingiOS) {
 //            window.location = "zss-callback/"+items.join(',');
-            window.location = "callback://0/"+items.join(',');
+            // window.location = "callback://0/"+items.join(',');
         } else {
             console.log("callback://"+items.join(','));
         }
