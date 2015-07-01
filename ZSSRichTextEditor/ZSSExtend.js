@@ -148,6 +148,27 @@ zss_extend.closerParentNode = function() {
     return parentNode;
 };
 
+zss_extend.closerParentNodeWithName = function(nodeName) {
+    nodeName = nodeName.toLowerCase();
+    var parentNode = null;
+    var selection = window.getSelection();
+    var range = selection.getRangeAt(0).cloneRange();
+    
+    var currentNode = range.commonAncestorContainer;
+    while (currentNode) {
+        if (currentNode.nodeName == document.body.nodeName) {
+            break;
+        }
+        if (currentNode.nodeName.toLowerCase() == nodeName
+            && currentNode.nodeType == document.ELEMENT_NODE) {
+            parentNode = currentNode;   
+            break;
+        }
+        currentNode = currentNode.parentElement;
+    }
+    return parentNode;
+};
+
 zss_extend.closerBlockQuoteNode = function () {
     var node = zss_extend.closerParentNode();
     if (node.nodeName.toLocaleLowerCase() == 'blockquote') {
@@ -199,4 +220,95 @@ zss_extend.RGBToHex = function (rgb){
     ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
     ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
     ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+};
+
+zss_extend.setTypeOrderedList = function(t) {
+    var node = zss_extend.closerParentNodeWithName('ol');
+    t = t || '1';
+    console.log('node', node);
+    if (node != null) { // 插入节点
+        if (node.type == t) {
+            document.execCommand('insertOrderedList', false, null);
+        }
+        else {
+            node.type = t;
+        }
+    }
+    else {
+        document.execCommand('insertOrderedList', false, null);
+        node = zss_extend.closerParentNodeWithName('ol');
+        node.type = t;
+    }
+    zss_editor.enabledEditingItems();
+};
+
+zss_extend.setTypeUnorderedList = function(t) {
+    var node = zss_extend.closerParentNodeWithName('ul');
+    t = t || 'disc';
+    if (node != null) { // 插入节点
+        if (node.type == t) {
+            document.execCommand('insertUnorderedList', false, null);
+        }
+        else {
+            node.type = t;
+        }
+    }
+    else {
+        document.execCommand('insertUnorderedList', false, null);
+        node = zss_extend.closerParentNodeWithName('ul');
+        node.type = t;
+    }
+    zss_editor.enabledEditingItems();
+};
+
+zss_extend.setOrderedList = function() {
+    document.execCommand('insertOrderedList', false, null);
+    zss_editor.enabledEditingItems();
+};
+
+zss_extend.setUnorderedList = function() {
+    document.execCommand('insertUnorderedList', false, null);
+    zss_editor.enabledEditingItems();
+};
+
+zss_extend.setOrderedList = function() {
+    zss_extend.setTypeOrderedList('1');
+};
+
+zss_extend.setUpCharOrderedList = function() {
+    zss_extend.setTypeOrderedList('A');
+};
+
+zss_extend.setLowCharOrderedList = function() {
+    zss_extend.setTypeOrderedList('a');
+};
+
+zss_extend.setUpRomanOrderedList = function() {
+    zss_extend.setTypeOrderedList('I');
+};
+
+zss_extend.setLowRomanOrderedList = function() {
+    zss_extend.setTypeOrderedList('i');
+};
+
+zss_extend.setUnorderedList = function() {
+    zss_extend.setTypeUnorderedList('disc');
+};
+
+zss_extend.setSquareUnorderedList = function() {
+    zss_extend.setTypeUnorderedList('square');
+};
+
+zss_extend.setCircleUnorderedList = function() {
+    zss_extend.setTypeUnorderedList('circle');
+};
+
+zss_extend.setHeading = function (heading) {
+    if (zss_editor.isCommandEnabled('insertUnorderedList')) {
+        document.execCommand('insertUnorderedList', false, null);
+    }
+    else if (zss_editor.isCommandEnabled('insertOrderedList')) {
+        document.execCommand('insertOrderedList', false, null);
+    }
+    zss_editor.setHeading(heading);
 }

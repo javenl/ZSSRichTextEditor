@@ -57,40 +57,19 @@ zss_editor.init = function() {
         // console.log(document.body.scrollTop);
     });
     
+    /*
     $(document).on('keypress',function(e) {
-        // console.log(zss_extend.closerParentNode().innerHTML);
-        // console.log(e);
 
-        // zss_editor.insertHTML('<span style="font-size:'+30+'px;"></span>');
-        // zss_editor.formatBlock('<span>', false, '');
-        // document.execCommand('formatBlock', false, '<span>');
-        // document.execCommand('increaseFontSize');
-/*
-        var selection = window.getSelection();
-        var range = selection.getRangeAt(0);
-        // zss_editor.currentSelection = {"startContainer": range.startContainer, "startOffset":range.startOffset,"endContainer":range.endContainer, "endOffset":range.endOffset};
-
-        // var selection = window.getSelection();
-        selection.removeAllRanges();
-        var range = document.createRange();
-        range.setStart(range.startContainer, range.startOffset-1);
-        range.setEnd(range.endContainer, range,endOffset);
-        // range.setStart(zss_editor.currentSelection.startContainer, zss_editor.currentSelection.startOffset);
-        // range.setEnd(zss_editor.currentSelection.endContainer, zss_editor.currentSelection.endOffset);
-        selection.addRange(range);
-*/
     });
 
     $(document).on('keydown',function(e) {
-        // zss_editor.insertHTML('<span style="font-size:'+25+'px;"></span>');
-        // console.log(e);
-        // console.log(zss_extend.closerParentNode().innerHTML);
+
     });
 
     $(document).on('keyup',function(e) {
-        // console.log(e);
-        // console.log(zss_extend.closerParentNode().innerHTML);
+
     });
+    */
 
     $(document).on('selectionchange',function(e){
                     if (!zss_editor.isDragging) {
@@ -102,9 +81,11 @@ zss_editor.init = function() {
 
                     
                     if (zss_editor.fontSizeValue > 0) {
-                        // var node = zss_extend.closerParentNode();
-                        // $(node).css('font-size', zss_editor.fontSizeValue+"px");
-
+                        var nodes = $("font[size=1]");
+                        console.log(nodes);
+                        $(nodes).css('font-size', zss_editor.fontSizeValue+"px");
+                        $(nodes).removeAttr('size');
+                        /*
                         var fontElements = document.getElementsByTagName("font");
                         for (var i = 0, len = fontElements.length; i < len; ++i) {
                             if (fontElements[i].size == '7') {
@@ -112,7 +93,7 @@ zss_editor.init = function() {
                                 fontElements[i].style.fontSize = zss_editor.fontSizeValue+'px';
                             }
                         }
-
+                        */
                         zss_editor.fontSizeValue = 0;
                     }
                     
@@ -530,6 +511,20 @@ zss_editor.setHorizontalRule = function() {
 zss_editor.setHeading = function(heading) {
     var current_selection = $(zss_editor.getSelectedNode());
     var t = current_selection.prop("tagName").toLowerCase();
+    
+    /*
+    var node = zss_extend.closerParentNode();
+    console.log(node);
+    if (node.nodeName.toLowerCase() == 'li') { 
+        var div = document.createElement('div');
+        div.innerHTML = node.innerHTML;
+        node.innerHTML = '';
+        node.appendChild(div);
+        // console.log(li);
+        console.log(div);
+    }
+    */
+    
     var is_heading = (t == 'h1' || t == 'h2' || t == 'h3' || t == 'h4' || t == 'h5' || t == 'h6');
     if (is_heading && heading == t) {
         var c = current_selection.html();
@@ -569,32 +564,42 @@ zss_editor.redo = function() {
 };
 
 zss_editor.setOrderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "") { // 移除节点
-        document.execCommand('insertOrderedList', false, null);
-    } else {
-        if (node == null || node.nodeName == "UL" ) { //插入或更改节点
-            document.execCommand('insertOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.removeAttribute("type");//更改类型
-    }
+    document.execCommand('insertOrderedList', false, null);
     zss_editor.enabledEditingItems();
 };
 
-zss_editor.setUpCharOrderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "A") { // 移除节点
-        document.execCommand('insertOrderedList', false, null);
-    } else {
-        if (node == null || node.nodeName == "UL" ) { //插入或更改节点
-            document.execCommand('insertOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.type = "A";//更改类型
-    }
+zss_editor.setUnorderedList = function() {
+    document.execCommand('insertUnorderedList', false, null);
     zss_editor.enabledEditingItems();
 };
+
+// zss_editor.setOrderedList = function() {
+//     var node = zss_extend.closerListNode();
+//     if (node != null && node.type == "") { // 移除节点
+//         document.execCommand('insertOrderedList', false, null);
+//     } else {
+//         if (node == null || node.nodeName == "UL" ) { //插入或更改节点
+//             document.execCommand('insertOrderedList', false, null);
+//             node = zss_extend.closerListNode();//重新获取节点
+//         }
+//         node.removeAttribute("type");//更改类型
+//     }
+//     zss_editor.enabledEditingItems();
+// };
+
+// zss_editor.setUpCharOrderedList = function() {
+//     var node = zss_extend.closerListNode();
+//     if (node != null && node.type == "A") { // 移除节点
+//         document.execCommand('insertOrderedList', false, null);
+//     } else {
+//         if (node == null || node.nodeName == "UL" ) { //插入或更改节点
+//             document.execCommand('insertOrderedList', false, null);
+//             node = zss_extend.closerListNode();//重新获取节点
+//         }
+//         node.type = "A";//更改类型
+//     }
+//     zss_editor.enabledEditingItems();
+// };
 
 zss_editor.setLowCharOrderedList = function() {
     var node = zss_extend.closerListNode();
@@ -637,7 +642,7 @@ zss_editor.setLowRomanOrderedList = function() {
     }
     zss_editor.enabledEditingItems();
 };
-
+/*
 zss_editor.setUnorderedList = function() {
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "") { // 移除节点
@@ -652,7 +657,7 @@ zss_editor.setUnorderedList = function() {
     
     zss_editor.enabledEditingItems();
 };
-
+*/
 zss_editor.setSquareUnorderedList = function() {
     var node = zss_extend.closerListNode();
     if (node != null && node.type == "square") { // 移除节点
@@ -747,24 +752,17 @@ zss_editor.setLineHeight = function (lineHeight){
 
 zss_editor.setFontSize = function(fontSize) {
     // document.execCommand("styleWithCSS", null, true);
-    document.execCommand('fontSize', false, '7');
+    document.execCommand('fontSize', false, '1');
     // document.execCommand("styleWithCSS", null, false);
     
     var selection = window.getSelection();
     var range = selection.getRangeAt(0);
     console.log(range.toString().length);
     if (range.toString().length > 0) {
-        console.log('override');
-        var fontElements = document.getElementsByTagName("font");
-        for (var i = 0, len = fontElements.length; i < len; ++i) {
-            if (fontElements[i].size == '7') {
-                fontElements[i].removeAttribute("size");
-                fontElements[i].style.fontSize = fontSize+'px';
-            }
-        }
+        var nodes = $("font[size=1]");
+        $(nodes).css('font-size', size+"px");
+        $(nodes).removeAttr('size');
     } else {
-        // var node = zss_extend.closerParentNode();
-        // $(node).css('font-size', fontSize+"px");
         zss_editor.fontSizeValue = fontSize;
     }
     

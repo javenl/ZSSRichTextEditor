@@ -694,42 +694,42 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 }
 
 - (void)setUnorderedList {
-    NSString *trigger = @"zss_editor.setUnorderedList();";
+    NSString *trigger = @"zss_extend.setUnorderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)setCircleUnorderedList {
-    NSString *trigger = @"zss_editor.setCircleUnorderedList();";
+    NSString *trigger = @"zss_extend.setCircleUnorderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)setSquareUnorderedList {
-    NSString *trigger = @"zss_editor.setSquareUnorderedList();";
+    NSString *trigger = @"zss_extend.setSquareUnorderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)setOrderedList {
-    NSString *trigger = @"zss_editor.setOrderedList();";
+    NSString *trigger = @"zss_extend.setOrderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)setUpCharOrderedList {
-    NSString *trigger = @"zss_editor.setUpCharOrderedList();";
+    NSString *trigger = @"zss_extend.setUpCharOrderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)setLowCharOrderedList {
-    NSString *trigger = @"zss_editor.setLowCharOrderedList();";
+    NSString *trigger = @"zss_extend.setLowCharOrderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)setUpRomanOrderedList {
-    NSString *trigger = @"zss_editor.setUpRomanOrderedList();";
+    NSString *trigger = @"zss_extend.setUpRomanOrderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
 - (void)setLowRomanOrderedList {
-    NSString *trigger = @"zss_editor.setLowRomanOrderedList();";
+    NSString *trigger = @"zss_extend.setLowRomanOrderedList();";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
@@ -764,7 +764,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 }
 
 - (void)heading1 {
-    NSString *trigger = @"zss_editor.setHeading('h1');";
+    NSString *trigger = @"zss_extend.setHeading('h1');";
     [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
 }
 
