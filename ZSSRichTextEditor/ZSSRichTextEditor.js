@@ -42,20 +42,22 @@ zss_editor.fontSizeValue = 0;
  */
 zss_editor.init = function() {
     $('#zss_editor_content')
-    .on('touchend', function(e) {
-                                zss_editor.enabledEditingItems(e);
-//                                var clicked = $(e.target);
-//                                if (!clicked.hasClass('zs_active')) {
-//                                $('img').removeClass('zs_active');
-//                                }
-                                })
-    .on('input', function (e) {
-        zss_editor.calculateEditorHeightWithCaretPosition(e);
-        zss_editor.setScrollPosition();
-        zss_extend.enabledEditingItems(e);
-        // e.stopPropagation();
-        // console.log(document.body.scrollTop);
-    });
+        .on('touchend', function(e) {
+            zss_editor.debug('zss_editor_content touchend');
+            zss_editor.enabledEditingItems(e);
+            //                                var clicked = $(e.target);
+            //                                if (!clicked.hasClass('zs_active')) {
+            //                                $('img').removeClass('zs_active');
+            //                                }
+        })
+        .on('input', function(e) {
+            zss_editor.calculateEditorHeightWithCaretPosition(e);
+            zss_editor.setScrollPosition();
+            zss_extend.enabledEditingItems(e);
+            // e.stopPropagation();
+            // console.log(document.body.scrollTop);
+        });
+
     
     /*
     $(document).on('keypress',function(e) {
@@ -71,77 +73,109 @@ zss_editor.init = function() {
     });
     */
 
-    $(document).on('selectionchange',function(e){
-                    if (!zss_editor.isDragging) {
-                       zss_editor.calculateEditorHeightWithCaretPosition(e);
-                       zss_editor.setScrollPosition();
-                    }
-                    zss_extend.enabledEditingItems(e);
-                    // console.log(zss_extend.closerParentNode());
+    $(document).on('selectionchange', function(e) {
+        zss_editor.debug('selectionchange');
+        var range = window.getSelection().getRangeAt(0);
+        if (range.endOffset === range.startOffset || range.startContainer === range.endContainer) {
+           zss_editor.calculateEditorHeightWithCaretPosition(e);
+           zss_editor.setScrollPosition();
+        }
 
-                    
-                    if (zss_editor.fontSizeValue > 0) {
-                        var nodes = $("font[size=1]");
-                        console.log(nodes);
-                        $(nodes).css('font-size', zss_editor.fontSizeValue+"px");
-                        $(nodes).removeAttr('size');
-                        /*
-                        var fontElements = document.getElementsByTagName("font");
-                        for (var i = 0, len = fontElements.length; i < len; ++i) {
-                            if (fontElements[i].size == '7') {
-                                fontElements[i].removeAttribute("size");
-                                fontElements[i].style.fontSize = zss_editor.fontSizeValue+'px';
-                            }
-                        }
-                        */
-                        zss_editor.fontSizeValue = 0;
-                    }
-                    
+        /*
+        if (!zss_editor.isDragging) {
+           zss_editor.calculateEditorHeightWithCaretPosition(e);
+           zss_editor.setScrollPosition();
+        }
+        zss_extend.enabledEditingItems(e);
+        // console.log(zss_extend.closerParentNode());
+        */
 
-//                   zss_editor.debug("change");
-//                   if (editor.is(":focus")) {
-//                       ZSSEditor.selectionChangedCallback();
-//                       ZSSEditor.sendEnabledStyles(e);
-                   
-//                       var clicked = $(e.target);
-//                       if (!clicked.hasClass('zs_active')) {
-//                           $('img').removeClass('zs_active');
-//                       }
-//                   }
-                   });
+        if (zss_editor.fontSizeValue > 0) {
+            var nodes = $("font[size=1]");
+            console.log(nodes);
+            $(nodes).css('font-size', zss_editor.fontSizeValue + "px");
+            $(nodes).removeAttr('size');
+            /*
+            var fontElements = document.getElementsByTagName("font");
+            for (var i = 0, len = fontElements.length; i < len; ++i) {
+                if (fontElements[i].size == '7') {
+                    fontElements[i].removeAttribute("size");
+                    fontElements[i].style.fontSize = zss_editor.fontSizeValue+'px';
+                }
+            }
+            */
+            zss_editor.fontSizeValue = 0;
+        }
+
+        zss_extend.enabledEditingItems(e);
+        //                   zss_editor.debug("change");
+        //                   if (editor.is(":focus")) {
+        //                       ZSSEditor.selectionChangedCallback();
+        //                       ZSSEditor.sendEnabledStyles(e);
+
+        //                       var clicked = $(e.target);
+        //                       if (!clicked.hasClass('zs_active')) {
+        //                           $('img').removeClass('zs_active');
+        //                       }
+        //                   }
+    });
+
     
     $(window).on('scroll', function(e) {
-                 zss_editor.updateOffset();
-                 });
-    
+        // zss_editor.debug('scroll');
+        // zss_editor.updateOffset();
+    });
+
     // Make sure that when we tap anywhere in the document we focus on the editor
-    
+
+    $(window).on('touchenter', function(e) {
+        zss_editor.debug('touchenter');
+    });
+
+    $(window).on('touchcancel', function(e) {
+        zss_editor.debug('touchcancel');
+    });
+
+    $(window).on('drag', function(e) {
+        zss_editor.debug('drag');
+    });
+
+    $(window).on('dragend', function(e) {
+        zss_editor.debug('dragend');
+    });
+
+
     $(window).on('touchmove', function(e) {
-                 zss_editor.isDragging = true;
-                 zss_editor.updateScrollOffset = true;
-                 zss_editor.setScrollPosition();
-                 });
-    
-    
+        zss_editor.debug('touchmove');
+        zss_editor.isDragging = true;
+        zss_editor.updateScrollOffset = true;
+        zss_editor.setScrollPosition();
+    });
+
+
     $(window).on('touchstart', function(e) {
-                 // zss_editor.isDragging = false;
-//                 zss_editor.needToScroll = false;
-                 // zss_editor.calculateEditorHeightWithCaretPosition();
-                 });
+        zss_editor.debug('touchstart');
+        zss_editor.isDragging = false;
+        //                 zss_editor.needToScroll = false;
+        // zss_editor.calculateEditorHeightWithCaretPosition();
+    });
+
     
     $(window).on('touchend', function(e) {
-                 // console.log(e);
-//                 zss_editor.needToScroll = true;
-                 var t = $(e.target);
-                 var nodeName = e.target.nodeName.toLowerCase();
-                 if (nodeName == "html") {
-                     //点击任何地方都可以进入编辑
-                     if (!zss_editor.isDragging) {
-                        zss_editor.focusEditor();
-                     }
-                 }
-                 zss_editor.isDragging = false;
-                 });
+        zss_editor.debug('touchend');
+        // console.log(e);
+        //                 zss_editor.needToScroll = true;
+        var t = $(e.target);
+        var nodeName = e.target.nodeName.toLowerCase();
+        if (nodeName == "html") {
+            //点击任何地方都可以进入编辑
+            if (!zss_editor.isDragging) {
+                zss_editor.focusEditor();
+            }
+        }
+        zss_editor.isDragging = false;
+    });
+
     // @add
 //    document.execCommand('formatBlock', false, 'div');
 };
@@ -560,129 +594,6 @@ zss_editor.undo = function() {
 
 zss_editor.redo = function() {
     document.execCommand('redo', false, null);
-    zss_editor.enabledEditingItems();
-};
-
-zss_editor.setOrderedList = function() {
-    document.execCommand('insertOrderedList', false, null);
-    zss_editor.enabledEditingItems();
-};
-
-zss_editor.setUnorderedList = function() {
-    document.execCommand('insertUnorderedList', false, null);
-    zss_editor.enabledEditingItems();
-};
-
-// zss_editor.setOrderedList = function() {
-//     var node = zss_extend.closerListNode();
-//     if (node != null && node.type == "") { // 移除节点
-//         document.execCommand('insertOrderedList', false, null);
-//     } else {
-//         if (node == null || node.nodeName == "UL" ) { //插入或更改节点
-//             document.execCommand('insertOrderedList', false, null);
-//             node = zss_extend.closerListNode();//重新获取节点
-//         }
-//         node.removeAttribute("type");//更改类型
-//     }
-//     zss_editor.enabledEditingItems();
-// };
-
-// zss_editor.setUpCharOrderedList = function() {
-//     var node = zss_extend.closerListNode();
-//     if (node != null && node.type == "A") { // 移除节点
-//         document.execCommand('insertOrderedList', false, null);
-//     } else {
-//         if (node == null || node.nodeName == "UL" ) { //插入或更改节点
-//             document.execCommand('insertOrderedList', false, null);
-//             node = zss_extend.closerListNode();//重新获取节点
-//         }
-//         node.type = "A";//更改类型
-//     }
-//     zss_editor.enabledEditingItems();
-// };
-
-zss_editor.setLowCharOrderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "a") { // 移除节点
-        document.execCommand('insertOrderedList', false, null);
-    } else {
-        if (node == null || node.nodeName == "UL" ) { //插入或更改节点
-            document.execCommand('insertOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.type = "a";//更改类型
-    }
-    zss_editor.enabledEditingItems();
-};
-
-zss_editor.setUpRomanOrderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "I") { // 移除节点
-        document.execCommand('insertOrderedList', false, null);
-    } else {
-        if (node === null || node.nodeName == "UL" ) { //插入或更改节点
-            document.execCommand('insertOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.type = "I";//更改类型
-    }
-    zss_editor.enabledEditingItems();
-};
-
-zss_editor.setLowRomanOrderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "i") { // 移除节点
-        document.execCommand('insertOrderedList', false, null);
-    } else {
-        if (node == null || node.nodeName == "UL" ) { //插入或更改节点
-            document.execCommand('insertOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.type = "i";//更改类型
-    }
-    zss_editor.enabledEditingItems();
-};
-/*
-zss_editor.setUnorderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "") { // 移除节点
-        document.execCommand('insertUnOrderedList', false, null);
-    } else {
-        if (node == null || node.nodeName == "OL" ) { //插入或更改节点
-            document.execCommand('insertUnOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.removeAttribute("type");//更改类型
-    }
-    
-    zss_editor.enabledEditingItems();
-};
-*/
-zss_editor.setSquareUnorderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "square") { // 移除节点
-        document.execCommand('insertUnOrderedList', false, null);
-    } else {
-        if (node == null || node.nodeName == "OL" ) { //插入或更改节点
-            document.execCommand('insertUnOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.type = "square";//更改类型
-    }
-    zss_editor.enabledEditingItems();
-};
-
-zss_editor.setCircleUnorderedList = function() {
-    var node = zss_extend.closerListNode();
-    if (node != null && node.type == "circle") { // 移除节点
-        document.execCommand('insertUnOrderedList', false, null);
-    } else {
-        if (node == null || node.nodeName == "OL" ) { //插入或更改节点
-            document.execCommand('insertUnOrderedList', false, null);
-            node = zss_extend.closerListNode();//重新获取节点
-        }
-        node.type = "circle";//更改类型
-    }
     zss_editor.enabledEditingItems();
 };
 
