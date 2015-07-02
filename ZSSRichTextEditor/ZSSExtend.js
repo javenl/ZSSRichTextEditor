@@ -168,7 +168,7 @@ zss_extend.closerParentNodeWithName = function(nodeName) {
     }
     return parentNode;
 };
-
+/*
 zss_extend.closerBlockQuoteNode = function () {
     var node = zss_extend.closerParentNode();
     if (node.nodeName.toLocaleLowerCase() == 'blockquote') {
@@ -179,7 +179,8 @@ zss_extend.closerBlockQuoteNode = function () {
         return null;
     }
 }
-
+*/
+/*
 zss_extend.closerListNode = function () {
     var node = zss_extend.closerParentNode();
     if (node.nodeName == 'LI') {
@@ -190,7 +191,7 @@ zss_extend.closerListNode = function () {
         return null;
     }
 }
-
+*/
 zss_extend.closerDivOrP = function() {
     var node = zss_extend.closerParentNode();
     if (node !== null) {

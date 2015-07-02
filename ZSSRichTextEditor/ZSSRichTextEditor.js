@@ -176,7 +176,7 @@ zss_editor.updateOffset = function() {
 
 // This will show up in the XCode console as we are able to push this into an NSLog.
 zss_editor.debug = function(msg) {
-    window.location = 'debug://'+msg;
+    window.location = 'debug://'+encodeURI(msg);
     console.log('debug://'+msg);
 };
 
@@ -325,7 +325,8 @@ zss_editor.calculateEditorHeightWithCaretPosition = function(e) {
         // zss_editor.debug('BBBB');
         newPos = c - height + padding;
     }
-    zss_editor.debug('pageYOffset' + window.pageYOffset + '/' + 'newPos' + newPos + '/' + 'cursor' + c + '/' + 'offsetY' + offsetY + '/offsetY+height-padding' + (offsetY + height - padding));
+    zss_editor.debug('pageYOffset ' + window.pageYOffset);
+    // zss_editor.debug('pageYOffset' + window.pageYOffset + '/' + 'newPos' + newPos + '/' + 'cursor' + c + '/' + 'offsetY' + offsetY + '/offsetY+height-padding' + (offsetY + height - padding));
     // zss_editor.debug('cursor ' + c);
     // zss_editor.debug('offsetY ' + offsetY);
     // zss_editor.debug('pageYOffset ' + window.pageYOffset);
@@ -600,10 +601,10 @@ zss_editor.setJustifyRight = function() {
 };
 
 zss_editor.setQuote = function() {
-    var node = zss_extend.closerBlockQuoteNode();
+    var node = zss_extend.closerParentNodeWithName('blockquote');
     if (node == null) {
         document.execCommand('formatBlock', false, '<blockquote>');
-        node = zss_extend.closerBlockQuoteNode();
+        node = zss_extend.closerParentNodeWithName('blockquote');
         node.setAttribute('style', 'border-left: 5px solid #eeeeee; margin:0; padding-left:20px;');
     } else {
         document.execCommand('outdent', false, null);
@@ -825,6 +826,7 @@ zss_editor.getHTML = function() {
     }
     */
     // Blockquote
+    /*
     var bq = $('blockquote');
     if (bq.length != 0) {
         bq.each(function() {
@@ -837,7 +839,7 @@ zss_editor.getHTML = function() {
                 }
                 });
     }
-    
+    */
     // Get the contents
     var h = document.getElementById("zss_editor_content").innerHTML;
     

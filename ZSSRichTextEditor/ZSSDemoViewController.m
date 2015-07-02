@@ -36,8 +36,16 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Export" style:UIBarButtonItemStylePlain target:self action:@selector(exportHTML)];
 	
     // HTML Content to set in the editor
-    NSString *html = @"<!-- This is an HTML comment -->"
-    "<p>This is a test of the <strong>ZSSRichTextEditor</strong> by <a title=\"Zed Said\" href=\"http://www.zedsaid.com\">Zed Said Studio</a></p>";
+//    NSString *html = @"<!-- This is an HTML comment -->"
+//    "<p>This is a test of the <strong>ZSSRichTextEditor</strong> by <a title=\"Zed Said\" href=\"http://www.zedsaid.com\">Zed Said Studio</a></p>";
+    
+    NSString *html = @"qwrqw<blockquote style=\"border-left:5px solid #eeeeee; margin:0; padding-left:20px;\">f34</blockquote><div>wqer</div><div>wqer</div>";
+    
+    NSLog(@"html %@", html);
+    
+//    wqerjlkqw&lt;div&gt;qwr&lt;/div&gt;&lt;blockquote style=&quot;border-left: 5px solid #eeeeee; margin:0; padding-left:20px;&quot;&gt;qwer&lt;/blockquote&gt;&lt;div&gt;qwreqwer&lt;/div&gt;
+    
+//    qwrqw&lt;blockquote style=&quot;border-left: 5px solid #eeeeee; margin:0; padding-left:20px;&quot;&gt;f34&lt;/blockquote&gt;&lt;div&gt;wqer&lt;/div&gt;&lt;div&gt;wqer&lt;/div&gt;
     
     // Set the base URL if you would like to use relative links, such as to images.
     self.editorView.baseURL = [NSURL URLWithString:@"http://www.zedsaid.com"];

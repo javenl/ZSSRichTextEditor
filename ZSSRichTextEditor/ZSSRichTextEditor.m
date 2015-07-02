@@ -592,7 +592,7 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
 
 - (NSString *)getHTML {
     NSString *html = [self.editorView stringByEvaluatingJavaScriptFromString:@"zss_editor.getHTML();"];
-    html = [self removeQuotesFromHTML:html];
+//    html = [self removeQuotesFromHTML:html];
     return html;
 }
 
@@ -1604,7 +1604,10 @@ static NSString *collectionViewIdentifier = @"UICollectionView";
     if (self.formatHTML) {
 //        NSLog(@"%@", html);
 //        NSLog(@"%@", [NSString stringWithFormat:@"style_html(\"%@\");", html]);
-        html = [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"style_html(\"%@\");", html]];
+        NSString *cleanedHTML = [self removeQuotesFromHTML:html];
+        NSString *trigger = [NSString stringWithFormat:@"style_html(\"%@\");", cleanedHTML];
+        html = [self.editorView stringByEvaluatingJavaScriptFromString:trigger];
+//        html = [self.editorView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"style_html(\"%@\");", html]];
     }
     return html;
 }//end
