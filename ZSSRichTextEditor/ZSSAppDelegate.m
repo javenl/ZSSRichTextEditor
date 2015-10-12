@@ -15,7 +15,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    [[UINavigationBar appearance] setTranslucent:NO];
+//    [[UINavigationBar appearance] setTranslucent:NO];
     
     self.mainViewController = [[ZSSDemoList alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
